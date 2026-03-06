@@ -1421,10 +1421,15 @@ function renderDynamic(data) {
         });
 
     // Node hover hit areas — highlight all paths through a node
-    const hitG = svg.append("g").attr("class", "node-hits");
+    // pointer-events: none so clicks pass through to paths underneath
+    const hitG = svg.append("g").attr("class", "node-hits").style("pointer-events", "none");
     const defaultLw = Math.max(1.2, Math.min(3, 80 / rows.length));
     const hoverLw = Math.max(2.5, Math.min(4, 120 / rows.length));
     const dimLw = Math.max(1, Math.min(2.5, 60 / rows.length));
+
+    // Track which node is hovered so path hover can show individual tooltip
+    let _hoveredNode = null;
+
     columns.forEach((col, ci) => {
         const cx = MARGIN.left + xs[ci];
         col.nodes.forEach(node => {
@@ -1433,30 +1438,79 @@ function renderDynamic(data) {
             hitG.append("circle")
                 .attr("cx", cx).attr("cy", cy).attr("r", r + 4)
                 .attr("fill", "transparent")
-                .attr("stroke", "none")
-                .style("cursor", "pointer")
-                .on("mouseenter", function (evt) {
-                    const matchVal = node.value;
-                    const matchCi = ci;
-                    allPaths
-                        .attr("opacity", d => d.vals[matchCi] === matchVal ? 1 : 0.08)
-                        .attr("stroke-width", d => d.vals[matchCi] === matchVal ? hoverLw : dimLw);
-                    allPaths.filter(d => d.vals[matchCi] === matchVal).raise();
-                    const names = rows.filter(r => r.vals[matchCi] === matchVal).map(r => r.person.full_name || "—");
-                    const preview = names.length <= 5 ? names.join(", ") : names.slice(0, 5).join(", ") + ` + ${names.length - 5} more`;
-                    showTip(
-                        `<strong>${node.value}</strong> · ${node.count} ${node.count === 1 ? "person" : "people"}<br>` +
-                        `<span style="opacity:0.7;font-size:11px">${preview}</span>`,
-                        evt
-                    );
-                })
-                .on("mousemove", (evt) => moveTip(evt))
-                .on("mouseleave", function () {
-                    allPaths.attr("opacity", 0.55).attr("stroke-width", defaultLw);
-                    hideTip();
-                });
+                .attr("stroke", "none");
         });
     });
+
+    // Use SVG-level mousemove to detect node proximity for highlighting
+    let _activeNodeKey = null;
+    svg.on("mousemove", function (evt) {
+        const [mx, my] = d3.pointer(evt);
+        let bestNode = null, bestCi = -1, bestDist = Infinity;
+        columns.forEach((col, ci) => {
+            const cx = MARGIN.left + xs[ci];
+            col.nodes.forEach(node => {
+                const cy = nodeCenterY[ci][node.value];
+                const r = nodeRadius(node.count);
+                const dx = mx - cx, dy = my - cy;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < r + 6 && dist < bestDist) {
+                    bestDist = dist;
+                    bestNode = node;
+                    bestCi = ci;
+                }
+            });
+        });
+
+        const nodeKey = bestNode ? `${bestCi}::${bestNode.value}` : null;
+        if (nodeKey === _activeNodeKey) return;
+        _activeNodeKey = nodeKey;
+        _hoveredNode = bestNode ? { node: bestNode, ci: bestCi } : null;
+
+        if (bestNode) {
+            allPaths
+                .attr("opacity", d => d.vals[bestCi] === bestNode.value ? 1 : 0.08)
+                .attr("stroke-width", d => d.vals[bestCi] === bestNode.value ? hoverLw : dimLw);
+            allPaths.filter(d => d.vals[bestCi] === bestNode.value).raise();
+        } else {
+            allPaths.attr("opacity", 0.55).attr("stroke-width", defaultLw);
+        }
+    });
+    svg.on("mouseleave", function () {
+        _activeNodeKey = null;
+        _hoveredNode = null;
+        allPaths.attr("opacity", 0.55).attr("stroke-width", defaultLw);
+        hideTip();
+    });
+
+    // Override path hover to show individual person tooltip even during node highlight
+    allPaths
+        .on("mouseenter", function (evt, row) {
+            // Keep node highlight active but boost this path
+            if (_hoveredNode) {
+                d3.select(this).attr("opacity", 1).attr("stroke-width", Math.max(3, hoverLw + 1)).raise();
+            } else {
+                allPaths.attr("opacity", 0.12).attr("stroke-width", dimLw);
+                d3.select(this).attr("opacity", 1).attr("stroke-width", hoverLw).raise();
+            }
+            showTip(
+                `<strong>${row.person.full_name || "—"}</strong><br>` +
+                `<span style="opacity:0.8">${(row.person.headline || "").trim()}</span><br>` +
+                `<span style="font-size:11px;opacity:0.55">Click to open LinkedIn</span>`,
+                evt
+            );
+        })
+        .on("mouseleave", function (evt, row) {
+            if (_hoveredNode) {
+                const { node, ci } = _hoveredNode;
+                d3.select(this)
+                    .attr("opacity", row.vals[ci] === node.value ? 1 : 0.08)
+                    .attr("stroke-width", row.vals[ci] === node.value ? hoverLw : dimLw);
+            } else {
+                allPaths.attr("opacity", 0.55).attr("stroke-width", defaultLw);
+            }
+            hideTip();
+        });
 
     document.getElementById("stats").innerHTML =
         `<strong>${rows.length.toLocaleString()}</strong> alumni match · ` +
