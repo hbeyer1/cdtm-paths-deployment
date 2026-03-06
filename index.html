@@ -19,9 +19,10 @@
             --ink:      #1a1916;
             --ink-2:    #6b6960;
             --ink-3:    #a8a79f;
-            --amber:    #f59e0b;
-            --amber-bg: rgba(245,158,11,0.09);
+            --amber:    #0065bd;
+            --amber-bg: rgba(0,101,189,0.09);
             --border:   rgba(26,25,22,0.09);
+            --cdtm-blue: #0065bd;
             --hero-bg:  #ede8df;
             --nav-h:    42px;
         }
@@ -454,10 +455,63 @@
         }
         .query-btn:hover:not(:disabled) { background: #2d2c27; transform: translateY(-1px); }
         .query-btn:disabled { opacity: 0.38; cursor: not-allowed; }
-        .query-loading { display: none; align-items: center; gap: 8px; font-size: 12px; color: var(--ink-3); margin-top: 12px; }
-        .query-loading.active { display: flex; }
-        .spinner { width: 12px; height: 12px; border: 1.5px solid var(--border); border-top-color: var(--amber); border-radius: 50%; animation: spin 0.75s linear infinite; }
-        @keyframes spin { to { transform: rotate(360deg); } }
+        .query-loading { display: none; margin-top: 12px; }
+        .query-loading.active { display: block; }
+
+        /* ── Claude Code–style loading animation ── */
+        .loading-strip {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 18px;
+            padding: 80px 40px;
+            min-height: 400px;
+        }
+        .loading-spinner-char {
+            font-size: 18px;
+            color: var(--cdtm-blue);
+            animation: spinner-pulse 0.6s ease-in-out infinite;
+            line-height: 1;
+        }
+        @keyframes spinner-pulse {
+            0%, 100% { opacity: 0.4; transform: scale(0.85); }
+            50%      { opacity: 1; transform: scale(1.2); }
+        }
+        .loading-words {
+            display: inline-block;
+            position: relative;
+            font-weight: 500;
+            font-size: 14px;
+            min-width: 120px;
+        }
+        .loading-word {
+            display: inline-block;
+            background: linear-gradient(90deg, var(--cdtm-blue) 0%, var(--cdtm-blue) 50%, var(--ink-3) 50%, var(--ink-3) 100%);
+            background-size: 200% 100%;
+            background-position: 100% 0;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: word-sweep 2s ease-in-out forwards;
+        }
+        @keyframes word-sweep {
+            0%   { background-position: 100% 0; }
+            100% { background-position: 0% 0; }
+        }
+        .loading-word.fade-out {
+            animation: word-fade-out 0.25s ease-out forwards;
+        }
+        @keyframes word-fade-out {
+            to { opacity: 0; transform: translateY(-4px); }
+        }
+        .loading-word.fade-in {
+            animation: word-fade-in 0.2s ease-out forwards, word-sweep 2s ease-in-out forwards;
+        }
+        @keyframes word-fade-in {
+            from { opacity: 0; transform: translateY(4px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
         .analysis-box {
             display: none;
             margin-top: 16px;
@@ -502,36 +556,6 @@
         .palette-swatch {
             width: 8px; height: 8px; border-radius: 50%;
         }
-        .model-toggle {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            margin-top: 14px;
-        }
-        .model-toggle-label {
-            font-size: 11px;
-            color: var(--ink-3);
-            font-family: 'Inter', sans-serif;
-        }
-        .model-pills { display: flex; gap: 4px; }
-        .model-pill {
-            padding: 3px 11px;
-            border-radius: 100px;
-            border: 1px solid var(--border);
-            background: transparent;
-            font-size: 11px;
-            font-family: 'Inter', sans-serif;
-            color: var(--ink-3);
-            cursor: pointer;
-            transition: background 0.15s, border-color 0.15s, color 0.15s;
-            white-space: nowrap;
-        }
-        .model-pill:hover { color: var(--ink-2); border-color: rgba(26,25,22,0.20); }
-        .model-pill.active {
-            background: var(--ink);
-            border-color: var(--ink);
-            color: var(--cream);
-        }
 
         /* ── Detail mode toggle ── */
         .detail-toggle {
@@ -567,91 +591,39 @@
             text-overflow: ellipsis;
             font-family: inherit;
         }
-        .suggestion-chip:hover { background: var(--amber-bg); border-color: var(--amber); color: #92400e; }
+        .suggestion-chip:hover { background: var(--amber-bg); border-color: var(--amber); color: #003d7e; }
 
-        /* ── Agent debug panel ── */
-        .agent-debug {
-            margin-top: 16px;
-            padding: 16px 20px;
-            background: rgba(26,25,22,0.03);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            font-family: 'Inter', sans-serif;
-        }
-        .agent-debug-header {
+        /* ── Live activity steps ── */
+        .activity-steps {
             display: flex;
+            flex-direction: column;
             align-items: center;
-            justify-content: space-between;
-            margin-bottom: 10px;
-        }
-        .agent-debug-title {
-            font-size: 10px;
-            font-weight: 600;
-            color: var(--ink-3);
-            letter-spacing: 0.10em;
-            text-transform: uppercase;
-        }
-        .agent-debug-summary {
-            display: flex;
-            gap: 16px;
-            font-size: 11px;
-            color: var(--ink-2);
-            font-variant-numeric: tabular-nums;
-        }
-        .agent-debug-summary strong { color: var(--ink); font-weight: 600; }
-        .agent-debug-turns {
-            margin-top: 8px;
-            max-height: 260px;
-            overflow-y: auto;
-        }
-        .agent-turn {
-            padding: 8px 0;
-            border-top: 1px solid var(--border);
-            font-size: 11px;
-            color: var(--ink-2);
-            line-height: 1.6;
-        }
-        .agent-turn:first-child { border-top: none; }
-        .agent-turn-head {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-weight: 500;
-            color: var(--ink);
-            margin-bottom: 2px;
-        }
-        .agent-turn-tokens {
-            font-size: 10px;
-            color: var(--ink-3);
-            font-variant-numeric: tabular-nums;
-        }
-        .agent-tool-call {
-            margin-left: 12px;
-            padding: 3px 0;
-            display: flex;
             gap: 6px;
-            align-items: baseline;
+            margin-top: 12px;
+            padding-bottom: 20px;
         }
-        .agent-tool-name {
-            font-weight: 600;
-            color: var(--ink);
-            font-size: 10.5px;
-            font-family: 'SF Mono', 'Fira Code', monospace;
-        }
-        .agent-tool-args {
+        .activity-step {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
             color: var(--ink-3);
-            font-size: 10px;
-            font-family: 'SF Mono', 'Fira Code', monospace;
-            max-width: 500px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
+            transition: opacity 0.4s, color 0.3s;
         }
-        .agent-tool-count {
-            font-size: 10px;
-            color: var(--amber);
-            font-weight: 600;
-            white-space: nowrap;
+        .activity-step.done { color: var(--cdtm-blue); opacity: 0.5; }
+        .activity-step.active { color: var(--cdtm-blue); opacity: 1; }
+        .activity-step.pending { opacity: 0.25; }
+        .activity-dot {
+            width: 5px; height: 5px; border-radius: 50%;
+            background: currentColor;
+            flex-shrink: 0;
+        }
+        .activity-step.active .activity-dot {
+            animation: dot-pulse 1s ease-in-out infinite;
+        }
+        @keyframes dot-pulse {
+            0%, 100% { opacity: 0.4; transform: scale(0.8); }
+            50%      { opacity: 1; transform: scale(1.3); }
         }
 
         /* ────────────── Founder timeline section ────────────── */
@@ -698,7 +670,7 @@
             font-size: 10px;
             font-weight: 600;
             letter-spacing: 0.08em;
-            color: rgba(245,158,11,0.85);
+            color: rgba(0,101,189,0.85);
             margin-top: 4px;
             font-family: 'Inter', sans-serif;
         }
@@ -712,11 +684,19 @@
         #founder-tip .ftip-link {
             font-size: 10px;
             font-weight: 500;
-            color: rgba(245,158,11,0.65);
+            color: rgba(0,101,189,0.65);
             margin-top: 9px;
             font-family: 'Inter', sans-serif;
         }
     </style>
+    <!-- PostHog analytics -->
+    <script>
+        !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="init capture register register_once register_for_session unregister opt_out_capturing has_opted_out_capturing opt_in_capturing reset isFeatureEnabled getFeatureFlag getFeatureFlagPayload reloadFeatureFlags group identify setPersonProperties setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags resetGroups onFeatureFlags addFeatureFlagsHandler onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey getNextSurveyStep".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+        posthog.init('phc_Csk3v3dgFIV8GCOffE3RyelVz3LYWCCDPC3d31usGcu', {
+            api_host: 'https://us.i.posthog.com',
+            defaults: '2026-01-30'
+        })
+    </script>
 </head>
 <body>
 
@@ -785,25 +765,14 @@
           maxlength="200" />
       <button id="query-btn" class="query-btn">Explore →</button>
     </div>
-    <div class="model-toggle">
-      <span class="model-toggle-label">Model</span>
-      <div class="model-pills">
-        <button class="model-pill active" data-model="claude-sonnet-4-6">Sonnet · quality</button>
-        <button class="model-pill" data-model="gpt-5.2">GPT-5.2</button>
-      </div>
-    </div>
 
-    <div id="query-loading" class="query-loading">
-      <div class="spinner"></div>
-      <span id="query-loading-text">Asking Claude to analyze the alumni…</span>
-    </div>
+    <div id="query-loading" class="query-loading"></div>
     <div id="analysis-box" class="analysis-box">
       <div class="analysis-title" id="analysis-title"></div>
       <div id="analysis-text"></div>
     </div>
     <div id="suggestions" class="suggestions"></div>
 
-    <div id="agent-debug" class="agent-debug" style="display:none"></div>
   </div>
 
   <div id="chart"><div class="message">Loading…</div></div>

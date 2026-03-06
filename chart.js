@@ -673,7 +673,7 @@
   };
 
   // Fallback color for explore (same hash approach)
-  const FALLBACKS = ["#3b82f6","#ef4444","#7c3aed","#d97706","#0891b2","#059669","#ea580c","#db2777","#65a30d","#0284c7"];
+  const FALLBACKS = ["#1b3a6b","#e2b84a","#2e6ca4","#d4a83a","#4889d0","#93c5fd","#c49530","#7ab3e8","#3b7dc9","#bfdbfe"];
   function dynColor(v) {
     if (PALETTE[v]) return PALETTE[v];
     let h = 0; for (let i = 0; i < v.length; i++) h = (h * 31 + v.charCodeAt(i)) | 0;

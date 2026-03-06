@@ -1,13 +1,121 @@
-import json, os, base64
+import json, os, base64, time
 from datetime import datetime
 from flask import Flask, request, jsonify, send_from_directory
 import anthropic
 from openai import OpenAI
 import numpy as np
 from dotenv import load_dotenv
+import psycopg2
+import psycopg2.extras
+import posthog as posthog_lib
 
 load_dotenv()
 app = Flask(__name__, static_folder=".", static_url_path="")
+
+# ── PostHog backend SDK ───────────────────────────────────────────────────
+posthog_lib.project_api_key = os.environ.get("POSTHOG", "")
+posthog_lib.host = "https://us.i.posthog.com"
+
+# ── PostgreSQL persistent cache ───────────────────────────────────────────
+_db_conn = None
+
+def _get_db():
+    global _db_conn
+    url = os.environ.get("DATABASE_URL")
+    if not url:
+        return None
+    try:
+        if _db_conn is None or _db_conn.closed:
+            _db_conn = psycopg2.connect(url)
+            _db_conn.autocommit = True
+        # Test connection
+        with _db_conn.cursor() as cur:
+            cur.execute("SELECT 1")
+        return _db_conn
+    except Exception:
+        try:
+            _db_conn = psycopg2.connect(url)
+            _db_conn.autocommit = True
+            return _db_conn
+        except Exception as e:
+            print(f"DB connection failed: {e}")
+            return None
+
+def _init_db():
+    db = _get_db()
+    if not db:
+        print("No DATABASE_URL set — running without persistent cache")
+        return
+    with db.cursor() as cur:
+        cur.execute("""
+            CREATE TABLE IF NOT EXISTS query_cache (
+                id SERIAL PRIMARY KEY,
+                cache_key TEXT UNIQUE NOT NULL,
+                query TEXT NOT NULL,
+                model TEXT NOT NULL,
+                response_json JSONB NOT NULL,
+                created_at TIMESTAMP DEFAULT NOW(),
+                hit_count INTEGER DEFAULT 0,
+                last_hit_at TIMESTAMP
+            )
+        """)
+        cur.execute("""
+            CREATE TABLE IF NOT EXISTS event_log (
+                id SERIAL PRIMARY KEY,
+                event_type TEXT NOT NULL,
+                data JSONB,
+                created_at TIMESTAMP DEFAULT NOW()
+            )
+        """)
+    print("Database tables initialized")
+
+_init_db()
+
+def _cache_get(cache_key: str) -> dict | None:
+    db = _get_db()
+    if not db:
+        return None
+    try:
+        with db.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cur:
+            cur.execute(
+                "UPDATE query_cache SET hit_count = hit_count + 1, last_hit_at = NOW() "
+                "WHERE cache_key = %s RETURNING response_json",
+                (cache_key,),
+            )
+            row = cur.fetchone()
+            return row["response_json"] if row else None
+    except Exception as e:
+        print(f"Cache get error: {e}")
+        return None
+
+def _cache_set(cache_key: str, query: str, model: str, data: dict):
+    db = _get_db()
+    if not db:
+        return
+    try:
+        with db.cursor() as cur:
+            cur.execute(
+                "INSERT INTO query_cache (cache_key, query, model, response_json) "
+                "VALUES (%s, %s, %s, %s) "
+                "ON CONFLICT (cache_key) DO UPDATE SET response_json = EXCLUDED.response_json, "
+                "created_at = NOW(), hit_count = 0",
+                (cache_key, query, model, json.dumps(data, default=str)),
+            )
+    except Exception as e:
+        print(f"Cache set error: {e}")
+
+def _log_event(event_type: str, data: dict):
+    db = _get_db()
+    if not db:
+        return
+    try:
+        with db.cursor() as cur:
+            cur.execute(
+                "INSERT INTO event_log (event_type, data) VALUES (%s, %s)",
+                (event_type, json.dumps(data, default=str)),
+            )
+    except Exception as e:
+        print(f"Event log error: {e}")
 
 # ── Load dataset at startup ────────────────────────────────────────────────
 with open("data/alumni_processed.json") as f:
@@ -596,6 +704,20 @@ def api_query():
         return jsonify({"error": f"unknown model: {model}"}), 400
     detail_mode = bool(body.get("detail_mode", False))
 
+    # ── Check server-side cache (shared across all users) ──
+    cache_key = f"{model}::{query.lower()}"
+    cached = _cache_get(cache_key)
+    if cached:
+        _log_event("query_cache_hit", {"query": query, "model": model})
+        try:
+            posthog_lib.capture("server", "query_cache_hit", {"query": query, "model": model})
+        except Exception:
+            pass
+        cached["cached"] = True
+        return jsonify(cached)
+
+    t0 = time.time()
+
     try:
         if model in OPENAI_MODELS:
             raw, trace_id = _run_openai(query, model, detail_mode)
@@ -648,8 +770,9 @@ def api_query():
             path["values"] = v[:n]
 
         # Build debug summary from the trace
+        duration_ms = round((time.time() - t0) * 1000)
         trace_path = os.path.join(TRACES_DIR, f"{trace_id}.json")
-        debug = {"turns": [], "total_input_tokens": 0, "total_output_tokens": 0, "cost_usd": 0, "detail_mode": detail_mode}
+        debug = {"turns": [], "total_input_tokens": 0, "total_output_tokens": 0, "cost_usd": 0, "detail_mode": detail_mode, "duration_ms": duration_ms}
         if os.path.exists(trace_path):
             with open(trace_path) as tf:
                 trace_data = json.load(tf)
@@ -677,13 +800,56 @@ def api_query():
         # Include trace_id so frontend can attach the screenshot
         data["trace_id"] = trace_id
         data["debug"] = debug
+
+        # ── Store in persistent cache ──
+        _cache_set(cache_key, query, model, data)
+
+        # ── Log event ──
+        event_data = {
+            "query": query, "model": model, "duration_ms": duration_ms,
+            "num_paths": len(data.get("paths", [])),
+            "total_input_tokens": debug["total_input_tokens"],
+            "total_output_tokens": debug["total_output_tokens"],
+            "cost_usd": debug["cost_usd"],
+            "trace_id": trace_id,
+        }
+        _log_event("query_completed", event_data)
+        try:
+            posthog_lib.capture("server", "query_completed", event_data)
+        except Exception:
+            pass
+
         return jsonify(data)
 
     except json.JSONDecodeError as e:
+        _log_event("query_error", {"query": query, "model": model, "error": str(e)})
         return jsonify({"error": f"AI returned invalid JSON: {e}"}), 502
     except Exception as e:
+        _log_event("query_error", {"query": query, "model": model, "error": str(e)})
         app.logger.exception("Error in /api/query")
         return jsonify({"error": str(e)}), 500
+
+@app.route("/api/popular-queries", methods=["GET"])
+def api_popular_queries():
+    """Return cached queries sorted by popularity (for cross-user suggestions)."""
+    db = _get_db()
+    if not db:
+        return jsonify([])
+    try:
+        with db.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cur:
+            cur.execute(
+                "SELECT query, model, hit_count, created_at "
+                "FROM query_cache ORDER BY hit_count DESC, created_at DESC LIMIT 20"
+            )
+            rows = cur.fetchall()
+        return jsonify([
+            {"query": r["query"], "model": r["model"], "hit_count": r["hit_count"],
+             "created_at": r["created_at"].isoformat() if r["created_at"] else None}
+            for r in rows
+        ])
+    except Exception as e:
+        print(f"Popular queries error: {e}")
+        return jsonify([])
 
 @app.route("/api/trace-screenshot", methods=["POST"])
 def api_trace_screenshot():

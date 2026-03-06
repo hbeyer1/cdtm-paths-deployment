@@ -4,6 +4,77 @@
 // Lines are coloured by field of study and bundle visually where paths overlap.
 // ═══════════════════════════════════════════════════════════════════════════════
 
+// ─── Loading animation (Claude Code–style) ───────────────────────────────────
+const LOADING_WORDS = [
+    // CDTM startups
+    "Trade Republicaning", "Personioing", "EGYMnastics", "Monzoing",
+    "Fortocoming", "Razor sharp", "Cellare-brating", "TIER-less",
+    "Foodora-ble", "Stylighting", "Freeleting", "Luminoving", "Tactful",
+    "NavVigating", "RobCo-piloting", "Orbem-iting", "Langfusing",
+    "Demodesk-ing", "ZenML-ifying", "Nucli-noting", "Tozero-ing",
+    "Marvel-ous fusing", "Recognizing", "finn-ishing",
+    // CDTM culture
+    "Trend Reporting", "Pivoting", "Exiting", "Pitch Decking",
+    "Prototyping", "Design Thinking", "Venture Scouting",
+    "Cap Table-ing", "Term Sheet-ing", "Due Diligence-ing",
+    "Product Roasting",
+];
+const SPINNER_CHARS = ['·', '✻', '✽', '✶', '✳', '✢'];
+let _loadingInterval = null;
+let _spinnerInterval = null;
+let _loadingWordIdx  = 0;
+let _spinnerIdx      = 0;
+
+function startLoadingWords() {
+    const chart = document.getElementById("chart");
+    // Shuffle words
+    for (let i = LOADING_WORDS.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [LOADING_WORDS[i], LOADING_WORDS[j]] = [LOADING_WORDS[j], LOADING_WORDS[i]];
+    }
+    _loadingWordIdx = 0;
+    _spinnerIdx = 0;
+
+    // Render the loading strip into the chart area
+    chart.innerHTML = `<div class="loading-strip">
+        <div style="display:flex;align-items:center;gap:10px;justify-content:center">
+            <span class="loading-spinner-char" id="loading-spinner">${SPINNER_CHARS[0]}</span>
+            <span class="loading-words" id="loading-word-container"></span>
+        </div>
+        <div id="activity-steps" class="activity-steps"></div>
+    </div>`;
+
+    const wordEl = document.getElementById("loading-word-container");
+    _setLoadingWord(wordEl, LOADING_WORDS[0]);
+
+    // Cycle words
+    _loadingInterval = setInterval(() => {
+        _loadingWordIdx = (_loadingWordIdx + 1) % LOADING_WORDS.length;
+        const word = LOADING_WORDS[_loadingWordIdx];
+        const span = wordEl.querySelector(".loading-word");
+        if (span) span.classList.add("fade-out");
+        setTimeout(() => _setLoadingWord(wordEl, word), 250);
+    }, 2200);
+
+    // Cycle ASCII spinner
+    _spinnerInterval = setInterval(() => {
+        _spinnerIdx = (_spinnerIdx + 1) % SPINNER_CHARS.length;
+        const el = document.getElementById("loading-spinner");
+        if (el) el.textContent = SPINNER_CHARS[_spinnerIdx];
+    }, 180);
+}
+
+function _setLoadingWord(el, word) {
+    el.innerHTML = `<span class="loading-word fade-in">${word}</span>`;
+}
+
+function stopLoadingWords() {
+    clearInterval(_loadingInterval);
+    clearInterval(_spinnerInterval);
+    _loadingInterval = null;
+    _spinnerInterval = null;
+}
+
 // ─── Layout constants ──────────────────────────────────────────────────────────
 const MARGIN    = { top: 64, right: 230, bottom: 36, left: 230 };
 const OVAL_RX   = 11;  // fixed half-width of every oval node
@@ -16,88 +87,88 @@ const BG_COLOR  = "#f5f0e8"; // cream — matches page background
 // Shared structural keys (Unknown, None, Other, etc.) get muted tones in all palettes.
 
 const PALETTE_DEFS = {
-    // Warm earth tones — terracotta, ochre, olive, clay
-    earth: {
-        name: "Earth",
-        preview: ["#c2703e","#8b6d45","#5e7a54","#a3574e","#6b8f91"],
+    // CDTM Blue & Gold — pastel blues with warm gold accents (matches hero graph)
+    cdtm: {
+        name: "CDTM",
+        preview: ["#1b3a6b","#93c5fd","#2e6ca4","#e2b84a","#bfdbfe"],
         colors: {
-            "Engineering":"#5e7a54","Business & Economics":"#c2703e","Computer Science & AI":"#6b5b8a",
-            "Technology Management":"#8b6d45","Information Systems & HCI":"#6b8f91",
-            "Natural Sciences & Mathematics":"#7a9e5e","Humanities & Social Sciences":"#a3574e",
-            "Design, Architecture & Media":"#b5617a","Medicine & Health Sciences":"#849c3b",
-            "Consulting":"#4a7c8f","Finance & Banking":"#5e8a5e","Big Tech":"#7a6494",
-            "Startup / Scale-up":"#c2703e","Corporate / Industry":"#6b6b60",
-            "Entrepreneurship / Founder":"#a3574e","Academic / Research":"#8a6fa0",
-            "Government / NGO / Non-profit":"#5a8a7a",
-            "Graduate":"#4a7c8f","Doctorate":"#7a6494",
-            "TU Munich":"#3d6b5e","LMU Munich":"#a3574e","Elite International":"#7a6494",
-            "Other German Univ.":"#6b6b60","Other Intl. Univ.":"#9a9688",
-            "Berkeley / MIT":"#5e7a54","Elite Research":"#6b8f91",
-            "Unicorn Founder":"#c2953e","CDTM Founder":"#8b6d45","CDTM Employee":"#6b8f91",
-            "CS & AI":"#6b5b8a","Business":"#c2703e",
+            "Engineering":"#2e6ca4","Business & Economics":"#d4a83a","Computer Science & AI":"#1b3a6b",
+            "Technology Management":"#e2b84a","Information Systems & HCI":"#4889d0",
+            "Natural Sciences & Mathematics":"#7ab3e8","Humanities & Social Sciences":"#c9a84e",
+            "Design, Architecture & Media":"#a5c8ef","Medicine & Health Sciences":"#3b7dc9",
+            "Consulting":"#1e4d8c","Finance & Banking":"#d6bc5e","Big Tech":"#14305a",
+            "Startup / Scale-up":"#e2b84a","Corporate / Industry":"#8aaec4",
+            "Entrepreneurship / Founder":"#c49530","Academic / Research":"#2e6ca4",
+            "Government / NGO / Non-profit":"#93c5fd",
+            "Graduate":"#4889d0","Doctorate":"#1b3a6b",
+            "TU Munich":"#1e4d8c","LMU Munich":"#d4a83a","Elite International":"#2e6ca4",
+            "Other German Univ.":"#8aaec4","Other Intl. Univ.":"#bfdbfe",
+            "Berkeley / MIT":"#3b7dc9","Elite Research":"#4889d0",
+            "Unicorn Founder":"#e2b84a","CDTM Founder":"#c49530","CDTM Employee":"#93c5fd",
+            "CS & AI":"#1b3a6b","Business":"#d4a83a",
         },
     },
-    // Cool ocean — deep navy, teal, seafoam, coral accent
+    // Deeper blue tones — navy to sky with amber highlights
     ocean: {
         name: "Ocean",
-        preview: ["#1e6091","#2a9d8f","#e76f51","#264653","#e9c46a"],
+        preview: ["#14305a","#4889d0","#d0e4f7","#e9c46a","#7ab3e8"],
         colors: {
-            "Engineering":"#2a9d8f","Business & Economics":"#e76f51","Computer Science & AI":"#264653",
-            "Technology Management":"#e9c46a","Information Systems & HCI":"#1e6091",
-            "Natural Sciences & Mathematics":"#76b5a0","Humanities & Social Sciences":"#c96d4f",
-            "Design, Architecture & Media":"#d4786e","Medicine & Health Sciences":"#8ab17d",
-            "Consulting":"#1e6091","Finance & Banking":"#2a9d8f","Big Tech":"#264653",
-            "Startup / Scale-up":"#e76f51","Corporate / Industry":"#5a7a7a",
-            "Entrepreneurship / Founder":"#c94030","Academic / Research":"#3a7ca5",
-            "Government / NGO / Non-profit":"#76b5a0",
-            "Graduate":"#1e6091","Doctorate":"#264653",
-            "TU Munich":"#264653","LMU Munich":"#e76f51","Elite International":"#1e6091",
-            "Other German Univ.":"#5a7a7a","Other Intl. Univ.":"#9aada8",
-            "Berkeley / MIT":"#2a9d8f","Elite Research":"#1e6091",
-            "Unicorn Founder":"#e9c46a","CDTM Founder":"#e76f51","CDTM Employee":"#2a9d8f",
-            "CS & AI":"#264653","Business":"#e76f51",
+            "Engineering":"#3b7dc9","Business & Economics":"#e9c46a","Computer Science & AI":"#14305a",
+            "Technology Management":"#d6bc5e","Information Systems & HCI":"#7ab3e8",
+            "Natural Sciences & Mathematics":"#a5c8ef","Humanities & Social Sciences":"#c9a84e",
+            "Design, Architecture & Media":"#93c5fd","Medicine & Health Sciences":"#4889d0",
+            "Consulting":"#1b3a6b","Finance & Banking":"#e2b84a","Big Tech":"#1e4d8c",
+            "Startup / Scale-up":"#d4a83a","Corporate / Industry":"#8aaec4",
+            "Entrepreneurship / Founder":"#c49530","Academic / Research":"#2e6ca4",
+            "Government / NGO / Non-profit":"#bfdbfe",
+            "Graduate":"#4889d0","Doctorate":"#14305a",
+            "TU Munich":"#1b3a6b","LMU Munich":"#e9c46a","Elite International":"#2e6ca4",
+            "Other German Univ.":"#8aaec4","Other Intl. Univ.":"#c4ddf5",
+            "Berkeley / MIT":"#3b7dc9","Elite Research":"#7ab3e8",
+            "Unicorn Founder":"#e9c46a","CDTM Founder":"#d4a83a","CDTM Employee":"#93c5fd",
+            "CS & AI":"#14305a","Business":"#e9c46a",
         },
     },
-    // Berry & sage — muted plum, dusty rose, sage green, warm grey
-    berry: {
-        name: "Berry",
-        preview: ["#7b4f7b","#c07878","#6a8e6a","#b8926a","#5b7b8a"],
+    // Soft pastel — lighter, airy blue & gold tones
+    pastel: {
+        name: "Pastel",
+        preview: ["#93c5fd","#bfdbfe","#e2b84a","#d0e4f7","#4889d0"],
         colors: {
-            "Engineering":"#6a8e6a","Business & Economics":"#c07878","Computer Science & AI":"#7b4f7b",
-            "Technology Management":"#b8926a","Information Systems & HCI":"#5b7b8a",
-            "Natural Sciences & Mathematics":"#7da07d","Humanities & Social Sciences":"#c98a6a",
-            "Design, Architecture & Media":"#b56a85","Medicine & Health Sciences":"#8aaa60",
-            "Consulting":"#5b7b8a","Finance & Banking":"#6a8e6a","Big Tech":"#7b4f7b",
-            "Startup / Scale-up":"#c07878","Corporate / Industry":"#7a7a72",
-            "Entrepreneurship / Founder":"#a85555","Academic / Research":"#8a6aaa",
-            "Government / NGO / Non-profit":"#5a8a7a",
-            "Graduate":"#5b7b8a","Doctorate":"#7b4f7b",
-            "TU Munich":"#4a6a7a","LMU Munich":"#a85555","Elite International":"#7b4f7b",
-            "Other German Univ.":"#7a7a72","Other Intl. Univ.":"#a8a498",
-            "Berkeley / MIT":"#6a8e6a","Elite Research":"#5b7b8a",
-            "Unicorn Founder":"#b8926a","CDTM Founder":"#c07878","CDTM Employee":"#5b7b8a",
-            "CS & AI":"#7b4f7b","Business":"#c07878",
+            "Engineering":"#7ab3e8","Business & Economics":"#e2b84a","Computer Science & AI":"#4889d0",
+            "Technology Management":"#d6bc5e","Information Systems & HCI":"#93c5fd",
+            "Natural Sciences & Mathematics":"#a5c8ef","Humanities & Social Sciences":"#c9a84e",
+            "Design, Architecture & Media":"#bfdbfe","Medicine & Health Sciences":"#7ab3e8",
+            "Consulting":"#4889d0","Finance & Banking":"#d4a83a","Big Tech":"#2e6ca4",
+            "Startup / Scale-up":"#e2b84a","Corporate / Industry":"#c4ddf5",
+            "Entrepreneurship / Founder":"#c49530","Academic / Research":"#93c5fd",
+            "Government / NGO / Non-profit":"#d0e4f7",
+            "Graduate":"#93c5fd","Doctorate":"#4889d0",
+            "TU Munich":"#3b7dc9","LMU Munich":"#d6bc5e","Elite International":"#7ab3e8",
+            "Other German Univ.":"#c4ddf5","Other Intl. Univ.":"#d0e4f7",
+            "Berkeley / MIT":"#a5c8ef","Elite Research":"#93c5fd",
+            "Unicorn Founder":"#e2b84a","CDTM Founder":"#d4a83a","CDTM Employee":"#bfdbfe",
+            "CS & AI":"#4889d0","Business":"#e2b84a",
         },
     },
-    // Original (Tailwind-based)
-    original: {
-        name: "Vivid",
-        preview: ["#3b82f6","#ef4444","#7c3aed","#d97706","#059669"],
+    // High contrast — deep navy with bright gold
+    contrast: {
+        name: "Bold",
+        preview: ["#0e2240","#0065bd","#e2b84a","#3b7dc9","#f5d98a"],
         colors: {
-            "Engineering":"#3b82f6","Business & Economics":"#ef4444","Computer Science & AI":"#7c3aed",
-            "Technology Management":"#d97706","Information Systems & HCI":"#0891b2",
-            "Natural Sciences & Mathematics":"#059669","Humanities & Social Sciences":"#ea580c",
-            "Design, Architecture & Media":"#db2777","Medicine & Health Sciences":"#65a30d",
-            "Consulting":"#0284c7","Finance & Banking":"#16a34a","Big Tech":"#6d28d9",
-            "Startup / Scale-up":"#ea580c","Corporate / Industry":"#475569",
-            "Entrepreneurship / Founder":"#dc2626","Academic / Research":"#9333ea",
-            "Government / NGO / Non-profit":"#0d9488",
-            "Graduate":"#2563eb","Doctorate":"#7c3aed",
-            "TU Munich":"#1d4ed8","LMU Munich":"#b91c1c","Elite International":"#7c3aed",
-            "Other German Univ.":"#475569","Other Intl. Univ.":"#94a3b8",
-            "Berkeley / MIT":"#059669","Elite Research":"#0891b2",
-            "Unicorn Founder":"#f59e0b","CDTM Founder":"#d97706","CDTM Employee":"#0891b2",
-            "CS & AI":"#7c3aed","Business":"#ef4444",
+            "Engineering":"#0065bd","Business & Economics":"#e2b84a","Computer Science & AI":"#0e2240",
+            "Technology Management":"#d4a83a","Information Systems & HCI":"#3b7dc9",
+            "Natural Sciences & Mathematics":"#4889d0","Humanities & Social Sciences":"#c49530",
+            "Design, Architecture & Media":"#7ab3e8","Medicine & Health Sciences":"#2e6ca4",
+            "Consulting":"#1b3a6b","Finance & Banking":"#f5d98a","Big Tech":"#0e2240",
+            "Startup / Scale-up":"#e2b84a","Corporate / Industry":"#5a84a8",
+            "Entrepreneurship / Founder":"#b8880a","Academic / Research":"#0065bd",
+            "Government / NGO / Non-profit":"#93c5fd",
+            "Graduate":"#3b7dc9","Doctorate":"#0e2240",
+            "TU Munich":"#0065bd","LMU Munich":"#e2b84a","Elite International":"#1b3a6b",
+            "Other German Univ.":"#5a84a8","Other Intl. Univ.":"#a5c8ef",
+            "Berkeley / MIT":"#2e6ca4","Elite Research":"#3b7dc9",
+            "Unicorn Founder":"#e2b84a","CDTM Founder":"#c49530","CDTM Employee":"#7ab3e8",
+            "CS & AI":"#0e2240","Business":"#e2b84a",
         },
     },
 };
@@ -108,7 +179,7 @@ const MUTED = {
     "None":"#d4cfc6","Other Fields":"#94a3b8","Other University":"#94a3b8",
 };
 
-let activePaletteName = "earth";
+let activePaletteName = "cdtm";
 const PALETTE = {};
 
 function applyPalette(name) {
@@ -600,13 +671,31 @@ function querySimilarity(cachedQuery, input) {
     return score;
 }
 
+let _popularQueries = [];
+(async function loadPopularQueries() {
+    try {
+        const res = await fetch("/api/popular-queries");
+        if (res.ok) _popularQueries = await res.json();
+    } catch {}
+})();
+
 function renderSuggestions(currentInput) {
     const el = document.getElementById("suggestions");
     if (!el) return;
-    const cache = getCache();
-    if (cache.length === 0) { el.innerHTML = ""; return; }
 
-    const scored = cache.map(e => ({ ...e, score: querySimilarity(e.query, currentInput) }));
+    // Merge local cache with server-side popular queries
+    const local = getCache();
+    const seen = new Set(local.map(e => e.query.toLowerCase()));
+    const merged = [...local];
+    for (const pq of _popularQueries) {
+        if (!seen.has(pq.query.toLowerCase())) {
+            merged.push({ query: pq.query, data: null });
+            seen.add(pq.query.toLowerCase());
+        }
+    }
+    if (merged.length === 0) { el.innerHTML = ""; return; }
+
+    const scored = merged.map(e => ({ ...e, score: querySimilarity(e.query, currentInput) }));
     const filtered = currentInput.trim()
         ? scored.filter(e => e.score > 0).sort((a, b) => b.score - a.score)
         : scored;
@@ -617,23 +706,67 @@ function renderSuggestions(currentInput) {
 
     el.querySelectorAll(".suggestion-chip").forEach(chip => {
         chip.addEventListener("click", () => {
+            if (window.posthog) posthog.capture('suggestion_clicked', { query: chip.dataset.query });
             document.getElementById("query-input").value = chip.dataset.query;
             handleQuery();
         });
     });
 }
 
-// ─── Model selection ────────────────────────────────────────────────────────────
-let selectedModel = "claude-sonnet-4-6";
+// ─── Auto model selection ────────────────────────────────────────────────────
+function pickModel(query) {
+    const q = query.toLowerCase();
+    // Complex queries → always Sonnet
+    const complexSignals = [
+        'compare', 'analyze', 'correlation', 'trend', 'pattern', 'most common',
+        'breakdown', 'distribution', 'percentage', 'how many', 'what fraction',
+        'vs', 'versus', 'between', 'relationship', 'over time', 'timeline',
+        'career path', 'transition', ' and ', 'top 10', 'rank', 'cluster',
+    ];
+    if (q.length > 80 || complexSignals.some(s => q.includes(s))) {
+        return "claude-sonnet-4-6";
+    }
+    // Simple queries → 50:50
+    return Math.random() < 0.5 ? "claude-sonnet-4-6" : "gpt-5.2";
+}
 
-function initModelToggle() {
-    document.querySelectorAll(".model-pill").forEach(pill => {
-        pill.addEventListener("click", () => {
-            document.querySelectorAll(".model-pill").forEach(p => p.classList.remove("active"));
-            pill.classList.add("active");
-            selectedModel = pill.dataset.model;
+// ─── Activity steps ──────────────────────────────────────────────────────────
+const ACTIVITY_STEPS = [
+    "Searching alumni paths",
+    "Scanning career data",
+    "Analyzing patterns",
+    "Building visualization",
+];
+let _activityInterval = null;
+let _activityIdx = 0;
+
+function startActivitySteps() {
+    const container = document.getElementById("activity-steps");
+    if (!container) return;
+    container.innerHTML = ACTIVITY_STEPS.map((step, i) =>
+        `<div class="activity-step ${i === 0 ? 'active' : 'pending'}">
+            <span class="activity-dot"></span>
+            <span>${step}</span>
+        </div>`
+    ).join("");
+    _activityIdx = 0;
+
+    _activityInterval = setInterval(() => {
+        _activityIdx++;
+        if (_activityIdx >= ACTIVITY_STEPS.length) {
+            clearInterval(_activityInterval);
+            return;
+        }
+        const steps = container.querySelectorAll(".activity-step");
+        steps.forEach((el, i) => {
+            el.className = "activity-step " + (i < _activityIdx ? "done" : i === _activityIdx ? "active" : "pending");
         });
-    });
+    }, 2800);
+}
+
+function stopActivitySteps() {
+    clearInterval(_activityInterval);
+    _activityInterval = null;
 }
 
 // ─── Explore tab ────────────────────────────────────────────────────────────────
@@ -657,17 +790,17 @@ async function handleQuery() {
     const query = input.value.trim();
     if (!query) return;
 
-    // Check cache first (keyed by query + model + detail_mode)
+    const model = pickModel(query);
     const detailMode = document.getElementById("detail-mode-toggle")?.checked || false;
-    const cacheKey = `${selectedModel}::${detailMode}::${query}`;
+    const cacheKey = `${model}::${detailMode}::${query}`;
     const cached = getFromCache(cacheKey);
     if (cached) {
+        if (window.posthog) posthog.capture('query_cache_hit', { query, model, source: 'local' });
         aTitle.textContent = cached.data.title || "Results";
         aText.textContent  = cached.data.analysis || "";
         aBox.classList.add("active");
         lastExploreResult = cached.data;
         renderDynamic(cached.data);
-        renderDebugPanel(cached.data.debug);
         renderSuggestions(query);
         if (cached.data.trace_id) {
             setTimeout(() => saveTraceScreenshot(cached.data.trace_id), 500);
@@ -675,20 +808,16 @@ async function handleQuery() {
         return;
     }
 
+    if (window.posthog) posthog.capture('query_submitted', { query, model });
+    const queryStartTime = performance.now();
+
     btn.disabled = true;
-    const MODEL_LABELS = {"gpt-4.1":"GPT-4.1","gpt-5-mini":"GPT-5 mini","gpt-5.2":"GPT-5.2"};
-    const modelLabel = MODEL_LABELS[selectedModel]
-        || (selectedModel.includes("haiku") ? "Haiku" : "Sonnet");
-    const providerName = selectedModel.startsWith("gpt") ? "OpenAI" : "Claude";
-    document.getElementById("query-loading-text").textContent =
-        `Asking ${providerName} ${modelLabel} to analyze the alumni…`;
     loading.classList.add("active");
     aBox.classList.remove("active");
-    document.getElementById("chart").innerHTML =
-        `<div class="message">Analyzing ${alumni.length.toLocaleString()} alumni…</div>`;
+    startLoadingWords();
+    startActivitySteps();
     document.getElementById("stats").innerHTML = "";
     document.getElementById("selected-bar").style.display = "none";
-    document.getElementById("agent-debug").style.display = "none";
     activePath = null;
 
     try {
@@ -697,8 +826,8 @@ async function handleQuery() {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
                 query,
-                model: selectedModel,
-                detail_mode: document.getElementById("detail-mode-toggle")?.checked || false,
+                model,
+                detail_mode: detailMode,
             }),
         });
         if (!res.ok) {
@@ -706,23 +835,31 @@ async function handleQuery() {
             throw new Error(err.error || `HTTP ${res.status}`);
         }
         const data = await res.json();
+        const durationMs = Math.round(performance.now() - queryStartTime);
+        if (window.posthog) posthog.capture('query_completed', {
+            query, model, duration_ms: durationMs,
+            num_paths: (data.paths || []).length,
+            cached: !!data.cached,
+            cost_usd: data.debug?.cost_usd || 0,
+        });
         aTitle.textContent = data.title || "Results";
         aText.textContent  = data.analysis || "";
         aBox.classList.add("active");
         lastExploreResult = data;
         saveToCache(cacheKey, data);
         renderDynamic(data);
-        renderDebugPanel(data.debug);
         renderSuggestions(query);
-        // Capture chart screenshot for the trace
         if (data.trace_id) {
             setTimeout(() => saveTraceScreenshot(data.trace_id), 500);
         }
     } catch (err) {
+        if (window.posthog) posthog.capture('query_error', { query, model, error: err.message });
         document.getElementById("chart").innerHTML =
             `<div class="message error"><strong>Error:</strong> ${err.message}</div>`;
     } finally {
         btn.disabled = false;
+        stopLoadingWords();
+        stopActivitySteps();
         loading.classList.remove("active");
     }
 }
@@ -832,7 +969,7 @@ function renderDynamic(data) {
     });
 
     // Assign colors by first-column value
-    const EXPLORE_COLORS = ["#3b82f6","#ef4444","#7c3aed","#d97706","#0891b2","#059669","#ea580c","#db2777","#65a30d","#0284c7","#9333ea","#dc2626"];
+    const EXPLORE_COLORS = ["#1b3a6b","#e2b84a","#2e6ca4","#d4a83a","#4889d0","#93c5fd","#c49530","#7ab3e8","#3b7dc9","#bfdbfe","#1e4d8c","#a5c8ef"];
     const firstColVals = [...new Set(rows.map(r => r.vals[0]))];
     const valColorMap = {};
     firstColVals.forEach((v, i) => {
@@ -1048,52 +1185,6 @@ function renderDynamic(data) {
 }
 
 // ─── Agent debug panel ──────────────────────────────────────────────────────
-function renderDebugPanel(debug) {
-    const el = document.getElementById("agent-debug");
-    if (!el || !debug || !debug.turns || debug.turns.length === 0) {
-        if (el) el.style.display = "none";
-        return;
-    }
-    el.style.display = "block";
-    const totalTok = (debug.total_input_tokens + debug.total_output_tokens).toLocaleString();
-    const costStr = debug.cost_usd < 0.01
-        ? `$${(debug.cost_usd * 100).toFixed(2)}¢`
-        : `$${debug.cost_usd.toFixed(3)}`;
-
-    const totalToolCalls = debug.turns.reduce((s, t) => s + (t.tool_calls || []).length, 0);
-
-    let turnsHtml = debug.turns.map(t => {
-        const toolsHtml = (t.tool_calls || []).map(tc => {
-            const argsStr = JSON.stringify(tc.input).slice(0, 80);
-            const countStr = tc.result_count != null ? `${tc.result_count} results` : "";
-            return `<div class="agent-tool-call">
-                <span class="agent-tool-name">${tc.tool}</span>
-                <span class="agent-tool-args">${argsStr}</span>
-                <span class="agent-tool-count">${countStr}</span>
-            </div>`;
-        }).join("");
-        return `<div class="agent-turn">
-            <div class="agent-turn-head">
-                <span>Turn ${t.turn}${t.tool_calls.length ? ` · ${t.tool_calls.length} tool call${t.tool_calls.length > 1 ? "s" : ""}` : " · final response"}</span>
-                <span class="agent-turn-tokens">${t.input_tokens.toLocaleString()} in / ${t.output_tokens.toLocaleString()} out</span>
-            </div>
-            ${toolsHtml}
-        </div>`;
-    }).join("");
-
-    el.innerHTML = `
-        <div class="agent-debug-header">
-            <span class="agent-debug-title">Agent Activity</span>
-            <div class="agent-debug-summary">
-                <span><strong>${debug.turns.length}</strong> turns</span>
-                <span><strong>${totalToolCalls}</strong> tool calls</span>
-                <span><strong>${totalTok}</strong> tokens</span>
-                <span><strong>${costStr}</strong></span>
-                <span>${debug.detail_mode ? "detail mode" : "lite mode"}</span>
-            </div>
-        </div>
-        <div class="agent-debug-turns">${turnsHtml}</div>`;
-}
 
 // ─── Init ──────────────────────────────────────────────────────────────────────
 async function init() {
@@ -1116,7 +1207,6 @@ async function init() {
         document.getElementById("explore-ui").classList.add("active");
         activateExplore();
 
-        initModelToggle();
         document.getElementById("query-btn").addEventListener("click", handleQuery);
         document.getElementById("query-input").addEventListener("keydown", e => {
             if (e.key === "Enter") handleQuery();
