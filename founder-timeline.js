@@ -387,7 +387,7 @@
           const d = dots[di];
           ctx.beginPath();
           ctx.arc(d.x, d.y, Math.max(0.5, dotR * 0.88), 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(${d.r},${d.g},${d.b},${(carryFrac * 0.30).toFixed(2)})`;
+          ctx.fillStyle = `rgba(140,132,116,${(carryFrac * 0.30).toFixed(2)})`;
           ctx.fill();
         }
       }
@@ -404,7 +404,7 @@
 
         ctx.beginPath();
         ctx.arc(p.targetX, y, Math.max(0.5, p.dotRval), 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${p.r},${p.g},${p.b},${a.toFixed(2)})`;
+        ctx.fillStyle = `rgba(140,132,116,${a.toFixed(2)})`;
         ctx.fill();
 
         if (t_eff > 0.68) arrivedCount++;
@@ -445,7 +445,7 @@
         ctx.fill();
         ctx.beginPath();
         ctx.arc(hovered.inMap ? p.x : p.targetX, hovered.inMap ? p.y : p.targetY, hr, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${p.r},${p.g},${p.b},0.95)`;
+        ctx.fillStyle = `rgba(140,132,116,0.95)`;
         ctx.fill();
         ctx.strokeStyle = 'rgba(245,158,11,0.85)';
         ctx.lineWidth   = 1.5;
