@@ -493,6 +493,12 @@ NORMALIZATION — this is critical for a readable chart:
   Keep individual semesters when there are ≤15 distinct values. Only group into year ranges
   (e.g. "2010–2014") when there are too many distinct semesters to display.
   Always sort cohort values chronologically (Spring before Fall within a year).
+- MANDATORY GROUPING — after building all paths, review each column:
+  • Count how many distinct values it has and how many people per value.
+  • If more than 3 values have ≤2 people each, you MUST merge them into broader categories.
+  • Example: 8 different company names with 1 person each → group by industry ("FinTech", "HealthTech", "SaaS", etc.)
+  • Example: 10 unique job titles with 1 person each → group by function ("Engineering", "Product", "Operations", etc.)
+  • The goal is clusters of 3+ people. Singletons should be rare exceptions, not the norm.
 - Use "Other" as a catch-all for any tail group with ≤2 people.
 - values must be short (max 30 chars) and consistent within a column.
 - Use "Unknown" only for genuinely missing data.
