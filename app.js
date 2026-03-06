@@ -769,14 +769,84 @@ function stopActivitySteps() {
     _activityInterval = null;
 }
 
+// ─── Typewriter ─────────────────────────────────────────────────────────────
+const TYPEWRITER_QUERIES = [
+    "Who went on to found a unicorn?",
+    "What did the class of Spring 2025 do?",
+    "Who has a neuroscience background?",
+    "Show me founders who studied engineering",
+    "Who transitioned from consulting to startups?",
+    "Which alumni ended up at Google or Apple?",
+    "Who co-founded companies after McKinsey?",
+    "Show career paths through Y Combinator",
+];
+let _twTimeout = null;
+let _twRunning = false;
+
+function startTypewriter() {
+    const textEl = document.getElementById("typewriter-text");
+    const cursorEl = document.getElementById("typewriter-cursor");
+    if (!textEl) return;
+    _twRunning = true;
+
+    let qIdx = Math.floor(Math.random() * TYPEWRITER_QUERIES.length);
+
+    function typeNext() {
+        if (!_twRunning) return;
+        const query = TYPEWRITER_QUERIES[qIdx % TYPEWRITER_QUERIES.length];
+        qIdx++;
+        let charIdx = 0;
+        textEl.textContent = "";
+        if (cursorEl) cursorEl.style.display = "";
+
+        // Type in
+        function typeChar() {
+            if (!_twRunning) return;
+            if (charIdx <= query.length) {
+                textEl.textContent = query.slice(0, charIdx);
+                charIdx++;
+                _twTimeout = setTimeout(typeChar, 45 + Math.random() * 35);
+            } else {
+                // Pause, then erase
+                _twTimeout = setTimeout(eraseChars, 2200);
+            }
+        }
+
+        // Erase
+        function eraseChars() {
+            if (!_twRunning) return;
+            const current = textEl.textContent;
+            if (current.length > 0) {
+                textEl.textContent = current.slice(0, -1);
+                _twTimeout = setTimeout(eraseChars, 22);
+            } else {
+                _twTimeout = setTimeout(typeNext, 400);
+            }
+        }
+
+        typeChar();
+    }
+
+    typeNext();
+}
+
+function stopTypewriter() {
+    _twRunning = false;
+    clearTimeout(_twTimeout);
+    const el = document.getElementById("typewriter-text");
+    const cursor = document.getElementById("typewriter-cursor");
+    if (el) el.textContent = "";
+    if (cursor) cursor.style.display = "none";
+}
+
 // ─── Explore tab ────────────────────────────────────────────────────────────────
 function activateExplore() {
-    document.getElementById("chart").innerHTML =
-        `<div class="message" style="color:var(--ink-3);font-size:13px">Type a question above and press <strong style="font-weight:500;color:var(--ink-2)">Explore →</strong></div>`;
+    document.getElementById("chart").innerHTML = "";
     document.getElementById("selected-bar").style.display = "none";
     document.getElementById("stats").innerHTML = "";
     activePath = null;
     renderSuggestions("");
+    startTypewriter();
 }
 
 async function handleQuery() {
@@ -789,6 +859,10 @@ async function handleQuery() {
 
     const query = input.value.trim();
     if (!query) return;
+
+    stopTypewriter();
+    const twEl = document.getElementById("query-typewriter");
+    if (twEl) twEl.style.display = "none";
 
     const model = pickModel(query);
     const detailMode = document.getElementById("detail-mode-toggle")?.checked || false;
@@ -1236,7 +1310,7 @@ async function init() {
         initChartCanvas(document.getElementById("chart"));
 
         document.getElementById("subtitle").textContent =
-            `${alumni.length.toLocaleString()} CDTM alumni · hover to explore · click any path to open LinkedIn`;
+            `Explore the career paths of ${alumni.length.toLocaleString()} Centerlings — ask anything`;
 
         // Go straight to Explore mode (no static tabs)
         activeView = VIEWS.find(v => v.id === "explore") || VIEWS[VIEWS.length - 1];
@@ -1244,6 +1318,13 @@ async function init() {
         activateExplore();
 
         document.getElementById("query-btn").addEventListener("click", handleQuery);
+        document.getElementById("query-input").addEventListener("focus", () => {
+            const twEl = document.getElementById("query-typewriter");
+            if (twEl && twEl.style.display !== "none") {
+                twEl.style.display = "none";
+                stopTypewriter();
+            }
+        });
         document.getElementById("query-input").addEventListener("keydown", e => {
             if (e.key === "Enter") handleQuery();
         });

@@ -843,7 +843,7 @@ def api_popular_queries():
             )
             rows = cur.fetchall()
         return jsonify([
-            {"query": r["query"], "model": r["model"], "hit_count": r["hit_count"],
+            {"query": r["query"], "hit_count": r["hit_count"],
              "created_at": r["created_at"].isoformat() if r["created_at"] else None}
             for r in rows
         ])

@@ -421,27 +421,59 @@
             display: none;
         }
         .explore-ui.active { display: block; }
-        .query-row { display: flex; gap: 12px; align-items: flex-end; }
+
+        /* Glass search bar — matches navbar style */
+        .query-bar {
+            position: relative;
+            border-radius: 100px;
+            background: rgba(8, 13, 10, 0.48);
+            backdrop-filter: blur(28px) saturate(180%) brightness(0.85);
+            -webkit-backdrop-filter: blur(28px) saturate(180%) brightness(0.85);
+            border: 1px solid rgba(255,255,255,0.14);
+            box-shadow: 0 4px 24px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.08);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            padding: 0 6px 0 22px;
+            height: 52px;
+        }
+        /* Grain texture (same as navbar) */
+        .query-bar::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='g' x='0' y='0' width='100%25' height='100%25' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.70' numOctaves='4' stitchTiles='stitch' result='noise'/%3E%3CfeColorMatrix in='noise' type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23g)'/%3E%3C/svg%3E");
+            background-size: 300px 300px;
+            background-repeat: repeat;
+            opacity: 0.20;
+            pointer-events: none;
+            border-radius: inherit;
+        }
+        .query-bar-inner {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            position: relative;
+            z-index: 1;
+            gap: 10px;
+        }
         .query-input {
             flex: 1;
-            padding: 10px 0;
+            padding: 0;
             border: none;
-            border-bottom: 1.5px solid var(--border);
             font-size: 15px;
             font-family: inherit;
-            color: var(--ink);
+            color: rgba(235,232,224,0.92);
             background: transparent;
             outline: none;
-            transition: border-color 0.2s;
-            border-radius: 0;
             -webkit-appearance: none;
+            min-width: 0;
         }
-        .query-input:focus { border-bottom-color: var(--amber); }
-        .query-input::placeholder { color: var(--ink-3); }
+        .query-input::placeholder { color: rgba(235,232,224,0.35); }
         .query-btn {
-            padding: 9px 20px;
-            background: var(--ink);
-            color: var(--cream);
+            padding: 8px 18px;
+            background: var(--cdtm-blue);
+            color: #fff;
             border: none;
             border-radius: 100px;
             font-size: 13px;
@@ -453,8 +485,38 @@
             letter-spacing: 0.01em;
             flex-shrink: 0;
         }
-        .query-btn:hover:not(:disabled) { background: #2d2c27; transform: translateY(-1px); }
+        .query-btn:hover:not(:disabled) { background: #004d94; transform: translateY(-1px); }
         .query-btn:disabled { opacity: 0.38; cursor: not-allowed; }
+
+        /* Typewriter example queries */
+        .query-typewriter {
+            text-align: center;
+            margin-bottom: 16px;
+            min-height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .typewriter-text {
+            font-family: 'Bricolage Grotesque', sans-serif;
+            font-size: clamp(18px, 2.5vw, 26px);
+            font-weight: 700;
+            color: var(--ink);
+            letter-spacing: -0.02em;
+        }
+        .typewriter-cursor {
+            display: inline-block;
+            width: 2px;
+            height: 1.1em;
+            background: var(--cdtm-blue);
+            margin-left: 2px;
+            vertical-align: text-bottom;
+            animation: cursor-blink 0.7s step-end infinite;
+        }
+        @keyframes cursor-blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
         .query-loading { display: none; margin-top: 12px; }
         .query-loading.active { display: block; }
 
@@ -759,11 +821,16 @@
   </div>
 
   <div id="explore-ui" class="explore-ui">
-    <div class="query-row">
-      <input type="text" id="query-input" class="query-input"
-          placeholder='Ask anything — "who went to YC" or "founders from engineering"'
-          maxlength="200" />
-      <button id="query-btn" class="query-btn">Explore →</button>
+    <div class="query-typewriter" id="query-typewriter">
+      <span class="typewriter-text" id="typewriter-text"></span><span class="typewriter-cursor" id="typewriter-cursor"></span>
+    </div>
+    <div class="query-bar">
+      <div class="query-bar-inner">
+        <input type="text" id="query-input" class="query-input"
+            placeholder="Ask anything about Centerling paths…"
+            maxlength="200" />
+        <button id="query-btn" class="query-btn">Explore</button>
+      </div>
     </div>
 
     <div id="query-loading" class="query-loading"></div>
