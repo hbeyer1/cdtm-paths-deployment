@@ -876,6 +876,7 @@ async function handleQuery() {
         lastExploreResult = cached.data;
         renderDynamic(cached.data);
         renderSuggestions(query);
+        showFeedbackBar(query, model, cached.data.trace_id || "");
         if (cached.data.trace_id) {
             setTimeout(() => saveTraceScreenshot(cached.data.trace_id), 500);
         }
@@ -888,6 +889,7 @@ async function handleQuery() {
     btn.disabled = true;
     loading.classList.add("active");
     aBox.classList.remove("active");
+    hideFeedbackBar();
     startLoadingWords();
     startActivitySteps();
     document.getElementById("stats").innerHTML = "";
@@ -923,6 +925,7 @@ async function handleQuery() {
         saveToCache(cacheKey, data);
         renderDynamic(data);
         renderSuggestions(query);
+        showFeedbackBar(query, model, data.trace_id || "");
         if (data.trace_id) {
             setTimeout(() => saveTraceScreenshot(data.trace_id), 500);
         }
@@ -967,6 +970,87 @@ async function saveTraceScreenshot(traceId) {
     } catch (e) {
         console.warn("[Trace] Failed to capture screenshot:", e);
     }
+}
+
+// ─── Chart feedback ──────────────────────────────────────────────────────────
+let _feedbackTimer = null;
+
+function showFeedbackBar(query, model, traceId) {
+    clearTimeout(_feedbackTimer);
+    const bar = document.getElementById("feedback-bar");
+    const prompt = document.getElementById("feedback-prompt");
+    const commentSection = document.getElementById("feedback-comment");
+    const thanks = document.getElementById("feedback-thanks");
+    const upBtn = document.getElementById("feedback-up");
+    const downBtn = document.getElementById("feedback-down");
+
+    // Reset state
+    bar.style.display = "none";
+    prompt.style.display = "flex";
+    commentSection.style.display = "none";
+    thanks.style.display = "none";
+    upBtn.classList.remove("selected");
+    downBtn.classList.remove("selected");
+    document.getElementById("feedback-input").value = "";
+
+    // Show after delay
+    _feedbackTimer = setTimeout(() => { bar.style.display = "block"; }, 2000);
+
+    function submitFeedback(rating, comment) {
+        fetch("/api/feedback", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ rating, comment, query, model, trace_id: traceId }),
+        }).catch(() => {});
+        if (window.posthog) posthog.capture('chart_feedback', { rating, comment, query, model });
+        prompt.style.display = "none";
+        commentSection.style.display = "none";
+        thanks.style.display = "block";
+        setTimeout(() => { bar.style.display = "none"; }, 3000);
+    }
+
+    // Clone and replace to remove old listeners
+    const newUp = upBtn.cloneNode(true);
+    const newDown = downBtn.cloneNode(true);
+    upBtn.replaceWith(newUp);
+    downBtn.replaceWith(newDown);
+
+    newUp.addEventListener("click", () => {
+        newUp.classList.add("selected");
+        submitFeedback("up", "");
+    });
+    newDown.addEventListener("click", () => {
+        newDown.classList.add("selected");
+        prompt.style.display = "none";
+        commentSection.style.display = "flex";
+        document.getElementById("feedback-input").focus();
+    });
+
+    // Comment submit / skip
+    const submitBtn = document.getElementById("feedback-submit");
+    const skipBtn = document.getElementById("feedback-skip");
+    const newSubmit = submitBtn.cloneNode(true);
+    const newSkip = skipBtn.cloneNode(true);
+    submitBtn.replaceWith(newSubmit);
+    skipBtn.replaceWith(newSkip);
+
+    newSubmit.addEventListener("click", () => {
+        submitFeedback("down", document.getElementById("feedback-input").value.trim());
+    });
+    newSkip.addEventListener("click", () => {
+        submitFeedback("down", "");
+    });
+
+    // Enter key submits comment
+    document.getElementById("feedback-input").addEventListener("keydown", (e) => {
+        if (e.key === "Enter") newSubmit.click();
+    });
+}
+
+function hideFeedbackBar() {
+    clearTimeout(_feedbackTimer);
+    const bar = document.getElementById("feedback-bar");
+    if (bar) bar.style.display = "none";
 }
 
 function renderDynamic(data) {
