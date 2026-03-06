@@ -1,0 +1,10577 @@
+{
+  "stages": [
+    "STUDIED",
+    "RESEARCH ABROAD",
+    "STARTED IN",
+    "MOVED TO",
+    "ACHIEVEMENT"
+  ],
+  "stage_x": [
+    0.0,
+    0.25,
+    0.48,
+    0.72,
+    1.0
+  ],
+  "node_orders": [
+    [
+      "Business",
+      "CS & AI",
+      "Engineering",
+      "Humanities & Social Sciences",
+      "Sciences",
+      "Design & Media",
+      "Other",
+      "Medicine & Health"
+    ],
+    [
+      "Top University"
+    ],
+    [
+      "Tech / Startup",
+      "Founder",
+      "MBB",
+      "Consulting",
+      "PhD / Research",
+      "VC",
+      "Big Tech"
+    ],
+    [
+      "PhD / Research",
+      "Consulting",
+      "Founder",
+      "Big Tech",
+      "VC",
+      "MBB",
+      "Tech / Startup"
+    ],
+    [
+      "Professor",
+      "Unicorn Founder",
+      "YC Alumni",
+      "Serial Founder"
+    ]
+  ],
+  "paths": [
+    {
+      "name": "David Wehner",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Robert Kaiser",
+      "values": [
+        "Business",
+        "Top University",
+        "Founder",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Arkadiy Telegin",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        null,
+        "YC Alumni"
+      ]
+    },
+    {
+      "name": "Abraham Duplaa",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Artem Chakirov",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Adina Goerres",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        "Founder",
+        "YC Alumni"
+      ]
+    },
+    {
+      "name": "Adrian Hesse",
+      "values": [
+        "Business",
+        null,
+        "MBB",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Adrian Ziegler",
+      "values": [
+        "Engineering",
+        "Top University",
+        "Tech / Startup",
+        "Founder",
+        "YC Alumni"
+      ]
+    },
+    {
+      "name": "Afrida Mahbub",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Agnes Kocsis",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Agustin N. Coppari Hollmann",
+      "values": [
+        "Engineering",
+        "Top University",
+        "Tech / Startup",
+        "PhD / Research",
+        "Serial Founder"
+      ]
+    },
+    {
+      "name": "Angela Haslbeck-Zumkeller",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Ahmed  R.",
+      "values": [
+        "Engineering",
+        null,
+        "Founder",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Ahmed Shafei",
+      "values": [
+        "Humanities & Social Sciences",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Aishwarya R.",
+      "values": [
+        "Engineering",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Anna-Julia Storch",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        "PhD / Research",
+        null
+      ]
+    },
+    {
+      "name": "Alena Wimmer",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Consulting",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Alexander Farr",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Alexander Andreas Arndt",
+      "values": [
+        "Design & Media",
+        null,
+        "Tech / Startup",
+        "MBB",
+        null
+      ]
+    },
+    {
+      "name": "Alexander Benlian",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "MBB",
+        "Tech / Startup",
+        "Professor"
+      ]
+    },
+    {
+      "name": "Alexander Binzer",
+      "values": [
+        "Business",
+        null,
+        "MBB",
+        "VC",
+        null
+      ]
+    },
+    {
+      "name": "Alexander Dumke",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Alexander Leunig",
+      "values": [
+        "Business",
+        null,
+        "PhD / Research",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Alexander Prei\u00dfner",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Alexander Schmitt",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Consulting",
+        "VC",
+        null
+      ]
+    },
+    {
+      "name": "Alex Popp",
+      "values": [
+        "Engineering",
+        "Top University",
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Dr. Alexander Hoffmann",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        "Big Tech",
+        null
+      ]
+    },
+    {
+      "name": "Alexander Holzer",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Alexander Knoll",
+      "values": [
+        "Business",
+        null,
+        "VC",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Alexander Schenker",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Alexander Worbs",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Alexandra Fritzen",
+      "values": [
+        "CS & AI",
+        null,
+        "Big Tech",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Alexis Gamboa",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Alex Rohregger",
+      "values": [
+        "Engineering",
+        null,
+        "VC",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Ali Khan",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Ali Kareem Raja",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Aliosha Milsztein",
+      "values": [
+        "Engineering",
+        null,
+        "Consulting",
+        "Tech / Startup",
+        "Serial Founder"
+      ]
+    },
+    {
+      "name": "Ali Raza",
+      "values": [
+        "Engineering",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Alvaro Ritter",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Alysa Reuter",
+      "values": [
+        "Sciences",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Jacqueline-Amadea Pely",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Amelie Pahl",
+      "values": [
+        "Business",
+        null,
+        "Consulting",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Amy (Ju-Shan) Chao",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Ana Balevi\u0107, PhD",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Ana Eloisa Garcia de Gortari",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Dr. Anas Al-Nuaimi",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Andre Hainzlmaier",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Andrea Socher",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Andrea Drekovic",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Andreas Felderer",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Dr. Andreas Franz",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        null,
+        "Serial Founder"
+      ]
+    },
+    {
+      "name": "Andreas Scholz",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Andreas Schmid",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Consulting",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Andreas Waltenspiel",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Andr\u00e9 Petry",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Andrei Nazarov",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Andy Ebert",
+      "values": [
+        "Other",
+        "Top University",
+        "MBB",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Anjie Guo",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Ann-Christin Gah",
+      "values": [
+        "Design & Media",
+        null,
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Anna-Lena Sahler",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Anna-Lena Zelder",
+      "values": [
+        "Business",
+        null,
+        "VC",
+        "MBB",
+        null
+      ]
+    },
+    {
+      "name": "Anna-Maria Geist",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Anna Neumann",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Anna Rode",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Anna Schwarz",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Anna (Antje) Seider",
+      "values": [
+        "Business",
+        "Top University",
+        "Consulting",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Anna-Sophie Liebender-Luc",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        "PhD / Research",
+        null
+      ]
+    },
+    {
+      "name": "Anna Spitznagel",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Annabell Sch\u00e4fer",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Annabelle Bockwoldt",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Anne Pia Meininghaus",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Anne Roellgen",
+      "values": [
+        "Business",
+        "Top University",
+        "Consulting",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Dr. Anne Greul",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Annemarie Schimkat",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Annika Breu",
+      "values": [
+        "Business",
+        "Top University",
+        "Consulting",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Anselm Krauss",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Anselm Bauer-Wohlleb",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Founder",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Anthony Bensaid",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Antonia Glatzel",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        "MBB",
+        null
+      ]
+    },
+    {
+      "name": "Antonia Lena B.",
+      "values": [
+        "Business",
+        null,
+        "PhD / Research",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Anya Xie",
+      "values": [
+        "Engineering",
+        null,
+        "Founder",
+        "MBB",
+        null
+      ]
+    },
+    {
+      "name": "Dr. April Moeller Bachhuber",
+      "values": [
+        "Humanities & Social Sciences",
+        null,
+        "PhD / Research",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Aqib Ansari",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Areeb Kamran",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        "Consulting",
+        null
+      ]
+    },
+    {
+      "name": "Armaghan Ahmad Khan",
+      "values": [
+        "Engineering",
+        null,
+        "Consulting",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Armin Engstle",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Dr. Armin Hoell-Steier",
+      "values": [
+        "Business",
+        null,
+        "MBB",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Armin Berghaus",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Arno Schmid-Egger",
+      "values": [
+        "Other",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Arseniy Vershinin",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        "Founder",
+        "Unicorn Founder"
+      ]
+    },
+    {
+      "name": "Arturo Buitrago M\u00e9ndez",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Asif Nadeem",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Avinash Kundaliya",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Aviral S.",
+      "values": [
+        "Business",
+        "Top University",
+        "Consulting",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Alexander von Recum",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Awais Shafique",
+      "values": [
+        "CS & AI",
+        null,
+        "Founder",
+        null,
+        "Serial Founder"
+      ]
+    },
+    {
+      "name": "Axel Buchner",
+      "values": [
+        "Business",
+        null,
+        "PhD / Research",
+        null,
+        "Professor"
+      ]
+    },
+    {
+      "name": "Prof. Dr. Christian Bachmeir",
+      "values": [
+        "Business",
+        "Top University",
+        "PhD / Research",
+        "Consulting",
+        "Professor"
+      ]
+    },
+    {
+      "name": "Balazs Gerhardt",
+      "values": [
+        "Business",
+        "Top University",
+        "VC",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Basar Polat",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Bastian Burger",
+      "values": [
+        "CS & AI",
+        null,
+        "Consulting",
+        "VC",
+        null
+      ]
+    },
+    {
+      "name": "Beatriz Correa",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Bekir Topaloglu",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        "Big Tech",
+        null
+      ]
+    },
+    {
+      "name": "Bendeguz Gati",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Benedict Arya G.",
+      "values": [
+        "Humanities & Social Sciences",
+        "Top University",
+        "PhD / Research",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Benedikt Hartmann",
+      "values": [
+        "Engineering",
+        "Top University",
+        "Founder",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Benedikt Wieser",
+      "values": [
+        "Business",
+        "Top University",
+        "Founder",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Benedikt Nolte",
+      "values": [
+        "Business",
+        "Top University",
+        "VC",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Dr. Benedikt R\u00f6mer",
+      "values": [
+        "Engineering",
+        null,
+        "Consulting",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Benjamin Fingerle",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        "MBB",
+        null
+      ]
+    },
+    {
+      "name": "Benjamin Borrow",
+      "values": [
+        "Business",
+        null,
+        "Consulting",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Benjamin G\u00fcnther",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Benjamin L\u00f6hner",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        "Big Tech",
+        null
+      ]
+    },
+    {
+      "name": "Benjamin Schaule",
+      "values": [
+        "Engineering",
+        null,
+        "Consulting",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Benny Drescher Dr.",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "PhD / Research",
+        "Big Tech",
+        null
+      ]
+    },
+    {
+      "name": "Christoph Berger",
+      "values": [
+        "Engineering",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Berk Kirca",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Bernd Laqua",
+      "values": [
+        "Other",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Bernie Mehl",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Bianca Diana Anghelina",
+      "values": [
+        "Business",
+        null,
+        "Consulting",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Shoaib Khan",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        "Big Tech",
+        null
+      ]
+    },
+    {
+      "name": "Birgit Braun",
+      "values": [
+        "Engineering",
+        "Top University",
+        "Tech / Startup",
+        "MBB",
+        null
+      ]
+    },
+    {
+      "name": "Birgit Brinda",
+      "values": [
+        "Engineering",
+        "Top University",
+        "Consulting",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Bj\u00f6rn Michelsen",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Bj\u00f6rn Verse",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Berzan M.",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Borja S\u00e1nchez Clemente",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Michael Braun",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Brendan Fennessy",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        "VC",
+        null
+      ]
+    },
+    {
+      "name": "Bernhard Z.",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        "Big Tech",
+        null
+      ]
+    },
+    {
+      "name": "Carl Pfeiffer",
+      "values": [
+        "Business",
+        "Top University",
+        "Founder",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Carla  Pregel Hoderlein",
+      "values": [
+        "Engineering",
+        "Top University",
+        "Consulting",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Carla A.",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        "PhD / Research",
+        null
+      ]
+    },
+    {
+      "name": "Carmen M.",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Carolin Hecking-Veltman",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Carolin H\u00e4ussler",
+      "values": [
+        "Business",
+        "Top University",
+        "PhD / Research",
+        "Tech / Startup",
+        "Professor"
+      ]
+    },
+    {
+      "name": "Chris Bessler",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        "Big Tech",
+        null
+      ]
+    },
+    {
+      "name": "Celine Marie Perrot",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Celine Roeder",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        "PhD / Research",
+        null
+      ]
+    },
+    {
+      "name": "Gonzalo Loza Rojas",
+      "values": [
+        "Business",
+        null,
+        "Consulting",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Chandramohan Sudar",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Chao Zhang",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Charline Thuillier",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Charlotte Kobiella",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Yingxi Chen",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        "MBB",
+        null
+      ]
+    },
+    {
+      "name": "Chiara Secules",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Chris S.",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Christian Ittner",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Christian B\u00f6hm",
+      "values": [
+        "Business",
+        null,
+        "Founder",
+        null,
+        "Serial Founder"
+      ]
+    },
+    {
+      "name": "Christian E.",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Christian Felgenhauer",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Christian Feuerbacher",
+      "values": [
+        "Humanities & Social Sciences",
+        null,
+        "Tech / Startup",
+        "Founder",
+        "Serial Founder"
+      ]
+    },
+    {
+      "name": "Christian Gebhardt",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Christian Giese",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Christian Ihring",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Christian Klugow",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Christian Schraml",
+      "values": [
+        "Engineering",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Dr. Christian Soyk",
+      "values": [
+        "Engineering",
+        "Top University",
+        "Consulting",
+        "MBB",
+        null
+      ]
+    },
+    {
+      "name": "Christian Spier",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "VC",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Christian Wachinger",
+      "values": [
+        "Business",
+        "Top University",
+        "PhD / Research",
+        null,
+        "Professor"
+      ]
+    },
+    {
+      "name": "Christian Adler",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Founder",
+        "Tech / Startup",
+        "Serial Founder"
+      ]
+    },
+    {
+      "name": "Christian Deger",
+      "values": [
+        "Business",
+        null,
+        "Founder",
+        null,
+        "Serial Founder"
+      ]
+    },
+    {
+      "name": "Christian H\u00fclsemeyer",
+      "values": [
+        "Engineering",
+        "Top University",
+        "PhD / Research",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Dr. Christian Menkens",
+      "values": [
+        "CS & AI",
+        null,
+        "Consulting",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Christian K. Wanzek",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Christina Angele",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Christina Hudgens",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Christoph Clement",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Christoph Neyer",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Dr. Christoph Baumeister",
+      "values": [
+        "Business",
+        null,
+        "Founder",
+        "VC",
+        "Serial Founder"
+      ]
+    },
+    {
+      "name": "Christophe Schmit",
+      "values": [
+        "Engineering",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Christopher Helm",
+      "values": [
+        "Business",
+        null,
+        "Founder",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Dr. Christopher Scheubel",
+      "values": [
+        "CS & AI",
+        null,
+        "PhD / Research",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Christopher Wolters",
+      "values": [
+        "Engineering",
+        "Top University",
+        "Tech / Startup",
+        "Big Tech",
+        null
+      ]
+    },
+    {
+      "name": "Christopher Voit",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Can Kaya",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Claas Meiners",
+      "values": [
+        "Engineering",
+        null,
+        "PhD / Research",
+        "Big Tech",
+        null
+      ]
+    },
+    {
+      "name": "Clarissa Anjani",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Consulting",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Claudia Dalmau Gomez",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Claudia Simion",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Claudius Seitz",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Consulting",
+        "VC",
+        null
+      ]
+    },
+    {
+      "name": "J\u00f6rg Claussen",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        "Founder",
+        "Professor"
+      ]
+    },
+    {
+      "name": "Clemens Meyer",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        "Big Tech",
+        null
+      ]
+    },
+    {
+      "name": "Conrad Schlenkhoff",
+      "values": [
+        "CS & AI",
+        null,
+        "Consulting",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Constantin Weberpals",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Big Tech",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Joshua Cornelius",
+      "values": [
+        "Business",
+        null,
+        "Founder",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Cornelius Thaiss",
+      "values": [
+        "Engineering",
+        "Top University",
+        "PhD / Research",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Christian Wallenwein",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Cecil W\u00f6bker",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Cyrine Chaabani",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        "Consulting",
+        null
+      ]
+    },
+    {
+      "name": "Omar Dahroug",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Daniel Kleine-Albers",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Daniel Quiroga",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Daniel Seebauer",
+      "values": [
+        "Engineering",
+        "Top University",
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Daniel Simon",
+      "values": [
+        "Business",
+        null,
+        "Consulting",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Daniel Strohmayr",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Daniel Wolf",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Daniela Selch",
+      "values": [
+        "Sciences",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Dr. Daniel Herzog",
+      "values": [
+        "CS & AI",
+        null,
+        "PhD / Research",
+        "Consulting",
+        null
+      ]
+    },
+    {
+      "name": "Daria Ekimova",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Darko Zikic",
+      "values": [
+        "CS & AI",
+        null,
+        "PhD / Research",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "David Bellem",
+      "values": [
+        "Engineering",
+        null,
+        "Founder",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "David Heiny",
+      "values": [
+        "Sciences",
+        null,
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "David Holzmann",
+      "values": [
+        "Business",
+        null,
+        "Founder",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "David Hahn",
+      "values": [
+        "Engineering",
+        null,
+        "Founder",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "David Riessner",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "David Adrian",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Corvin Deboeser",
+      "values": [
+        "CS & AI",
+        null,
+        "Consulting",
+        "MBB",
+        null
+      ]
+    },
+    {
+      "name": "Delia Pfeiffer",
+      "values": [
+        "Business",
+        null,
+        "Consulting",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Denitsa Angelova",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Denniz D\u00f6nmez, PhD",
+      "values": [
+        "Engineering",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Florian Hillen",
+      "values": [
+        "Business",
+        "Top University",
+        "Founder",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "\ud83c\uddfa\ud83c\udde6 Denys Lazarenko ",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Leon M.",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Dominik Facher",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Founder",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Diana Babiac",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Diana Schneider",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        "Consulting",
+        null
+      ]
+    },
+    {
+      "name": "Diego Mart\u00ed Mons\u00f3",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Dominik Cadmus",
+      "values": [
+        "Business",
+        null,
+        "Founder",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Dominik Moehrle",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Dominikus Huber",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Dorothee P\u00f6hlchen",
+      "values": [
+        "CS & AI",
+        null,
+        "PhD / Research",
+        "Consulting",
+        null
+      ]
+    },
+    {
+      "name": "Dr. Albert Schaber",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Dr. Alexander Reinhold Werbik",
+      "values": [
+        "Other",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Dr. Bernd Waschneck",
+      "values": [
+        "Sciences",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Dr. Bernhard Kirchmair",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Consulting",
+        "PhD / Research",
+        null
+      ]
+    },
+    {
+      "name": "Dr. Carmen Thoma",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Dr. Caroline Meder",
+      "values": [
+        "Business",
+        null,
+        "Consulting",
+        "MBB",
+        null
+      ]
+    },
+    {
+      "name": "Dr. Christoph Rothballer",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        "MBB",
+        null
+      ]
+    },
+    {
+      "name": "Dr. Dominik Jain",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Dominik Lembke",
+      "values": [
+        "Sciences",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Dominik Schmidt",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Founder",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Dr. Elizaveta Felsche",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Dr. Fabian Uhrich",
+      "values": [
+        "Business",
+        "Top University",
+        "MBB",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Florian Fuchs",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Dr. Florian Jodl",
+      "values": [
+        "Business",
+        null,
+        "MBB",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Dr. Hendrik Engelhardt",
+      "values": [
+        "Business",
+        null,
+        "Consulting",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Dr.-Ing. Benedikt Sager",
+      "values": [
+        "Other",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Dr.-Ing. Veronika Gamper",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Consulting",
+        "PhD / Research",
+        null
+      ]
+    },
+    {
+      "name": "Dr. Isabel Horrmann",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Dr. Johannes Vetter",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Dr. J\u00f6rg Schmidl",
+      "values": [
+        "Business",
+        null,
+        "Big Tech",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Dr. Markus Ampenberger",
+      "values": [
+        "Business",
+        null,
+        "PhD / Research",
+        "MBB",
+        null
+      ]
+    },
+    {
+      "name": "Dr. Martin Fink",
+      "values": [
+        "CS & AI",
+        null,
+        "MBB",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Dr. Matthias Eireiner",
+      "values": [
+        "Engineering",
+        "Top University",
+        "PhD / Research",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Dr. Maximilian Engelken",
+      "values": [
+        "Business",
+        "Top University",
+        "Founder",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Dr. Maximilian Matschke",
+      "values": [
+        "Business",
+        null,
+        "Consulting",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Dr. Patrick Rohrmeier",
+      "values": [
+        "Business",
+        null,
+        "Consulting",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Dr. Philipp Jostarndt",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        "MBB",
+        null
+      ]
+    },
+    {
+      "name": "Dr. Philipp Wiegandt",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Dr. Rebecca K\u00f6hler",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Dr. Sebastian Kobarg",
+      "values": [
+        "Business",
+        null,
+        "Consulting",
+        "MBB",
+        null
+      ]
+    },
+    {
+      "name": "Dr. Stefan Eckhardt",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "MBB",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Dr. Stefan Hopf",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Dr. Stefanie Weniger",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Dr. Theresa Doppstadt",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Consulting",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Dr. Tobias Roehm",
+      "values": [
+        "CS & AI",
+        null,
+        "PhD / Research",
+        "Consulting",
+        null
+      ]
+    },
+    {
+      "name": "Dr. Tobias Schneiderbauer",
+      "values": [
+        "Business",
+        "Top University",
+        "MBB",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Dragan Mileski",
+      "values": [
+        "CS & AI",
+        null,
+        "Big Tech",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Dennis Rosenke",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Dmitry Burlakov",
+      "values": [
+        "Engineering",
+        "Top University",
+        "Founder",
+        "Big Tech",
+        "Serial Founder"
+      ]
+    },
+    {
+      "name": "Michael D\u00fcrgner",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Tech / Startup",
+        null,
+        "Serial Founder"
+      ]
+    },
+    {
+      "name": "Dominik Durner",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Dennis Wetzig",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        "Consulting",
+        "Serial Founder"
+      ]
+    },
+    {
+      "name": "Ece  \u00d6zda\u011f",
+      "values": [
+        "Business",
+        null,
+        "Founder",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Eduard Lemle",
+      "values": [
+        "CS & AI",
+        null,
+        "VC",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Eileen Einw\u00e4chter",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Emanuel Gerber",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Elena Herzog",
+      "values": [
+        "Design & Media",
+        null,
+        "Tech / Startup",
+        "Consulting",
+        null
+      ]
+    },
+    {
+      "name": "Elias Atahi",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        "VC",
+        null
+      ]
+    },
+    {
+      "name": "Elisa Barskaia",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Elisabeth Goebel",
+      "values": [
+        "Engineering",
+        "Top University",
+        "Tech / Startup",
+        "Founder",
+        "Serial Founder"
+      ]
+    },
+    {
+      "name": "Elvira Yang",
+      "values": [
+        "Business",
+        "Top University",
+        "Consulting",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Emanuel Breitsameter",
+      "values": [
+        "Business",
+        "Top University",
+        "Consulting",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Emily Kaspar",
+      "values": [
+        "Business",
+        null,
+        "Big Tech",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Emmanuel Longa",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Daniel Meier Endler",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Sebastian Erhardt",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Erik M.",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Erik Muttersbach",
+      "values": [
+        "CS & AI",
+        null,
+        "Founder",
+        null,
+        "Unicorn Founder"
+      ]
+    },
+    {
+      "name": "Ermal Guni",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Dr. Ernst Sassen",
+      "values": [
+        "CS & AI",
+        null,
+        "Big Tech",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Esteban V. Prado",
+      "values": [
+        "Engineering",
+        "Top University",
+        "PhD / Research",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Eva Bittner",
+      "values": [
+        "CS & AI",
+        null,
+        "PhD / Research",
+        null,
+        "Professor"
+      ]
+    },
+    {
+      "name": "Fabian Alt",
+      "values": [
+        "Sciences",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Fabian Brunn",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Fabian Dany",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Founder",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Fabian Frank",
+      "values": [
+        "Humanities & Social Sciences",
+        "Top University",
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Fabian Gaessler",
+      "values": [
+        "Business",
+        null,
+        "PhD / Research",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Fabian Gerlinghaus",
+      "values": [
+        "Engineering",
+        "Top University",
+        "Tech / Startup",
+        "Founder",
+        "Unicorn Founder"
+      ]
+    },
+    {
+      "name": "Fabian Hildesheim",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        "Consulting",
+        null
+      ]
+    },
+    {
+      "name": "Fabian Gruner",
+      "values": [
+        "Business",
+        null,
+        "VC",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Fares A.",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Felicitas Binz",
+      "values": [
+        "Engineering",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Federico Harjes Ruiloba",
+      "values": [
+        "CS & AI",
+        null,
+        "PhD / Research",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Felicia Preuss-Neudorf",
+      "values": [
+        "CS & AI",
+        null,
+        "MBB",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Felicitas Holz",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        "MBB",
+        null
+      ]
+    },
+    {
+      "name": "Felix Doerpmund",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Tech / Startup",
+        "PhD / Research",
+        null
+      ]
+    },
+    {
+      "name": "Felix Eckert",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        null,
+        "YC Alumni"
+      ]
+    },
+    {
+      "name": "Felix Frank",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "MBB",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Felix Lill",
+      "values": [
+        "Engineering",
+        "Top University",
+        "Founder",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Felix L\u00f6sch",
+      "values": [
+        "Business",
+        null,
+        "MBB",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Felix Naser",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Felix Roesner",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Felix Tobias Schr\u00f6ter",
+      "values": [
+        "CS & AI",
+        null,
+        "Consulting",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Felix Treptow",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Felix Wolf",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Felix Zimmermann",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Felix Baaken",
+      "values": [
+        "Business",
+        null,
+        "Founder",
+        "Big Tech",
+        null
+      ]
+    },
+    {
+      "name": "Felix Binder",
+      "values": [
+        "Business",
+        "Top University",
+        "PhD / Research",
+        null,
+        "Professor"
+      ]
+    },
+    {
+      "name": "Ferdinand Bennigsen",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Finn St\u00fcrenburg",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Finn Kosina",
+      "values": [
+        "Business",
+        null,
+        "Founder",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Flavia Moser",
+      "values": [
+        "CS & AI",
+        null,
+        "PhD / Research",
+        "Big Tech",
+        null
+      ]
+    },
+    {
+      "name": "Florian Doetzer",
+      "values": [
+        "Business",
+        null,
+        "Founder",
+        "Tech / Startup",
+        "Serial Founder"
+      ]
+    },
+    {
+      "name": "Florian M\u00fcller",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Florian Biller",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Big Tech",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Florian Birnthaler",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Florian Ettlinger",
+      "values": [
+        "Sciences",
+        null,
+        "Consulting",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Florian Fincke",
+      "values": [
+        "Engineering",
+        "Top University",
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Florian Franz",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Florian Gall",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Florian Jell",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Florian K.",
+      "values": [
+        "Business",
+        null,
+        "Consulting",
+        "Tech / Startup",
+        "Professor"
+      ]
+    },
+    {
+      "name": "Florian Kofler",
+      "values": [
+        "Humanities & Social Sciences",
+        null,
+        "Tech / Startup",
+        "PhD / Research",
+        null
+      ]
+    },
+    {
+      "name": "Dr. Florian Korte",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "MBB",
+        "Consulting",
+        null
+      ]
+    },
+    {
+      "name": "Florian Kristof",
+      "values": [
+        "Engineering",
+        "Top University",
+        "Founder",
+        "Tech / Startup",
+        "Serial Founder"
+      ]
+    },
+    {
+      "name": "Dr. Florian Lachner",
+      "values": [
+        "Business",
+        "Top University",
+        "MBB",
+        "Big Tech",
+        null
+      ]
+    },
+    {
+      "name": "Florian Michahelles",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Tech / Startup",
+        "PhD / Research",
+        "Professor"
+      ]
+    },
+    {
+      "name": "Florian Ramian",
+      "values": [
+        "Engineering",
+        null,
+        "PhD / Research",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Florian Schaule",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Consulting",
+        "Founder",
+        "Serial Founder"
+      ]
+    },
+    {
+      "name": "Florian Schepp",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Florian Sauter",
+      "values": [
+        "Engineering",
+        "Top University",
+        "Tech / Startup",
+        null,
+        "Unicorn Founder"
+      ]
+    },
+    {
+      "name": "Fabian Pelzl",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Ferran Pla Cardona",
+      "values": [
+        "Engineering",
+        "Top University",
+        "Tech / Startup",
+        "VC",
+        null
+      ]
+    },
+    {
+      "name": "Frank Danzinger",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        "Professor"
+      ]
+    },
+    {
+      "name": "Frank Horche",
+      "values": [
+        "Business",
+        "Top University",
+        "Consulting",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Franz Xaver Waltenberger",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Franz Z\u00fcnkler",
+      "values": [
+        "Design & Media",
+        "Top University",
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Frederic K.",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Frederic Kost",
+      "values": [
+        "Business",
+        null,
+        "VC",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Frederik Brosch",
+      "values": [
+        "Humanities & Social Sciences",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Frederik Junge",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Andreas Friedrich",
+      "values": [
+        "Engineering",
+        null,
+        "Consulting",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Florian Scherer",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Fynn Sch\u00e4fer",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Gabriela Ginard",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Gabriel Matuschka",
+      "values": [
+        "Business",
+        null,
+        "Big Tech",
+        "VC",
+        null
+      ]
+    },
+    {
+      "name": "Gana Moharram",
+      "values": [
+        "Sciences",
+        null,
+        "PhD / Research",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Georg A. Landesvatter",
+      "values": [
+        "Engineering",
+        "Top University",
+        "Consulting",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Georgi Kirev",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        "Big Tech",
+        null
+      ]
+    },
+    {
+      "name": "Georg Schroth",
+      "values": [
+        "Engineering",
+        null,
+        "PhD / Research",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Dr. Gesa Biermann",
+      "values": [
+        "Business",
+        "Top University",
+        "Founder",
+        null,
+        "Serial Founder"
+      ]
+    },
+    {
+      "name": "Gilles Backhus",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Gregor Matl",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Founder",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "\u00d6zg\u00fcr G\u00fczel",
+      "values": [
+        "CS & AI",
+        null,
+        "MBB",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Guillermo von Breymann",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Benjamin Gumpp",
+      "values": [
+        "Business",
+        null,
+        "Consulting",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Philipp Gutheim",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Tech / Startup",
+        "Founder",
+        "YC Alumni"
+      ]
+    },
+    {
+      "name": "Gyri Reiersen",
+      "values": [
+        "CS & AI",
+        null,
+        "Consulting",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Hagen Schmidtchen",
+      "values": [
+        "Engineering",
+        null,
+        "Founder",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Benjamin Haller",
+      "values": [
+        "Business",
+        "Top University",
+        "Consulting",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Hamza Tahir",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Hamze Al-Zamkan",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Hanna Renz",
+      "values": [
+        "Humanities & Social Sciences",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Hanno Renner",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        null,
+        "Unicorn Founder"
+      ]
+    },
+    {
+      "name": "Hans-Martin Czermin",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Hans-Martin Zimmermann",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Dr. Haochun Ma",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Tech / Startup",
+        "Consulting",
+        "Serial Founder"
+      ]
+    },
+    {
+      "name": "Harald Siebenweiber",
+      "values": [
+        "Business",
+        null,
+        "Founder",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Hassan Zaheer",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        "Consulting",
+        null
+      ]
+    },
+    {
+      "name": "Hauke Rapold",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Bernhard Hausleitner",
+      "values": [
+        "Engineering",
+        "Top University",
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Heinrich Rusche",
+      "values": [
+        "Humanities & Social Sciences",
+        null,
+        "Consulting",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Henri Beyer",
+      "values": [
+        "CS & AI",
+        null,
+        "Consulting",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Henri Palleis",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Henrik Petersen",
+      "values": [
+        "Business",
+        "Top University",
+        "VC",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Henry Brodski",
+      "values": [
+        "Business",
+        null,
+        "Founder",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Dr. Herbert Gillig",
+      "values": [
+        "Business",
+        null,
+        "Founder",
+        "PhD / Research",
+        "Professor"
+      ]
+    },
+    {
+      "name": "Herbert Mangesius",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        "VC",
+        null
+      ]
+    },
+    {
+      "name": "Jonas Hess",
+      "values": [
+        "Engineering",
+        "Top University",
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Het Dave",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Niclas Heun",
+      "values": [
+        "CS & AI",
+        null,
+        "Consulting",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Simon H\u00f6ferlin",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        "MBB",
+        null
+      ]
+    },
+    {
+      "name": "Holger Kl\u00f6\u00df",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Quirin Bachmeier",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        "MBB",
+        null
+      ]
+    },
+    {
+      "name": "Isabel Blank",
+      "values": [
+        "Business",
+        null,
+        "Founder",
+        "Consulting",
+        null
+      ]
+    },
+    {
+      "name": "Ibrar Arshad",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Ignaz Forstmeier",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        "Unicorn Founder"
+      ]
+    },
+    {
+      "name": "Irene Herranz",
+      "values": [
+        "Business",
+        "Top University",
+        "Big Tech",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Ilda Karaj",
+      "values": [
+        "Business",
+        null,
+        "Consulting",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Inken N.",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Dr Irina Anastasiu",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Iris Hochstatter",
+      "values": [
+        "Other",
+        null,
+        "PhD / Research",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Irman Abdi\u0107",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Isabel Poppek",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        "Founder",
+        "YC Alumni"
+      ]
+    },
+    {
+      "name": "Isabel Rafeiner",
+      "values": [
+        "Engineering",
+        null,
+        "Founder",
+        "VC",
+        null
+      ]
+    },
+    {
+      "name": "Isabel T.",
+      "values": [
+        "Engineering",
+        null,
+        "Founder",
+        "PhD / Research",
+        null
+      ]
+    },
+    {
+      "name": "Isabell Welpe",
+      "values": [
+        "Business",
+        null,
+        "PhD / Research",
+        "Founder",
+        "Professor"
+      ]
+    },
+    {
+      "name": "Isabella Reichert",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "iurie tap",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Tech / Startup",
+        "Consulting",
+        null
+      ]
+    },
+    {
+      "name": "Ivan Bilan",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Izabella Pavlova",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        "Big Tech",
+        null
+      ]
+    },
+    {
+      "name": "Jakob Mayer",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Claudius Jablonka",
+      "values": [
+        "Business",
+        "Top University",
+        "Founder",
+        "Tech / Startup",
+        "Serial Founder"
+      ]
+    },
+    {
+      "name": "Jaclyn Hovsmith",
+      "values": [
+        "Design & Media",
+        null,
+        "Tech / Startup",
+        "Consulting",
+        null
+      ]
+    },
+    {
+      "name": "Maurice Jakesch",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        "PhD / Research",
+        "Professor"
+      ]
+    },
+    {
+      "name": "Jakob Wandschneider",
+      "values": [
+        "Engineering",
+        "Top University",
+        "Tech / Startup",
+        "MBB",
+        null
+      ]
+    },
+    {
+      "name": "Jakob Ehlert",
+      "values": [
+        "Business",
+        null,
+        "VC",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Jakob Gebauer",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        "Big Tech",
+        null
+      ]
+    },
+    {
+      "name": "Jakob Keller",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Jakub Skupien",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Jan Bodenbach",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Jan Chen",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "PhD / Research",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Jan Jakob",
+      "values": [
+        "Engineering",
+        null,
+        "Founder",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Jan K.",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        "VC",
+        null
+      ]
+    },
+    {
+      "name": "Jan Paul Stein",
+      "values": [
+        "Business",
+        null,
+        "MBB",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Jan Stanzel",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Jan Theilmann",
+      "values": [
+        "Business",
+        null,
+        "MBB",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Jana Jeggle",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        "Founder",
+        "Serial Founder"
+      ]
+    },
+    {
+      "name": "Jana Petry",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Jan Bromberger",
+      "values": [
+        "CS & AI",
+        null,
+        "Founder",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Jan Damm",
+      "values": [
+        "Engineering",
+        null,
+        "Consulting",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Jan H\u00fcnermann",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Janik Sauerbier",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Consulting",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Janis Marquardt",
+      "values": [
+        "Design & Media",
+        null,
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Jannik Wiedenhaupt",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Jann Speyer",
+      "values": [
+        "Business",
+        "Top University",
+        "Founder",
+        "Tech / Startup",
+        "Serial Founder"
+      ]
+    },
+    {
+      "name": "Jan Ruettinger",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Consulting",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Johannes C.",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Jelena Frtunikj, Ph.D.",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        "Big Tech",
+        null
+      ]
+    },
+    {
+      "name": "Jennifer Herner",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Jens Dinkel",
+      "values": [
+        "Business",
+        null,
+        "PhD / Research",
+        "MBB",
+        null
+      ]
+    },
+    {
+      "name": "Jens Thumm",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Jens Windau, Ph.D.",
+      "values": [
+        "CS & AI",
+        null,
+        "Consulting",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Jiehua Wu",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Jingchen Wang",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        "Consulting",
+        null
+      ]
+    },
+    {
+      "name": "Ji\u0159\u00ed Smetana",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Jaakko Nurkka",
+      "values": [
+        "Engineering",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Joana Haase",
+      "values": [
+        "Engineering",
+        null,
+        "Big Tech",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Jochen Krauss",
+      "values": [
+        "Business",
+        "Top University",
+        "Consulting",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Jo\u00ebl Hainzl",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        null,
+        "YC Alumni"
+      ]
+    },
+    {
+      "name": "Johannes Bachhuber",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Big Tech",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Johannes Brehmer",
+      "values": [
+        "Other",
+        null,
+        "MBB",
+        "Consulting",
+        null
+      ]
+    },
+    {
+      "name": "Johannes Groll",
+      "values": [
+        "Engineering",
+        "Top University",
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Johannes Lechner",
+      "values": [
+        "CS & AI",
+        null,
+        "Founder",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Johannes Lerchen",
+      "values": [
+        "Business",
+        null,
+        "Consulting",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Johannes Michalke",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        "Consulting",
+        null
+      ]
+    },
+    {
+      "name": "Johannes Stanggassinger",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Johannes Wust",
+      "values": [
+        "Business",
+        null,
+        "MBB",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Johannes K\u00e4fer",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Johannes Kinder",
+      "values": [
+        "CS & AI",
+        null,
+        "PhD / Research",
+        null,
+        "Professor"
+      ]
+    },
+    {
+      "name": "Johannes Lutz",
+      "values": [
+        "Engineering",
+        null,
+        "Founder",
+        null,
+        "YC Alumni"
+      ]
+    },
+    {
+      "name": "Johannes Martens",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "PhD / Research",
+        "Founder",
+        "Serial Founder"
+      ]
+    },
+    {
+      "name": "Johannes Rausch",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        "Big Tech",
+        null
+      ]
+    },
+    {
+      "name": "Johann St\u00fcrken",
+      "values": [
+        "Engineering",
+        "Top University",
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Johannes Mueller",
+      "values": [
+        "Business",
+        null,
+        "Founder",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Johnny Bonk",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Jonas Clotten",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Jonas Kerber",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        "PhD / Research",
+        null
+      ]
+    },
+    {
+      "name": "Jonas Minkler",
+      "values": [
+        "CS & AI",
+        null,
+        "Founder",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Jonas Seidou",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        "MBB",
+        null
+      ]
+    },
+    {
+      "name": "Jonas Timmermann",
+      "values": [
+        "Engineering",
+        "Top University",
+        "Founder",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Jonas Diezun",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        "Founder",
+        "Unicorn Founder"
+      ]
+    },
+    {
+      "name": "Jonas Templestein",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Consulting",
+        "Founder",
+        "Serial Founder"
+      ]
+    },
+    {
+      "name": "Jonas Lehmann",
+      "values": [
+        "Business",
+        null,
+        "Founder",
+        "Consulting",
+        null
+      ]
+    },
+    {
+      "name": "Jonas Myklebost",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Jonas Rieke",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Jonathan Kienzle",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Jonathan L.",
+      "values": [
+        "Other",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Jorge Vincentelli",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Jan-Philip Hastedt",
+      "values": [
+        "Business",
+        null,
+        "MBB",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Juan Carlos Climent Pardo",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Juan Ignacio Viera Garcia",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Judith Dada",
+      "values": [
+        "Business",
+        "Top University",
+        "MBB",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "J\u00fcrgen Eckel",
+      "values": [
+        "Business",
+        null,
+        "Founder",
+        "MBB",
+        null
+      ]
+    },
+    {
+      "name": "Julia Aulbach",
+      "values": [
+        "Engineering",
+        null,
+        "Consulting",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Julia Aydin-Rosu",
+      "values": [
+        "Business",
+        "Top University",
+        "PhD / Research",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Julia Rose Balowski",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        "PhD / Research",
+        null
+      ]
+    },
+    {
+      "name": "Julia B\u00f6sch",
+      "values": [
+        "Business",
+        null,
+        "Founder",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Julia Kozlovskaia",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Julia Mecheels",
+      "values": [
+        "Business",
+        null,
+        "VC",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Julian E.",
+      "values": [
+        "Business",
+        null,
+        "Consulting",
+        "MBB",
+        null
+      ]
+    },
+    {
+      "name": "Julian Nast-Kolb",
+      "values": [
+        "Sciences",
+        "Top University",
+        "Consulting",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Julian Roos",
+      "values": [
+        "Engineering",
+        "Top University",
+        "MBB",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Julian Renz",
+      "values": [
+        "Engineering",
+        null,
+        "Consulting",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Julian Riediger",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Julian Sussmann",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Julien Donat",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "J\u00falio Arend",
+      "values": [
+        "Engineering",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Felix Jung",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Justus Murke",
+      "values": [
+        "Business",
+        null,
+        "Consulting",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Josias Zimber",
+      "values": [
+        "Business",
+        null,
+        "MBB",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Kai Kirsch",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Kai Riemenschneider",
+      "values": [
+        "Business",
+        "Top University",
+        "Consulting",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Karl Janker",
+      "values": [
+        "Business",
+        "Top University",
+        "MBB",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Karolin Mohren",
+      "values": [
+        "Business",
+        null,
+        "Consulting",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Kaspar H\u00fcbener",
+      "values": [
+        "Business",
+        null,
+        "Founder",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Katharina Juenger",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Katharina Julia Brenner",
+      "values": [
+        "Humanities & Social Sciences",
+        "Top University",
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Katharina Kramer",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Katrin Sievert",
+      "values": [
+        "Engineering",
+        "Top University",
+        "Tech / Startup",
+        "PhD / Research",
+        null
+      ]
+    },
+    {
+      "name": "Dr. Kay Weckemann",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "PhD / Research",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Kaya M Dreesbeimdiek",
+      "values": [
+        "Humanities & Social Sciences",
+        "Top University",
+        "Tech / Startup",
+        "MBB",
+        null
+      ]
+    },
+    {
+      "name": "Kei Hysi",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Keke Kaikhosroshvili",
+      "values": [
+        "Humanities & Social Sciences",
+        "Top University",
+        "PhD / Research",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Matthias Keller",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Kento Akiyama",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Consulting",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Kevin Probst",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        "Founder",
+        "Serial Founder"
+      ]
+    },
+    {
+      "name": "Kevin Wu",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "MBB",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Dr. Kevin Wiesner",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Khadim Fall",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Khola Raja",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        "PhD / Research",
+        null
+      ]
+    },
+    {
+      "name": "Kilian Egger",
+      "values": [
+        "Business",
+        "Top University",
+        "PhD / Research",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Kilian Moser",
+      "values": [
+        "Engineering",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Kim Borrmann",
+      "values": [
+        "Business",
+        null,
+        "MBB",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Kirill Haar",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Klaudia Guzij",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Consulting",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Klemens Mang",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Fabian Knei\u00dfl",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Tech / Startup",
+        "Consulting",
+        null
+      ]
+    },
+    {
+      "name": "Max Sina Knicker",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Tech / Startup",
+        "PhD / Research",
+        null
+      ]
+    },
+    {
+      "name": "Konradin Breyer",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Konstantin Adrianowytsch",
+      "values": [
+        "Business",
+        null,
+        "Consulting",
+        "MBB",
+        null
+      ]
+    },
+    {
+      "name": "Konstantin Huneke",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "MBB",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Konstantin Lackner",
+      "values": [
+        "Engineering",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Konstantin Neureither",
+      "values": [
+        "Sciences",
+        "Top University",
+        "Founder",
+        "PhD / Research",
+        null
+      ]
+    },
+    {
+      "name": "Konstantin Mehl",
+      "values": [
+        "Business",
+        null,
+        "Founder",
+        null,
+        "Unicorn Founder"
+      ]
+    },
+    {
+      "name": "Korbinian Breu",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Korbinian Frank",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Tanja Kornberger",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Felix Krauth",
+      "values": [
+        "Design & Media",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Dr. Jan Kupec",
+      "values": [
+        "Engineering",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Maxim Kuschnerov",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Laurenz Altenm\u00fcller",
+      "values": [
+        "Engineering",
+        null,
+        "Consulting",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Daniel Hugenroth",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Tech / Startup",
+        "PhD / Research",
+        null
+      ]
+    },
+    {
+      "name": "Stefan L.",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Dr. Lars St\u00e4be",
+      "values": [
+        "Business",
+        null,
+        "Consulting",
+        "Big Tech",
+        "Serial Founder"
+      ]
+    },
+    {
+      "name": "Laszlo Vidos",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Laura Dietze",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Laura Moll",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Laura Steinke",
+      "values": [
+        "Business",
+        "Top University",
+        "Founder",
+        "VC",
+        null
+      ]
+    },
+    {
+      "name": "Laura Stotko",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        "Consulting",
+        null
+      ]
+    },
+    {
+      "name": "Prof. Dr. Laura Bechthold",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        null,
+        "Professor"
+      ]
+    },
+    {
+      "name": "Lauritz Lucas",
+      "values": [
+        "Engineering",
+        "Top University",
+        "Tech / Startup",
+        "Founder",
+        "Serial Founder"
+      ]
+    },
+    {
+      "name": "Minh-Anh Le",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Tech / Startup",
+        "Big Tech",
+        null
+      ]
+    },
+    {
+      "name": "Lea Scherer",
+      "values": [
+        "Business",
+        null,
+        "Founder",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Leander Leitner Dissinger",
+      "values": [
+        "Business",
+        null,
+        "PhD / Research",
+        "Founder",
+        "Serial Founder"
+      ]
+    },
+    {
+      "name": "Lena B.",
+      "values": [
+        "Business",
+        "Top University",
+        "Consulting",
+        "PhD / Research",
+        "Professor"
+      ]
+    },
+    {
+      "name": "Lena Ehrenreich",
+      "values": [
+        "Design & Media",
+        null,
+        "Founder",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Lena Rei\u00dfinger",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Tech / Startup",
+        "VC",
+        null
+      ]
+    },
+    {
+      "name": "Lena Sophia Vo\u00df",
+      "values": [
+        "Business",
+        "Top University",
+        "PhD / Research",
+        "Founder",
+        "Serial Founder"
+      ]
+    },
+    {
+      "name": "Leon Blumenthal",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Leon Sandner",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        null,
+        "Serial Founder"
+      ]
+    },
+    {
+      "name": "Leonard Wolters",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Leon D.",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Leon Hergert",
+      "values": [
+        "CS & AI",
+        null,
+        "Consulting",
+        "Tech / Startup",
+        "YC Alumni"
+      ]
+    },
+    {
+      "name": "Leonie Freisinger",
+      "values": [
+        "Engineering",
+        "Top University",
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Leonie Wagner",
+      "values": [
+        "Sciences",
+        "Top University",
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Leon Szeli",
+      "values": [
+        "Humanities & Social Sciences",
+        "Top University",
+        "Consulting",
+        "VC",
+        null
+      ]
+    },
+    {
+      "name": "Leopold Wieser",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        "Big Tech",
+        null
+      ]
+    },
+    {
+      "name": "viet le-martin ",
+      "values": [
+        "Engineering",
+        "Top University",
+        "Big Tech",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Lucas Grabmaier",
+      "values": [
+        "CS & AI",
+        null,
+        "Consulting",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Lilly K\u00e4mmerling",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Lina Fang",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Linus Zimmer",
+      "values": [
+        "Business",
+        "Top University",
+        "VC",
+        "MBB",
+        null
+      ]
+    },
+    {
+      "name": "Lisa B\u00f6sch",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Lisa Mangertseder",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Lisa Neu",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Lisa Oberaigner",
+      "values": [
+        "Engineering",
+        "Top University",
+        "MBB",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Lisa Schmierer",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Lisa Maria Mischke",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Lisa Thiergart",
+      "values": [
+        "Medicine & Health",
+        null,
+        "Tech / Startup",
+        "Big Tech",
+        null
+      ]
+    },
+    {
+      "name": "Liwei (Olivia) Zhou",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Lizzy Stein",
+      "values": [
+        "Business",
+        "Top University",
+        "Founder",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Lukas Murmann",
+      "values": [
+        "Engineering",
+        "Top University",
+        "Tech / Startup",
+        "Big Tech",
+        null
+      ]
+    },
+    {
+      "name": "Leopold Neuerburg",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "MBB",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Loren Schwarz",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Lorenz Haubner",
+      "values": [
+        "Business",
+        null,
+        "MBB",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Lorenz Kammer",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Louisa Paulina Mayr",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        "VC",
+        null
+      ]
+    },
+    {
+      "name": "Lucia D\u00edaz Trigo",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        "Big Tech",
+        null
+      ]
+    },
+    {
+      "name": "Lucian Riediger",
+      "values": [
+        "Sciences",
+        null,
+        "Founder",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Ludwig Preller",
+      "values": [
+        "CS & AI",
+        null,
+        "Founder",
+        "Tech / Startup",
+        "Serial Founder"
+      ]
+    },
+    {
+      "name": "Luis Onuma Okamoto",
+      "values": [
+        "Engineering",
+        "Top University",
+        "Tech / Startup",
+        "VC",
+        null
+      ]
+    },
+    {
+      "name": "Luisa Weisner (Kaufmann)",
+      "values": [
+        "Business",
+        "Top University",
+        "Consulting",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Lukas Bock",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Tech / Startup",
+        "Big Tech",
+        null
+      ]
+    },
+    {
+      "name": "Lukas Ketzer",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "PhD / Research",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Lukas Liesenhoff (Kondmann)",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Lukas Rinder",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Lukas Benkhoff",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        "Consulting",
+        null
+      ]
+    },
+    {
+      "name": "Constantin Lutz",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Lysander Kiesel",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Dr. Michael Fr\u00f6hlich",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Maaz Ahmed",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Alexander Machado",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Magdalena Bachinger",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Magnus Jahnen",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Simon V. Maier",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Maisa Ben Salah",
+      "values": [
+        "CS & AI",
+        null,
+        "Consulting",
+        "Big Tech",
+        null
+      ]
+    },
+    {
+      "name": "Malte Wilhelm",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        "Consulting",
+        null
+      ]
+    },
+    {
+      "name": "Manuel C.",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Manuel Grossmann",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        "VC",
+        null
+      ]
+    },
+    {
+      "name": "Manuel Braun",
+      "values": [
+        "Business",
+        "Top University",
+        "MBB",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Manuel Cardenas Prieto",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Founder",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Manuel Scholz",
+      "values": [
+        "Business",
+        "Top University",
+        "Consulting",
+        "MBB",
+        null
+      ]
+    },
+    {
+      "name": "Manuel Thurner",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Tech / Startup",
+        "Founder",
+        "Unicorn Founder"
+      ]
+    },
+    {
+      "name": "Manuel Zahn",
+      "values": [
+        "Engineering",
+        "Top University",
+        "Founder",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Mara-Jean Krupa",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Marc Girard",
+      "values": [
+        "Business",
+        "Top University",
+        "MBB",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Marc Jokisch",
+      "values": [
+        "Humanities & Social Sciences",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Marcello Schreiber",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Marcelo  Rohn",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Marcel Seger",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Consulting",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Marcel Seibold",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Marc Klingen",
+      "values": [
+        "Business",
+        null,
+        "Founder",
+        "Tech / Startup",
+        "YC Alumni"
+      ]
+    },
+    {
+      "name": "Marco Holst",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Marcus Lehmann",
+      "values": [
+        "Engineering",
+        "Top University",
+        "Founder",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Maria G.",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Tech / Startup",
+        "PhD / Research",
+        null
+      ]
+    },
+    {
+      "name": "\ud83d\udc69\u200d\ud83d\udcbb Maria Meier Endler",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Marietta Herzog",
+      "values": [
+        "Business",
+        "Top University",
+        "PhD / Research",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Marina Fern\u00e1ndez Fern\u00e1ndez-Campoamor",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        "Consulting",
+        null
+      ]
+    },
+    {
+      "name": "Mariangela Scotto di Carlo",
+      "values": [
+        "Humanities & Social Sciences",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Marius Wiggert",
+      "values": [
+        "Humanities & Social Sciences",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Mark Bilandzic",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Mark Kugel",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        "Founder",
+        "Serial Founder"
+      ]
+    },
+    {
+      "name": "Mark D\u00fcsener",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Markus Mittermaier",
+      "values": [
+        "Engineering",
+        null,
+        "VC",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Marliawaty I",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Arsalan Javed",
+      "values": [
+        "Engineering",
+        null,
+        "Founder",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Martin Heinisch",
+      "values": [
+        "Business",
+        "Top University",
+        "VC",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Martin M\u00fcller",
+      "values": [
+        "Engineering",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Martin Niessner",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Martin Patz",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Martin Rassl",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Martin Sch\u00f6ll",
+      "values": [
+        "Engineering",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Martin Storath",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        "PhD / Research",
+        "Professor"
+      ]
+    },
+    {
+      "name": "Martin Wagner",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Martina Rui\u00df",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        "VC",
+        null
+      ]
+    },
+    {
+      "name": "Martin Anders",
+      "values": [
+        "Business",
+        null,
+        "MBB",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Dr. Martin Kiechle",
+      "values": [
+        "Engineering",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Martin K.",
+      "values": [
+        "Business",
+        null,
+        "MBB",
+        "Consulting",
+        null
+      ]
+    },
+    {
+      "name": "Martin Wessel",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Marvin L\u00fcdtke",
+      "values": [
+        "CS & AI",
+        null,
+        "PhD / Research",
+        "Consulting",
+        null
+      ]
+    },
+    {
+      "name": "Marvin von Hagen",
+      "values": [
+        "Business",
+        "Top University",
+        "Founder",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Mary Clare O'Donnell",
+      "values": [
+        "Humanities & Social Sciences",
+        null,
+        "Consulting",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "\ud83c\udf31Mathias Salomon",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Mathis Stolz",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Matteo Wohlrapp",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Tech / Startup",
+        "PhD / Research",
+        null
+      ]
+    },
+    {
+      "name": "Matthias Leu",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Matthias Heinrich Morales",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Matthias M\u00f6gerle",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Matthias M\u00f6ller",
+      "values": [
+        "Business",
+        "Top University",
+        "VC",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Hai Mau",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Max Knoll",
+      "values": [
+        "Engineering",
+        null,
+        "Founder",
+        "MBB",
+        null
+      ]
+    },
+    {
+      "name": "Max Lamers",
+      "values": [
+        "Business",
+        null,
+        "Consulting",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Max Rosenblattl",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Max Deichmann",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        "Founder",
+        "YC Alumni"
+      ]
+    },
+    {
+      "name": "Max Hasler",
+      "values": [
+        "CS & AI",
+        null,
+        "Founder",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Maxim Karl",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Maximilian Dr. Z\u00fcndt",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "PhD / Research",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Maximilian Fehrentz",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Maximilian Igl",
+      "values": [
+        "Business",
+        "Top University",
+        "Consulting",
+        "Big Tech",
+        null
+      ]
+    },
+    {
+      "name": "Maximilian K\u00f6gel",
+      "values": [
+        "CS & AI",
+        null,
+        "PhD / Research",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Maximilian Roedel",
+      "values": [
+        "Business",
+        "Top University",
+        "Consulting",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Maximilian Schuetz",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Maximilian W\u00fchr",
+      "values": [
+        "Business",
+        "Top University",
+        "VC",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Maximilian Cappel",
+      "values": [
+        "Business",
+        null,
+        "Founder",
+        "MBB",
+        null
+      ]
+    },
+    {
+      "name": "Dr. Maximilian Rothkopf",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Maximilian M\u00fcller",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        "Consulting",
+        "Professor"
+      ]
+    },
+    {
+      "name": "Max J. Meier",
+      "values": [
+        "Business",
+        null,
+        "Founder",
+        null,
+        "Serial Founder"
+      ]
+    },
+    {
+      "name": "Max Raphael Mynter",
+      "values": [
+        "Sciences",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Max Prokopp",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        "PhD / Research",
+        null
+      ]
+    },
+    {
+      "name": "Marissa Rimmele",
+      "values": [
+        "Sciences",
+        "Top University",
+        "MBB",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Mehmet Uludogan",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Melanie Seiler",
+      "values": [
+        "Engineering",
+        null,
+        "Consulting",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Melanie Mauersberger",
+      "values": [
+        "Engineering",
+        null,
+        "Consulting",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Miguel Cabrera",
+      "values": [
+        "CS & AI",
+        null,
+        "PhD / Research",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Martin Huber",
+      "values": [
+        "Engineering",
+        "Top University",
+        "Founder",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Michael Boenning",
+      "values": [
+        "Business",
+        null,
+        "Consulting",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Michael Cherczynski",
+      "values": [
+        "Sciences",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Michael Hahn",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Michael Miksch",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Michael Schachtner",
+      "values": [
+        "Business",
+        "Top University",
+        "PhD / Research",
+        "MBB",
+        null
+      ]
+    },
+    {
+      "name": "Michael Schadhauser",
+      "values": [
+        "Business",
+        null,
+        "Consulting",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Michael Schuricht",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        "PhD / Research",
+        "Professor"
+      ]
+    },
+    {
+      "name": "Michael Siegmund",
+      "values": [
+        "Business",
+        null,
+        "Consulting",
+        "Founder",
+        "Serial Founder"
+      ]
+    },
+    {
+      "name": "Michaela Gr\u00e4dener",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Michaela Halt",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Dr. Michael Chromik",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Michael Merz",
+      "values": [
+        "Design & Media",
+        null,
+        "Tech / Startup",
+        "Big Tech",
+        null
+      ]
+    },
+    {
+      "name": "Michal Star\u00fd",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Mihai Babiac",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Mika Sagindyk",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Michael Wax",
+      "values": [
+        "Engineering",
+        "Top University",
+        "MBB",
+        "Tech / Startup",
+        "Unicorn Founder"
+      ]
+    },
+    {
+      "name": "Milana Gurbanova",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Consulting",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Milena Serbinova",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Milos Rusic",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Miran Mizani",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Miriam Al Ali",
+      "values": [
+        "Business",
+        "Top University",
+        "PhD / Research",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Miriam Metz",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Miriam Neubauer",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Tech / Startup",
+        null,
+        "Serial Founder"
+      ]
+    },
+    {
+      "name": "Michael J. Trenkwalder",
+      "values": [
+        "Business",
+        null,
+        "Consulting",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Mohamed Ali Razouane",
+      "values": [
+        "Engineering",
+        "Top University",
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Mohammad Alamleh",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Moritz Miersch",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        "VC",
+        null
+      ]
+    },
+    {
+      "name": "Moritz Beutter",
+      "values": [
+        "Engineering",
+        null,
+        "Consulting",
+        "Big Tech",
+        null
+      ]
+    },
+    {
+      "name": "Moritz K\u00f6hler",
+      "values": [
+        "Business",
+        null,
+        "Consulting",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Christoph Moser",
+      "values": [
+        "Engineering",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Mridul Shrestha",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Miriam Schmidt",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Helmut M\u00fcller",
+      "values": [
+        "Business",
+        null,
+        "Consulting",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Muneeb Ahmed",
+      "values": [
+        "Engineering",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Nadine Schmidt",
+      "values": [
+        "Humanities & Social Sciences",
+        "Top University",
+        "MBB",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Nadja Born",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Nathalie  Wilk",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        "Founder",
+        "Serial Founder"
+      ]
+    },
+    {
+      "name": "Nathan Gruber",
+      "values": [
+        "CS & AI",
+        null,
+        "Consulting",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Joshua Kraft",
+      "values": [
+        "CS & AI",
+        null,
+        "MBB",
+        "Tech / Startup",
+        "Serial Founder"
+      ]
+    },
+    {
+      "name": "Nico Bentenrieder",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Nejira Hadzalic",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        "PhD / Research",
+        null
+      ]
+    },
+    {
+      "name": "Nele Veronica Koestler",
+      "values": [
+        "Design & Media",
+        null,
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Nelly Markova",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "MBB",
+        "VC",
+        null
+      ]
+    },
+    {
+      "name": "Tobias Nendel",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        "Founder",
+        "Serial Founder"
+      ]
+    },
+    {
+      "name": "Stephan Jelinek",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Nick Stracke",
+      "values": [
+        "CS & AI",
+        null,
+        "Founder",
+        "PhD / Research",
+        null
+      ]
+    },
+    {
+      "name": "Nico Alexander Beyer",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Nicolas Remerscheid",
+      "values": [
+        "Engineering",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Nicolas Gu\u00e9rin",
+      "values": [
+        "Humanities & Social Sciences",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Nicolas Stadtelmeyer",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        "VC",
+        null
+      ]
+    },
+    {
+      "name": "Nikita Banga",
+      "values": [
+        "Humanities & Social Sciences",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Niklas Sindemann",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        "Consulting",
+        null
+      ]
+    },
+    {
+      "name": "Niklas Hoelterhoff",
+      "values": [
+        "Engineering",
+        "Top University",
+        "Consulting",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Nikolai Kraler",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Nikolai Marangozov",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Nikolas Gritsch",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Nikolaus Konrad",
+      "values": [
+        "Business",
+        "Top University",
+        "Consulting",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Nikolaus Neuerburg",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Nikolaus Pinger",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Nikolaus von Taysen",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Niko P.",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Nils Kr\u00fcger",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Nils Reichardt",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        "Founder",
+        "Serial Founder"
+      ]
+    },
+    {
+      "name": "Nimar Blume",
+      "values": [
+        "Engineering",
+        null,
+        "PhD / Research",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Nina Kreuzpointner",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Nino Ulsamer",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Tech / Startup",
+        null,
+        "Serial Founder"
+      ]
+    },
+    {
+      "name": "Nisrine Bnouhanna",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Noah P.",
+      "values": [
+        "Engineering",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Nora Etxezarreta",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Nora Liesenfeld",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        "Big Tech",
+        null
+      ]
+    },
+    {
+      "name": "Stefan Nothelfer",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Nils Ziehn",
+      "values": [
+        "CS & AI",
+        null,
+        "Founder",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Oliver Strutynski",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Oliver Trinchera",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Oliver Viellechner",
+      "values": [
+        "Business",
+        null,
+        "MBB",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Orest Tarasiuk",
+      "values": [
+        "CS & AI",
+        null,
+        "Consulting",
+        "Founder",
+        "Serial Founder"
+      ]
+    },
+    {
+      "name": "Carolin Fiechter",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Oskar Hargedahl",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Othmane K.",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Yang Guo",
+      "values": [
+        "CS & AI",
+        null,
+        "Big Tech",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Panu Pasanen",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        "Consulting",
+        null
+      ]
+    },
+    {
+      "name": "Pary A.",
+      "values": [
+        "Business",
+        "Top University",
+        "Founder",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Pascal Fritzen",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        "Founder",
+        "Serial Founder"
+      ]
+    },
+    {
+      "name": "Pascal Nolle",
+      "values": [
+        "Business",
+        null,
+        "VC",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Pasha Shabalin",
+      "values": [
+        "Business",
+        null,
+        "Consulting",
+        "Founder",
+        "Serial Founder"
+      ]
+    },
+    {
+      "name": "Patrick Bilic",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Patrick Tu",
+      "values": [
+        "Engineering",
+        "Top University",
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Patrick Barin",
+      "values": [
+        "Business",
+        "Top University",
+        "Founder",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Dr.-Ing. Patrick Christ",
+      "values": [
+        "Business",
+        null,
+        "PhD / Research",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Patrick Hiesel",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Consulting",
+        "Big Tech",
+        null
+      ]
+    },
+    {
+      "name": "Patrick Kastner",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        null,
+        "Professor"
+      ]
+    },
+    {
+      "name": "Patrick Gebhard",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Dr. Patrick Nepper",
+      "values": [
+        "CS & AI",
+        null,
+        "Founder",
+        "Big Tech",
+        "Serial Founder"
+      ]
+    },
+    {
+      "name": "Paul B\u00f6llhoff",
+      "values": [
+        "Business",
+        null,
+        "Founder",
+        null,
+        "Serial Founder"
+      ]
+    },
+    {
+      "name": "Paul B\u00f6llhoff",
+      "values": [
+        "Business",
+        null,
+        "Founder",
+        "Tech / Startup",
+        "Serial Founder"
+      ]
+    },
+    {
+      "name": "Paul Ferdinand Schlag",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Paul Laechelin",
+      "values": [
+        "Business",
+        "Top University",
+        "Consulting",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Paul Sauer",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Paul Zeller",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Paul Burkhardt",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Paulina  Lewandowski",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Paulina Westermann",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Pedro G\u00f3mez",
+      "values": [
+        "Engineering",
+        null,
+        "Founder",
+        null,
+        "Serial Founder"
+      ]
+    },
+    {
+      "name": "Peter Budweiser",
+      "values": [
+        "Sciences",
+        "Top University",
+        "Consulting",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Peter Dornbusch",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Peter Juras",
+      "values": [
+        "CS & AI",
+        null,
+        "Big Tech",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Peter Pfannes",
+      "values": [
+        "Business",
+        null,
+        "MBB",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Peter Schneider-Manzell",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Petromil Petkov",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Florian Pfisterer",
+      "values": [
+        "CS & AI",
+        null,
+        "Consulting",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Philipp Buggisch",
+      "values": [
+        "Business",
+        "Top University",
+        "MBB",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Philipp Englisch",
+      "values": [
+        "Business",
+        null,
+        "MBB",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Philipp Hugenroth",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        "Big Tech",
+        null
+      ]
+    },
+    {
+      "name": "Philipp Hulm",
+      "values": [
+        "Engineering",
+        "Top University",
+        "PhD / Research",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Philipp Menschner",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Philipp Alexander Rathjen",
+      "values": [
+        "Business",
+        null,
+        "PhD / Research",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Philipp Roesch-Schlanderer",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        "VC",
+        null
+      ]
+    },
+    {
+      "name": "Philipp Strack",
+      "values": [
+        "Business",
+        null,
+        "MBB",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Philipp Torka",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "MBB",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Philipp Zinnenlauf",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Philipp Braun",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        "MBB",
+        null
+      ]
+    },
+    {
+      "name": "Philipp Dowling",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Philipp Engel",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Philipp Hartje",
+      "values": [
+        "Business",
+        null,
+        "Consulting",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Philipp Herzberg",
+      "values": [
+        "Sciences",
+        null,
+        "PhD / Research",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Dr. Philipp Pahl (geb. Hofsommer)",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Philipp Huy",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Dr. Philipp Naegelein",
+      "values": [
+        "Business",
+        "Top University",
+        "Consulting",
+        "Tech / Startup",
+        "Serial Founder"
+      ]
+    },
+    {
+      "name": "Philip Stroisch",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        "VC",
+        null
+      ]
+    },
+    {
+      "name": "Pierre Dominique Ostrowski",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Pierre Springer",
+      "values": [
+        "Sciences",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Pietro Belligoli",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Pawel Kwiecien",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Philip Mayrhofer",
+      "values": [
+        "Business",
+        "Top University",
+        "Founder",
+        "Tech / Startup",
+        "Serial Founder"
+      ]
+    },
+    {
+      "name": "Mete Polat",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Pranav Ragupathy",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Prof. Dr. Christian Kissling",
+      "values": [
+        "Engineering",
+        "Top University",
+        "Tech / Startup",
+        "PhD / Research",
+        "Professor"
+      ]
+    },
+    {
+      "name": "Prof. Dr. Dr. Oliver Hoffmann",
+      "values": [
+        "Business",
+        "Top University",
+        "PhD / Research",
+        "Tech / Startup",
+        "Professor"
+      ]
+    },
+    {
+      "name": "Christian P\u00e4tsch",
+      "values": [
+        "Business",
+        null,
+        "Consulting",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Dr. Puj\u00e1n Ziaie",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Philipp Wahler",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Quirin K\u00f6rner",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Raban von Spiegel",
+      "values": [
+        "Business",
+        "Top University",
+        "Big Tech",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Raffaele T.",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Dr. Ralph Seemann",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        "Consulting",
+        null
+      ]
+    },
+    {
+      "name": "Lukas Rambold",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        "PhD / Research",
+        null
+      ]
+    },
+    {
+      "name": "Raoul Friedrich",
+      "values": [
+        "Business",
+        "Top University",
+        "Founder",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Raphael  Beuter",
+      "values": [
+        "Engineering",
+        "Top University",
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Raphael Haase",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Consulting",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Raphael Steinbach",
+      "values": [
+        "Business",
+        null,
+        "Consulting",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "\u26a1\ufe0f Ra\u00fal Berganza G\u00f3mez",
+      "values": [
+        "Sciences",
+        null,
+        "PhD / Research",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Rayane Chahine",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Raza Gill",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Razvan Ion Radulescu",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Lakmal P.",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Regina Endres",
+      "values": [
+        "Business",
+        "Top University",
+        "Big Tech",
+        "VC",
+        null
+      ]
+    },
+    {
+      "name": "Remy Goldstein",
+      "values": [
+        "Business",
+        null,
+        "Founder",
+        "VC",
+        "Serial Founder"
+      ]
+    },
+    {
+      "name": "Cheng-Ying Kuo",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Ria Rosenauer",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Richard Stromer",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Karl Richter",
+      "values": [
+        "Engineering",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Robert Berner",
+      "values": [
+        "Engineering",
+        "Top University",
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Robert Kowalski",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Tech / Startup",
+        "Consulting",
+        null
+      ]
+    },
+    {
+      "name": "Robert Richarz",
+      "values": [
+        "Business",
+        null,
+        "Founder",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Robert Weindl",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Rohit Bisani",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        "Big Tech",
+        null
+      ]
+    },
+    {
+      "name": "Roman Douverne",
+      "values": [
+        "Business",
+        null,
+        "Consulting",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Roman Gruhn",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Roman H\u00f6lzl",
+      "values": [
+        "Engineering",
+        "Top University",
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Roman Schumacher",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Tech / Startup",
+        "Founder",
+        "Unicorn Founder"
+      ]
+    },
+    {
+      "name": "Indranil Ronnie Bose",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Rouven Haag",
+      "values": [
+        "Engineering",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Rudraksha Samdhani",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Ruediger Schollmeier",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Ruslan Mammadov",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Igor Rzhin",
+      "values": [
+        "Sciences",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Saad Amin",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Sabine Kaupp",
+      "values": [
+        "Business",
+        "Top University",
+        "Consulting",
+        "Big Tech",
+        null
+      ]
+    },
+    {
+      "name": "Sabrina B. Schewtschenko",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Consulting",
+        "VC",
+        null
+      ]
+    },
+    {
+      "name": "Sabrina Fuessel",
+      "values": [
+        "Business",
+        null,
+        "Consulting",
+        "MBB",
+        null
+      ]
+    },
+    {
+      "name": "Sabrina Mohr",
+      "values": [
+        "Business",
+        "Top University",
+        "Big Tech",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Saksham Gautam",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Salma El Ghayate",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Sami Haddadin",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        "Big Tech",
+        "Professor"
+      ]
+    },
+    {
+      "name": "Samuel Valenzuela",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Sandesh Sharma",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Sarah Fleischer",
+      "values": [
+        "Business",
+        "Top University",
+        "Founder",
+        null,
+        "Serial Founder"
+      ]
+    },
+    {
+      "name": "Sascha Ballweg",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Sascha Ritz",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Katharina Schmid",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        "PhD / Research",
+        null
+      ]
+    },
+    {
+      "name": "Gregor Schmidt",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Michael Schmitz",
+      "values": [
+        "Business",
+        null,
+        "Consulting",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Gregor Schneider",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Christoph Schroth",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Sebastian Schuon",
+      "values": [
+        "Engineering",
+        "Top University",
+        "Tech / Startup",
+        "Founder",
+        "Serial Founder"
+      ]
+    },
+    {
+      "name": "Sebastian Buermeyer",
+      "values": [
+        "Engineering",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Sebastian J. Reinartz",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        "VC",
+        null
+      ]
+    },
+    {
+      "name": "Sebastian Kraiker",
+      "values": [
+        "CS & AI",
+        null,
+        "Founder",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Sebastian Sabbadini",
+      "values": [
+        "Engineering",
+        null,
+        "Consulting",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Sebastian Schaal",
+      "values": [
+        "Engineering",
+        "Top University",
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Sebasti\u00e1n Serna",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Sebastian N.",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "PhD / Research",
+        "Big Tech",
+        null
+      ]
+    },
+    {
+      "name": "Sebastian Rehm",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Sebastian Wagner",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Sebastian Feldmann",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Selin Yasen Yildiz",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        "Consulting",
+        null
+      ]
+    },
+    {
+      "name": "Adrian Sennewald",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        "Consulting",
+        null
+      ]
+    },
+    {
+      "name": "Seong Per Lee",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Sergei Krauze",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Sergiu \u0218oima",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        "Big Tech",
+        null
+      ]
+    },
+    {
+      "name": "Serg Lotz",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Seyed-Ahmad Ahmadi",
+      "values": [
+        "Engineering",
+        null,
+        "PhD / Research",
+        "Big Tech",
+        null
+      ]
+    },
+    {
+      "name": "Shiv Contractor",
+      "values": [
+        "Engineering",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Shouvik Ghosh",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Shuang Yuan",
+      "values": [
+        "Business",
+        null,
+        "Consulting",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Kai Siebenrock",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        "Consulting",
+        null
+      ]
+    },
+    {
+      "name": "Siegfried Numberger",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Sigrid Ebbinghaus",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Silvia Appelt",
+      "values": [
+        "Business",
+        null,
+        "PhD / Research",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Silviu Apostu",
+      "values": [
+        "CS & AI",
+        null,
+        "MBB",
+        "VC",
+        null
+      ]
+    },
+    {
+      "name": "Simina Pasat",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Simon Fakir",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Simon Meyer",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Simon Wittner",
+      "values": [
+        "Engineering",
+        "Top University",
+        "VC",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Simon Bohnen",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Simone Kilian",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Simone Unger",
+      "values": [
+        "Other",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Simone Zimmermann",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Dr. Simone Lederer",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Consulting",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Simon Zachau",
+      "values": [
+        "Business",
+        null,
+        "Founder",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Sinan Taifour",
+      "values": [
+        "Engineering",
+        null,
+        "PhD / Research",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Sona Stadtelmeyer-Petru",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Sophia Escheu",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        "VC",
+        null
+      ]
+    },
+    {
+      "name": "Sophia Waldenmaier",
+      "values": [
+        "Humanities & Social Sciences",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Sophia Wessling",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Sophia H\u00f6fling",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Sophia Thomas",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Sophie-Estella Tollmann",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Dr. Sophie Ahrens-Gruber",
+      "values": [
+        "Business",
+        null,
+        "PhD / Research",
+        "VC",
+        null
+      ]
+    },
+    {
+      "name": "Simon Pickert",
+      "values": [
+        "Business",
+        "Top University",
+        "Founder",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Srajit Sakhuja",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Tech / Startup",
+        "Big Tech",
+        null
+      ]
+    },
+    {
+      "name": "Stefan Bures",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Stefan Faistenauer",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Stefan Fischer",
+      "values": [
+        "Engineering",
+        null,
+        "Founder",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Stefan Gerbes",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Stefan H.",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Stefan Hudelmaier",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Stefan Jokiel",
+      "values": [
+        "Sciences",
+        null,
+        "Consulting",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Stefan Rothlehner",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Stefan Tischinger",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Stefan Zheng",
+      "values": [
+        "Engineering",
+        "Top University",
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Stefan Andraschko",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Stefan Bielmeier",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Stefan Harrer, PhD",
+      "values": [
+        "Business",
+        "Top University",
+        "Big Tech",
+        "Consulting",
+        "Professor"
+      ]
+    },
+    {
+      "name": "Stefan Puchner",
+      "values": [
+        "CS & AI",
+        null,
+        "Consulting",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Stefan Schwittek",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Steffen Sch\u00fclzchen",
+      "values": [
+        "Business",
+        null,
+        "Consulting",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Steffen Iwan",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Steffen Wenz",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Christian Steibl",
+      "values": [
+        "Business",
+        null,
+        "MBB",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Stephan Link",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Founder",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Stephan Micklitz",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        "VC",
+        null
+      ]
+    },
+    {
+      "name": "Stephan Rabanser",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Tech / Startup",
+        "Big Tech",
+        null
+      ]
+    },
+    {
+      "name": "Stephanie Schnicke",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Stephanie K.",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        "Big Tech",
+        null
+      ]
+    },
+    {
+      "name": "Stephan J.",
+      "values": [
+        "Business",
+        "Top University",
+        "Founder",
+        "Tech / Startup",
+        "Serial Founder"
+      ]
+    },
+    {
+      "name": "Stephan Seyboth",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        "Serial Founder"
+      ]
+    },
+    {
+      "name": "Max Strobel",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Susan Bregenzer",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        "Consulting",
+        null
+      ]
+    },
+    {
+      "name": "Susanna Heidbrink",
+      "values": [
+        "Business",
+        null,
+        "Consulting",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Susanne Auerbach",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Susanne Klausing",
+      "values": [
+        "Business",
+        "Top University",
+        "Big Tech",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Svea Marie Meyer",
+      "values": [
+        "CS & AI",
+        null,
+        "Big Tech",
+        "MBB",
+        null
+      ]
+    },
+    {
+      "name": "Sven-Christian H\u00f6rner",
+      "values": [
+        "Business",
+        "Top University",
+        "VC",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Dr. Sven Olaf Rohr",
+      "values": [
+        "Medicine & Health",
+        null,
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Sven Ader",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Svetlana Tokareva",
+      "values": [
+        "Engineering",
+        "Top University",
+        "Tech / Startup",
+        "Consulting",
+        null
+      ]
+    },
+    {
+      "name": "Swaroop Nunna",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Ben T.",
+      "values": [
+        "Business",
+        "Top University",
+        "PhD / Research",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Saad Bin Tariq",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Teodora Lata",
+      "values": [
+        "CS & AI",
+        null,
+        "Consulting",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Teresa Mercedes Maurer",
+      "values": [
+        "Business",
+        null,
+        "Consulting",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Tevfik Aloglu",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Tech / Startup",
+        "Consulting",
+        null
+      ]
+    },
+    {
+      "name": "Thomas Knauer-Arnold",
+      "values": [
+        "Engineering",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Thea J.",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Franz-Constantin Gr\u00e4ter",
+      "values": [
+        "Business",
+        "Top University",
+        "Consulting",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Julia Herzog-Butter",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Theresa Lange",
+      "values": [
+        "Design & Media",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Theresa Watzinger",
+      "values": [
+        "Business",
+        "Top University",
+        "MBB",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Thilo Koch",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Thilo Weghorn (PhD)",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Thilo Arnold",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Thomas Kaar",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Thomas Li",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Thomas Pfuhler",
+      "values": [
+        "Business",
+        null,
+        "MBB",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Thomas Prischenk",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Thomas Rother",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Thomas Menzel",
+      "values": [
+        "Business",
+        null,
+        "Founder",
+        null,
+        "Serial Founder"
+      ]
+    },
+    {
+      "name": "Thomas Z.",
+      "values": [
+        "Sciences",
+        null,
+        "Tech / Startup",
+        "MBB",
+        null
+      ]
+    },
+    {
+      "name": "Thorsten J.",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        "Big Tech",
+        null
+      ]
+    },
+    {
+      "name": "Tianyi L.",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "MBB",
+        "Big Tech",
+        null
+      ]
+    },
+    {
+      "name": "Tiger Guo",
+      "values": [
+        "Engineering",
+        "Top University",
+        "Consulting",
+        "MBB",
+        null
+      ]
+    },
+    {
+      "name": "Till Jonas Fuhlbr\u00fcck",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Till  Kr\u00f6ger",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Till Kern",
+      "values": [
+        "CS & AI",
+        null,
+        "Consulting",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Till Wiechmann",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Tilman Dingler",
+      "values": [
+        "CS & AI",
+        null,
+        "PhD / Research",
+        "Tech / Startup",
+        "Professor"
+      ]
+    },
+    {
+      "name": "Tim Engelmann",
+      "values": [
+        "Engineering",
+        "Top University",
+        "Consulting",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Tim Hermes",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Tim Tetzlaff",
+      "values": [
+        "Business",
+        null,
+        "PhD / Research",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Timon Schneider",
+      "values": [
+        "Business",
+        "Top University",
+        "Consulting",
+        "PhD / Research",
+        null
+      ]
+    },
+    {
+      "name": "Timothy Smith",
+      "values": [
+        "Business",
+        null,
+        "PhD / Research",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Tobias Assmann",
+      "values": [
+        "Other",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Tobias D\u00fcmmling",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Consulting",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Tobias Neumaier",
+      "values": [
+        "Business",
+        "Top University",
+        "Consulting",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Tobias Schindler",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Founder",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Tobias Schustek",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Tobias Zechbauer",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Tobias Dietl",
+      "values": [
+        "CS & AI",
+        null,
+        "Founder",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Tom B\u00f6hnel",
+      "values": [
+        "Engineering",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Dr. Tom Schelo",
+      "values": [
+        "Engineering",
+        null,
+        "Consulting",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Tomislav Tomov",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Tosca Baroth",
+      "values": [
+        "Business",
+        null,
+        "VC",
+        "MBB",
+        null
+      ]
+    },
+    {
+      "name": "Thomas Pischke",
+      "values": [
+        "Business",
+        null,
+        "Founder",
+        null,
+        "Unicorn Founder"
+      ]
+    },
+    {
+      "name": "Christian Tr\u00fcbswetter",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Trung Bui",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Ulrich Herberg, Ph.D.",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Ulugbek Isroilov",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Ulrich Rueckert",
+      "values": [
+        "Engineering",
+        "Top University",
+        "PhD / Research",
+        "Big Tech",
+        null
+      ]
+    },
+    {
+      "name": "Uwe Maurer",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Big Tech",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Uwe Sandner",
+      "values": [
+        "Business",
+        "Top University",
+        "PhD / Research",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Thomas Fischer",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Valentin G\u00f6lz",
+      "values": [
+        "Sciences",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Valentin Kellner",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Valeria Cortez Vaca Diez",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Jose Vega",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Tech / Startup",
+        "PhD / Research",
+        null
+      ]
+    },
+    {
+      "name": "Vera Maria Eger",
+      "values": [
+        "Medicine & Health",
+        "Top University",
+        "Tech / Startup",
+        "Consulting",
+        null
+      ]
+    },
+    {
+      "name": "Veronika Wax",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        "Founder",
+        "YC Alumni"
+      ]
+    },
+    {
+      "name": "Vesna Kaludjerovi\u0107-Horche",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Victoria Hauzeneder",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Victoria Rentrop",
+      "values": [
+        "Medicine & Health",
+        "Top University",
+        "Founder",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Victor Petcu",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Vincent Jansen",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        "Consulting",
+        null
+      ]
+    },
+    {
+      "name": "Vincent Jeltsch",
+      "values": [
+        "Business",
+        null,
+        "Founder",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Vincent von B\u00fcren",
+      "values": [
+        "Engineering",
+        "Top University",
+        "Tech / Startup",
+        "Consulting",
+        null
+      ]
+    },
+    {
+      "name": "Vincent Sitzmann",
+      "values": [
+        "Engineering",
+        "Top University",
+        "Tech / Startup",
+        "Founder",
+        "Professor"
+      ]
+    },
+    {
+      "name": "Viola Nuener",
+      "values": [
+        "Humanities & Social Sciences",
+        null,
+        "Consulting",
+        "Founder",
+        null
+      ]
+    },
+    {
+      "name": "Vishwa Mohan Singh",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Founder",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Erich Schubert",
+      "values": [
+        "Business",
+        "Top University",
+        "Tech / Startup",
+        "PhD / Research",
+        "Professor"
+      ]
+    },
+    {
+      "name": "Vladislav Klass",
+      "values": [
+        "CS & AI",
+        null,
+        "PhD / Research",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Vlad Lata",
+      "values": [
+        "Engineering",
+        "Top University",
+        "Tech / Startup",
+        null,
+        "Serial Founder"
+      ]
+    },
+    {
+      "name": "Dhananjay Vaidyanathan Rohini",
+      "values": [
+        "Engineering",
+        null,
+        "PhD / Research",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Valentin Ruechardt",
+      "values": [
+        "Business",
+        null,
+        "VC",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Walid Maalej",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        null,
+        "Professor"
+      ]
+    },
+    {
+      "name": "Werner Unterhofer",
+      "values": [
+        "Other",
+        null,
+        "Big Tech",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Dr. Sebastian Wernicke",
+      "values": [
+        "CS & AI",
+        null,
+        "MBB",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Will Martin",
+      "values": [
+        "Humanities & Social Sciences",
+        null,
+        "Founder",
+        "VC",
+        null
+      ]
+    },
+    {
+      "name": "Wolfgang Vogl",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Wesley Stuurman",
+      "values": [
+        "Humanities & Social Sciences",
+        "Top University",
+        "Tech / Startup",
+        "Big Tech",
+        null
+      ]
+    },
+    {
+      "name": "Michael W\u00fcrtinger",
+      "values": [
+        "Engineering",
+        "Top University",
+        "Tech / Startup",
+        "Big Tech",
+        null
+      ]
+    },
+    {
+      "name": "Xavi Oliva",
+      "values": [
+        "Engineering",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Xenia Bunk",
+      "values": [
+        "Humanities & Social Sciences",
+        "Top University",
+        "Tech / Startup",
+        "MBB",
+        null
+      ]
+    },
+    {
+      "name": "Runhua X.",
+      "values": [
+        "Engineering",
+        "Top University",
+        "Big Tech",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Yarhy Flores",
+      "values": [
+        "Business",
+        "Top University",
+        "Founder",
+        "PhD / Research",
+        null
+      ]
+    },
+    {
+      "name": "Yasaman Rajaee",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Tech / Startup",
+        "Founder",
+        "Serial Founder"
+      ]
+    },
+    {
+      "name": "Yann Girard",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        "VC",
+        null
+      ]
+    },
+    {
+      "name": "Mehmet Yilmaz",
+      "values": [
+        "Business",
+        null,
+        "Founder",
+        "Tech / Startup",
+        null
+      ]
+    },
+    {
+      "name": "Yimi Wang",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Consulting",
+        "Big Tech",
+        null
+      ]
+    },
+    {
+      "name": "Yoana Tsoneva",
+      "values": [
+        "Design & Media",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Yulia Lomakina",
+      "values": [
+        "Business",
+        null,
+        "Tech / Startup",
+        "Consulting",
+        null
+      ]
+    },
+    {
+      "name": "Zaid Efraij",
+      "values": [
+        "Engineering",
+        null,
+        "Tech / Startup",
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Zeno Fox",
+      "values": [
+        "CS & AI",
+        "Top University",
+        "Tech / Startup",
+        null,
+        "Serial Founder"
+      ]
+    },
+    {
+      "name": "Ziling (Ruby) Zhang",
+      "values": [
+        "CS & AI",
+        null,
+        "Tech / Startup",
+        "MBB",
+        null
+      ]
+    },
+    {
+      "name": "Zoltan Elek",
+      "values": [
+        "Engineering",
+        "Top University",
+        "Tech / Startup",
+        null,
+        null
+      ]
+    }
+  ]
+}

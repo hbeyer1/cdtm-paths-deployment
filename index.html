@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CDTM Alumni Pathways</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js"></script>
+    <style>
+        /* ── Reset ── */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --cream:    #f5f0e8;
+            --cream-2:  #ede8df;
+            --ink:      #1a1916;
+            --ink-2:    #6b6960;
+            --ink-3:    #a8a79f;
+            --amber:    #f59e0b;
+            --amber-bg: rgba(245,158,11,0.09);
+            --border:   rgba(26,25,22,0.09);
+            --hero-bg:  #ede8df;
+            --nav-h:    42px;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--cream);
+            color: var(--ink);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ────────────── Navbar — floating island ────────────── */
+        #site-nav {
+            position: fixed;
+            top: 14px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 200;
+            height: var(--nav-h);
+            /* Responsive width: never full-width, capped at 860px */
+            width: calc(100% - 48px);
+            max-width: 860px;
+            border-radius: 100px;
+            /* Semi-transparent so page content glows through */
+            background: rgba(8, 13, 10, 0.48);
+            backdrop-filter: blur(28px) saturate(180%) brightness(0.85);
+            -webkit-backdrop-filter: blur(28px) saturate(180%) brightness(0.85);
+            /* Thin bright rim picks up light from behind — key glass detail */
+            border: 1px solid rgba(255,255,255,0.14);
+            overflow: hidden;
+            /* Subtle shadow so it floats above the page */
+            box-shadow: 0 4px 24px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.08);
+        }
+        /* Grain texture */
+        #site-nav::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='g' x='0' y='0' width='100%25' height='100%25' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.70' numOctaves='4' stitchTiles='stitch' result='noise'/%3E%3CfeColorMatrix in='noise' type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23g)'/%3E%3C/svg%3E");
+            background-size: 300px 300px;
+            background-repeat: repeat;
+            opacity: 0.20;
+            pointer-events: none;
+        }
+        .nav-inner {
+            padding: 0 20px;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            text-decoration: none;
+            flex-shrink: 0;
+        }
+        .nav-dots { display: flex; align-items: center; gap: 4px; }
+        .nav-dot { border-radius: 50%; display: block; }
+        .nav-dot:nth-child(1) { width: 8px; height: 8px; background: var(--amber); }
+        .nav-dot:nth-child(2) { width: 8px; height: 8px; background: rgba(235,232,224,0.55); }
+        .nav-dot:nth-child(3) { width: 8px; height: 8px; background: rgba(235,232,224,0.25); }
+        .nav-brand-text {
+            font-size: 13px;
+            font-weight: 500;
+            color: rgba(235,232,224,0.82);
+            font-family: 'Inter', sans-serif;
+        }
+        /* Links absolutely centred so they sit at the optical middle of the pill */
+        .nav-links {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 28px;
+        }
+        .nav-link {
+            font-size: 12px;
+            font-weight: 400;
+            color: rgba(235,232,224,0.52);
+            text-decoration: none;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 0;
+            transition: color 0.18s;
+            font-family: 'Inter', sans-serif;
+            white-space: nowrap;
+        }
+        .nav-link:hover { color: rgba(235,232,224,0.92); }
+        .nav-cta {
+            margin-left: auto;
+            font-size: 12px;
+            font-weight: 500;
+            color: #0d120e;
+            background: #ffffff;
+            border: none;
+            padding: 5px 16px;
+            border-radius: 100px;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            transition: opacity 0.18s;
+            flex-shrink: 0;
+            white-space: nowrap;
+            line-height: 1;
+        }
+        .nav-cta:hover { opacity: 0.85; }
+
+        /* ────────────── Hero ────────────── */
+        #hero-section {
+            height: 300vh;
+            background: var(--hero-bg);
+        }
+        #hero-sticky {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            padding-bottom: 8vh;
+        }
+        #particle-canvas {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+        }
+        #hero-text {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            pointer-events: none;
+            user-select: none;
+            padding: 28px 48px 32px;
+            background: rgba(8, 13, 10, 0.44);
+            backdrop-filter: blur(28px) saturate(160%) brightness(0.88);
+            -webkit-backdrop-filter: blur(28px) saturate(160%) brightness(0.88);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 24px;
+            box-shadow: 0 4px 32px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.08);
+        }
+        #hero-eyebrow {
+            font-size: 10px;
+            font-weight: 500;
+            letter-spacing: 0.20em;
+            text-transform: uppercase;
+            color: rgba(245,190,80,0.82);
+            margin-bottom: 18px;
+            font-family: 'Inter', sans-serif;
+        }
+        #hero-text h1 {
+            font-family: 'Bricolage Grotesque', sans-serif;
+            font-size: clamp(48px, 7.5vw, 96px);
+            font-weight: 800;
+            color: rgba(240,236,228,0.96);
+            letter-spacing: -0.040em;
+            line-height: 0.88;
+        }
+        #hero-text h1 em {
+            font-style: normal;
+            color: var(--amber);
+        }
+        #hero-sub {
+            margin-top: 24px;
+            font-size: 13px;
+            color: rgba(240,236,228,0.38);
+            font-family: 'Inter', sans-serif;
+        }
+        #hero-sub strong { color: rgba(240,236,228,0.65); font-weight: 500; }
+        .scroll-hint {
+            position: absolute;
+            bottom: 36px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 9.5px;
+            font-weight: 500;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: rgba(26,25,22,0.22);
+            animation: bob 2.5s ease-in-out infinite;
+            font-family: 'Inter', sans-serif;
+        }
+        @keyframes bob {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50%       { transform: translateX(-50%) translateY(7px); }
+        }
+
+        /* ────────────── Narrative sections ────────────── */
+        .narrative {
+            background: var(--cream);
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            padding: 100px 40px;
+            overflow: hidden;
+        }
+        #narrative-1 {
+            /* hero is now off-white — seamless continuation into cream */
+            background: var(--cream);
+        }
+        .narrative-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        .narrative-tag {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.07em;
+            color: var(--ink-3);
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            padding: 4px 14px;
+            margin-bottom: 44px;
+            font-family: 'Inter', sans-serif;
+            opacity: 0;
+            transform: translateY(18px);
+            transition: opacity 0.65s ease, transform 0.65s ease;
+        }
+        .narrative-hl {
+            font-family: 'Bricolage Grotesque', sans-serif;
+            font-size: clamp(52px, 7.8vw, 110px);
+            font-weight: 800;
+            letter-spacing: -0.038em;
+            color: var(--ink);
+            line-height: 0.92;
+            opacity: 0;
+            transform: translateY(36px);
+            transition: opacity 0.75s ease 0.08s, transform 0.75s ease 0.08s;
+        }
+        .narrative-hl em {
+            font-style: normal;
+            color: var(--amber);
+        }
+        .narrative-rule {
+            width: 36px;
+            height: 2px;
+            background: var(--amber);
+            margin: 36px 0;
+            opacity: 0;
+            transition: opacity 0.6s ease 0.20s;
+        }
+        .narrative-body {
+            font-size: 16px;
+            line-height: 1.65;
+            color: var(--ink-2);
+            max-width: 520px;
+            font-family: 'Inter', sans-serif;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.65s ease 0.22s, transform 0.65s ease 0.22s;
+        }
+        /* Trigger class added by IntersectionObserver */
+        .narrative.in-view .narrative-tag,
+        .narrative.in-view .narrative-hl,
+        .narrative.in-view .narrative-body {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .narrative.in-view .narrative-rule { opacity: 1; }
+
+        /* ────────────── App section ────────────── */
+        .page {
+            max-width: 1560px;
+            margin: 0 auto;
+            padding: 64px 32px 100px;
+        }
+        .app-header { margin-bottom: 40px; }
+        .app-header h1 {
+            font-family: 'Bricolage Grotesque', sans-serif;
+            font-size: clamp(30px, 3.5vw, 48px);
+            font-weight: 800;
+            color: var(--ink);
+            letter-spacing: -0.030em;
+            line-height: 1;
+        }
+        .app-header h1 em { font-style: normal; color: var(--amber); }
+        .app-header p {
+            font-size: 13px;
+            color: var(--ink-3);
+            margin-top: 8px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* ── Tabs ── */
+        .tabs {
+            display: flex;
+            align-items: flex-end;
+            gap: 0;
+            padding: 0;
+            border-bottom: 1px solid var(--border);
+            background: transparent;
+        }
+        .tab-btn {
+            padding: 13px 18px;
+            border: none;
+            background: none;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--ink-3);
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            margin-bottom: -1px;
+            transition: color 0.2s, border-color 0.2s;
+            white-space: nowrap;
+            font-family: 'Inter', sans-serif;
+        }
+        .tab-btn:hover { color: var(--ink); }
+        .tab-btn.active { color: var(--ink); border-bottom-color: var(--amber); font-weight: 600; }
+        .tab-desc {
+            margin-left: auto;
+            font-size: 11.5px;
+            color: var(--ink-3);
+            padding-bottom: 14px;
+            padding-left: 16px;
+        }
+
+        /* ── Chart ── */
+        #chart { width: 100%; position: relative; min-height: 400px; background: transparent; }
+        #chart svg { display: block; }
+        .message { padding: 80px 40px; text-align: center; color: var(--ink-3); font-size: 14px; }
+        .message.error { color: #dc2626; }
+        code { background: var(--cream-2); padding: 2px 6px; border-radius: 4px; font-size: 12px; }
+
+        /* ── Selected bar ── */
+        #selected-bar {
+            padding: 12px 0;
+            background: #fffbeb;
+            border-top: 1px solid #fde68a;
+            font-size: 13px;
+            align-items: center;
+            gap: 12px;
+        }
+        #selected-bar .sel-name { font-weight: 600; color: var(--ink); }
+        #selected-bar .sel-headline { color: var(--ink-2); flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        #selected-bar a.sel-link {
+            color: var(--amber);
+            font-weight: 600;
+            text-decoration: none;
+            white-space: nowrap;
+            border: 1px solid currentColor;
+            padding: 4px 12px;
+            border-radius: 100px;
+            font-size: 12px;
+            transition: background 0.15s, color 0.15s;
+        }
+        #selected-bar a.sel-link:hover { background: var(--amber); color: #fff; }
+        #selected-bar .sel-close {
+            cursor: pointer;
+            color: var(--ink-3);
+            font-size: 18px;
+            line-height: 1;
+            padding: 0 4px;
+            transition: color 0.15s;
+        }
+        #selected-bar .sel-close:hover { color: var(--ink); }
+
+        /* ── Stats bar ── */
+        .stats-bar {
+            padding: 10px 0;
+            background: transparent;
+            border-top: 1px solid var(--border);
+            font-size: 12px;
+            color: var(--ink-3);
+        }
+        .stats-bar strong { color: var(--ink-2); }
+
+        /* ── Tooltip ── */
+        .tooltip {
+            position: fixed;
+            background: rgba(26,25,22,0.90);
+            color: #f0ede6;
+            padding: 9px 13px;
+            border-radius: 8px;
+            font-size: 12.5px;
+            line-height: 1.55;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.1s;
+            z-index: 999;
+            max-width: 240px;
+            font-family: 'Inter', sans-serif;
+        }
+        .tooltip.visible { opacity: 1; }
+
+        /* ── Explore UI ── */
+        .explore-ui {
+            padding: 24px 0 18px;
+            background: transparent;
+            display: none;
+        }
+        .explore-ui.active { display: block; }
+        .query-row { display: flex; gap: 12px; align-items: flex-end; }
+        .query-input {
+            flex: 1;
+            padding: 10px 0;
+            border: none;
+            border-bottom: 1.5px solid var(--border);
+            font-size: 15px;
+            font-family: inherit;
+            color: var(--ink);
+            background: transparent;
+            outline: none;
+            transition: border-color 0.2s;
+            border-radius: 0;
+            -webkit-appearance: none;
+        }
+        .query-input:focus { border-bottom-color: var(--amber); }
+        .query-input::placeholder { color: var(--ink-3); }
+        .query-btn {
+            padding: 9px 20px;
+            background: var(--ink);
+            color: var(--cream);
+            border: none;
+            border-radius: 100px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: background 0.2s, transform 0.15s;
+            font-family: inherit;
+            letter-spacing: 0.01em;
+            flex-shrink: 0;
+        }
+        .query-btn:hover:not(:disabled) { background: #2d2c27; transform: translateY(-1px); }
+        .query-btn:disabled { opacity: 0.38; cursor: not-allowed; }
+        .query-loading { display: none; align-items: center; gap: 8px; font-size: 12px; color: var(--ink-3); margin-top: 12px; }
+        .query-loading.active { display: flex; }
+        .spinner { width: 12px; height: 12px; border: 1.5px solid var(--border); border-top-color: var(--amber); border-radius: 50%; animation: spin 0.75s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .analysis-box {
+            display: none;
+            margin-top: 16px;
+            font-size: 13px;
+            line-height: 1.7;
+            color: var(--ink-2);
+        }
+        .analysis-box.active { display: block; }
+        .analysis-title {
+            font-weight: 500;
+            font-size: 10px;
+            color: var(--ink-3);
+            margin-bottom: 6px;
+            letter-spacing: 0.10em;
+            text-transform: uppercase;
+        }
+
+        /* ── Model toggle ── */
+        .palette-toggle {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-left: auto;
+        }
+        .palette-toggle-label {
+            font-size: 11px;
+            color: var(--ink-3);
+            font-family: 'Inter', sans-serif;
+        }
+        .palette-pills { display: flex; gap: 4px; }
+        .palette-pill {
+            display: flex; gap: 2px; align-items: center;
+            padding: 3px 8px;
+            border-radius: 100px;
+            border: 1px solid var(--border);
+            background: transparent;
+            cursor: pointer;
+            transition: border-color 0.15s;
+        }
+        .palette-pill:hover { border-color: rgba(26,25,22,0.25); }
+        .palette-pill.active { border-color: var(--ink); }
+        .palette-swatch {
+            width: 8px; height: 8px; border-radius: 50%;
+        }
+        .model-toggle {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 14px;
+        }
+        .model-toggle-label {
+            font-size: 11px;
+            color: var(--ink-3);
+            font-family: 'Inter', sans-serif;
+        }
+        .model-pills { display: flex; gap: 4px; }
+        .model-pill {
+            padding: 3px 11px;
+            border-radius: 100px;
+            border: 1px solid var(--border);
+            background: transparent;
+            font-size: 11px;
+            font-family: 'Inter', sans-serif;
+            color: var(--ink-3);
+            cursor: pointer;
+            transition: background 0.15s, border-color 0.15s, color 0.15s;
+            white-space: nowrap;
+        }
+        .model-pill:hover { color: var(--ink-2); border-color: rgba(26,25,22,0.20); }
+        .model-pill.active {
+            background: var(--ink);
+            border-color: var(--ink);
+            color: var(--cream);
+        }
+
+        /* ── Detail mode toggle ── */
+        .detail-toggle {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-left: 12px;
+            font-size: 11px;
+            color: var(--ink-3);
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            user-select: none;
+        }
+        .detail-toggle input {
+            accent-color: var(--amber);
+            cursor: pointer;
+        }
+
+        /* ── Suggestions ── */
+        .suggestions { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+        .suggestion-chip {
+            padding: 4px 12px;
+            background: transparent;
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            font-size: 11px;
+            color: var(--ink-3);
+            cursor: pointer;
+            transition: background 0.15s, border-color 0.15s, color 0.15s;
+            white-space: nowrap;
+            max-width: 280px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-family: inherit;
+        }
+        .suggestion-chip:hover { background: var(--amber-bg); border-color: var(--amber); color: #92400e; }
+
+        /* ── Agent debug panel ── */
+        .agent-debug {
+            margin-top: 16px;
+            padding: 16px 20px;
+            background: rgba(26,25,22,0.03);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            font-family: 'Inter', sans-serif;
+        }
+        .agent-debug-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        .agent-debug-title {
+            font-size: 10px;
+            font-weight: 600;
+            color: var(--ink-3);
+            letter-spacing: 0.10em;
+            text-transform: uppercase;
+        }
+        .agent-debug-summary {
+            display: flex;
+            gap: 16px;
+            font-size: 11px;
+            color: var(--ink-2);
+            font-variant-numeric: tabular-nums;
+        }
+        .agent-debug-summary strong { color: var(--ink); font-weight: 600; }
+        .agent-debug-turns {
+            margin-top: 8px;
+            max-height: 260px;
+            overflow-y: auto;
+        }
+        .agent-turn {
+            padding: 8px 0;
+            border-top: 1px solid var(--border);
+            font-size: 11px;
+            color: var(--ink-2);
+            line-height: 1.6;
+        }
+        .agent-turn:first-child { border-top: none; }
+        .agent-turn-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 500;
+            color: var(--ink);
+            margin-bottom: 2px;
+        }
+        .agent-turn-tokens {
+            font-size: 10px;
+            color: var(--ink-3);
+            font-variant-numeric: tabular-nums;
+        }
+        .agent-tool-call {
+            margin-left: 12px;
+            padding: 3px 0;
+            display: flex;
+            gap: 6px;
+            align-items: baseline;
+        }
+        .agent-tool-name {
+            font-weight: 600;
+            color: var(--ink);
+            font-size: 10.5px;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+        }
+        .agent-tool-args {
+            color: var(--ink-3);
+            font-size: 10px;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            max-width: 500px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .agent-tool-count {
+            font-size: 10px;
+            color: var(--amber);
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        /* ────────────── Founder timeline section ────────────── */
+        #founder-section {
+            height: 260vh;
+            background: var(--hero-bg);
+        }
+        #founder-sticky {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow: hidden;
+        }
+        #founder-canvas {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* ────────────── Founder tooltip ────────────── */
+        #founder-tip {
+            display: none;
+            position: fixed;
+            z-index: 200;
+            pointer-events: none;
+            max-width: 260px;
+            padding: 13px 16px 14px;
+            background: rgba(8, 13, 10, 0.82);
+            backdrop-filter: blur(18px) saturate(180%) brightness(0.88);
+            -webkit-backdrop-filter: blur(18px) saturate(180%) brightness(0.88);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 14px;
+            box-shadow: 0 6px 28px rgba(0,0,0,0.28), inset 0 1px 0 rgba(255,255,255,0.07);
+        }
+        #founder-tip .ftip-name {
+            font-family: 'Bricolage Grotesque', sans-serif;
+            font-weight: 800;
+            font-size: 14px;
+            color: rgba(240,236,228,0.96);
+            line-height: 1.2;
+        }
+        #founder-tip .ftip-meta {
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            color: rgba(245,158,11,0.85);
+            margin-top: 4px;
+            font-family: 'Inter', sans-serif;
+        }
+        #founder-tip .ftip-hl {
+            font-size: 11px;
+            color: rgba(240,236,228,0.50);
+            margin-top: 7px;
+            line-height: 1.4;
+            font-family: 'Inter', sans-serif;
+        }
+        #founder-tip .ftip-link {
+            font-size: 10px;
+            font-weight: 500;
+            color: rgba(245,158,11,0.65);
+            margin-top: 9px;
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body>
+
+<!-- ── Navbar ── -->
+<nav id="site-nav">
+  <div class="nav-inner">
+    <a class="nav-brand" href="#hero-section">
+      <div class="nav-dots">
+        <span class="nav-dot"></span>
+        <span class="nav-dot"></span>
+        <span class="nav-dot"></span>
+      </div>
+      <span class="nav-brand-text">CDTM Pathways</span>
+    </a>
+    <div class="nav-links">
+      <button class="nav-link" onclick="scrollToTab('explore')">Explore</button>
+    </div>
+    <button class="nav-cta" onclick="scrollToTab('explore')">Explore ✦</button>
+  </div>
+</nav>
+
+<!-- ── Hero ── -->
+<section id="hero-section">
+  <div id="hero-sticky">
+    <canvas id="particle-canvas"></canvas>
+    <div class="scroll-hint">↓ scroll</div>
+  </div>
+</section>
+
+<!-- ── Founder Timeline ── -->
+<section id="founder-section">
+  <div id="founder-sticky">
+    <canvas id="founder-canvas"></canvas>
+  </div>
+</section>
+
+<!-- ── Narrative 1 ── -->
+<section class="narrative" id="narrative-1">
+  <div class="narrative-inner">
+    <span class="narrative-tag">CDTM Alumni · 2005 — 2024</span>
+    <h2 class="narrative-hl">Every dot<br>is a person.</h2>
+    <div class="narrative-rule"></div>
+    <p class="narrative-body">From Munich lecture halls to Y Combinator, McKinsey, and Mars. Each one a unique path through the same starting point.</p>
+  </div>
+</section>
+
+<!-- ── Narrative 2 ── -->
+<section class="narrative" id="narrative-2">
+  <div class="narrative-inner">
+    <h2 class="narrative-hl">Their paths,<br><em>made visible.</em></h2>
+    <div class="narrative-rule"></div>
+    <p class="narrative-body">Explore how fields of study, post-degree choices, and career decisions connect — across hundreds of alumni journeys.</p>
+  </div>
+</section>
+
+<!-- ── App ── -->
+<div class="page" id="app-section">
+  <div class="app-header">
+    <h1>CDTM Alumni <em>Pathways</em></h1>
+    <p id="subtitle">Loading alumni data…</p>
+  </div>
+
+  <div class="tabs" id="tabs" style="display:none">
+    <span class="tab-desc" id="tab-desc"></span>
+    <div class="palette-toggle" id="palette-toggle">
+      <span class="palette-toggle-label">Palette</span>
+      <div class="palette-pills" id="palette-pills"></div>
+    </div>
+  </div>
+
+  <div id="explore-ui" class="explore-ui">
+    <div class="query-row">
+      <input type="text" id="query-input" class="query-input"
+          placeholder='Ask anything — "who went to YC" or "founders from engineering"'
+          maxlength="200" />
+      <button id="query-btn" class="query-btn">Explore →</button>
+    </div>
+    <div class="model-toggle">
+      <span class="model-toggle-label">Model</span>
+      <div class="model-pills">
+        <button class="model-pill active" data-model="claude-sonnet-4-6">Sonnet · quality</button>
+        <button class="model-pill" data-model="claude-haiku-4-5-20251001">Haiku · fast</button>
+        <button class="model-pill" data-model="gpt-4.1">GPT-4.1</button>
+        <button class="model-pill" data-model="gpt-5-mini">GPT-5 mini</button>
+        <button class="model-pill" data-model="gpt-5.2">GPT-5.2</button>
+      </div>
+      <label class="detail-toggle">
+        <input type="checkbox" id="detail-mode-toggle" />
+        <span>Detail mode</span>
+      </label>
+    </div>
+
+    <div id="query-loading" class="query-loading">
+      <div class="spinner"></div>
+      <span id="query-loading-text">Asking Claude to analyze the alumni…</span>
+    </div>
+    <div id="analysis-box" class="analysis-box">
+      <div class="analysis-title" id="analysis-title"></div>
+      <div id="analysis-text"></div>
+    </div>
+    <div id="suggestions" class="suggestions"></div>
+
+    <div id="agent-debug" class="agent-debug" style="display:none"></div>
+  </div>
+
+  <div id="chart"><div class="message">Loading…</div></div>
+
+  <div id="selected-bar" style="display:none">
+    <span class="sel-name"  id="sel-name"></span>
+    <span class="sel-headline" id="sel-headline"></span>
+    <a class="sel-link" id="sel-link" target="_blank" href="#">Open LinkedIn →</a>
+    <span class="sel-close" id="sel-close">×</span>
+  </div>
+
+  <div class="stats-bar" id="stats"></div>
+</div>
+
+<div class="tooltip" id="tooltip"></div>
+
+<!-- Founder tooltip (hover on world map / bar chart dots) -->
+<div id="founder-tip">
+  <div class="ftip-name" id="ftip-name"></div>
+  <div class="ftip-meta" id="ftip-meta"></div>
+  <div class="ftip-hl"   id="ftip-hl"></div>
+  <div class="ftip-link" id="ftip-link">↗ Open LinkedIn</div>
+</div>
+
+<script>
+  function scrollToTab(viewId) {
+    document.getElementById('app-section').scrollIntoView({ behavior: 'smooth' });
+    setTimeout(() => {
+      const btn = Array.from(document.querySelectorAll('.tab-btn'))
+        .find(b => b.textContent.trim().toLowerCase().startsWith(
+          viewId === 'full' ? 'full' : viewId === 'explore' ? 'explore' : viewId
+        ));
+      if (btn) btn.click();
+    }, 600);
+  }
+
+  // Scroll-reveal for narrative sections
+  const revealObs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in-view'); });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.narrative').forEach(s => revealObs.observe(s));
+</script>
+<script src="chart.js"></script>
+<script src="hero.js"></script>
+<script src="founder-timeline.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

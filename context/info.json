@@ -1,0 +1,162 @@
+{
+  "cdtm_ecosystem_stats": {
+    "total_startups": 280,
+    "vc_market_share_germany_2022": "11%",
+    "annual_funding_2022": "$1.178 Billion",
+    "unicorns_count": 9
+  },
+  "companies": {
+    "unicorns": [
+      {
+        "name": "Trade Republic",
+        "sector": "Fintech",
+        "founders": ["Christian Hecker", "Thomas Pischke", "Marco Cancellieri"],
+        "valuation_2025_2026": "€12.5 Billion",
+        "total_primary_funding": ">€1 Billion",
+        "status": "Active / Profitable",
+        "notes": "Full banking license; €150B assets under management"
+      },
+      {
+        "name": "Personio",
+        "sector": "HR Tech",
+        "founders": ["Hanno Renner", "Ignaz Forstmeier", "Roman Schumacher", "Arseniy Vershinin"],
+        "valuation_2025_2026": "$8.5 Billion",
+        "total_primary_funding": "$772 Million",
+        "status": "Active / IPO Candidate 2026"
+      },
+      {
+        "name": "EGYM",
+        "sector": "Fitness Tech",
+        "founders": ["Philipp Rösch-Schlanderer", "Florian Sauter"],
+        "valuation_2025_2026": "$7.5 Billion",
+        "total_primary_funding": "$580 Million",
+        "status": "Merged with Playlist/ClassPass/Mindbody"
+      },
+      {
+        "name": "Monzo Bank",
+        "sector": "Fintech",
+        "founders": ["Jonas Huckestein"],
+        "valuation_2025_2026": "$5.9 Billion",
+        "total_primary_funding": "$1.7 Billion",
+        "status": "Active / IPO Candidate 2026"
+      },
+      {
+        "name": "Forto",
+        "sector": "Logistics",
+        "founders": ["Michael Wax", "Erik Muttersbach"],
+        "valuation_2025_2026": "$2.1 Billion",
+        "total_primary_funding": "$610 Million",
+        "status": "Active"
+      },
+      {
+        "name": "Razor Group",
+        "sector": "E-commerce",
+        "founders": ["Tushar Ahluwalia", "Jonas Diezun"],
+        "valuation_2025_2026": "$1.2 Billion",
+        "total_primary_funding": "$1.35 Billion",
+        "status": "Merged with Infinite Commerce"
+      },
+      {
+        "name": "Cellares",
+        "sector": "Biotech",
+        "founders": ["Fabian Gerlinghaus"],
+        "valuation_2025_2026": "Unicorn Status",
+        "total_primary_funding": "$612 Million",
+        "status": "Active"
+      },
+      {
+        "name": "TIER Mobility",
+        "sector": "Mobility",
+        "founders": ["Julian Blessin"],
+        "valuation_2025_2026": "Unicorn Status",
+        "total_primary_funding": ">$600 Million",
+        "status": "Merged with Dott"
+      },
+      {
+        "name": "Foodora",
+        "sector": "Delivery",
+        "founders": ["Konstantin Mehl", "Manuel Thurner"],
+        "valuation_2025_2026": "Unicorn Status",
+        "total_primary_funding": "N/A",
+        "status": "Acquired"
+      }
+    ],
+    "high_growth_emerging": [
+      {
+        "name": "Marvel Fusion",
+        "technology": "Laser Fusion Energy",
+        "recent_funding": "€113M - €132M (March 2025)",
+        "notable_investors": ["Earlybird", "Bayern Kapital", "Deutsche Telekom"]
+      },
+      {
+        "name": "Recogni",
+        "technology": "AI Inference Chips",
+        "recent_funding": "$102 Million (Feb 2024)",
+        "notable_investors": ["BMW i Ventures", "Toyota AI Ventures", "Juniper Networks"]
+      },
+      {
+        "name": "finn.auto",
+        "technology": "Car Subscriptions",
+        "recent_funding": "$1.04 Billion Debt (Feb 2025)",
+        "notable_investors": ["Korelya Capital", "Waterfall Asset Management"]
+      },
+      {
+        "name": "Tacto",
+        "technology": "Industrial AI / Procurement",
+        "recent_funding": "€50 Million (Dec 2023)",
+        "notable_investors": ["Sequoia Capital", "Index Ventures"]
+      },
+      {
+        "name": "AVI Medical",
+        "technology": "Digital Healthcare",
+        "recent_funding": "~€50 Million",
+        "notable_investors": ["Balderton Capital", "Eurazeo"]
+      },
+      {
+        "name": "Manex AI",
+        "technology": "Manufacturing Optimization Agents",
+        "recent_funding": "$9.12 Million Seed (June 2025)",
+        "notable_investors": ["Lightspeed Venture Partners"]
+      },
+      {
+        "name": "avoltra",
+        "technology": "AI Energy Procurement",
+        "recent_funding": "$2.71 Million Seed (July 2025)",
+        "notable_investors": ["Project A", "CDTM Venture Fund"]
+      },
+      {
+        "name": "Differential Bio",
+        "technology": "Robotic Lab Automation",
+        "recent_funding": "$2.16 Million Seed (March 2025)",
+        "notable_investors": ["Ananda Impact Ventures"]
+      }
+    ],
+    "directory_by_sector": {
+      "software_enterprise": [
+        "Demodesk", "remberg", "Zavvy", "DeskBird", "ZenML", "Langfuse", 
+        "Tabular", "Nuclino", "Faktual", "Maqsam", "BoWatt", "sitefire",
+        {"name": "Y42", "status": "Liquidated 2025"}
+      ],
+      "fintech_insurtech": [
+        "StashAway", "IDnow", "Payworks (Exited to Visa)", "Amiando (Exited to XING)", 
+        "PAY.ON AG (Exited)", "InsurMagic", "ThinxNet", "Finanzchef24", 
+        "Metaworld Fund", "aloqa (Exited to Motorola)"
+      ],
+      "mobility_logistics_supply_chain": [
+        "unu", "NavVis", "TradeLink", "Alpas", "Emidat", "Lemonflow"
+      ],
+      "health_biotech_fitness": [
+        "Freeletics", "TeleClinic", "Kaia Health", "Cara Care", "Climedo Health", 
+        "Vantis", "Neru Health", "Venneos"
+      ],
+      "deep_tech_robotics_energy": [
+        "RobCo", "tozero", "Orbem", "Tanso", "yuri Gravity", "Tacterion", 
+        "Magazino (Exited to Jungheinrich)", "CalWave Power Technologies"
+      ],
+      "ecommerce_lifestyle_consumer": [
+        "Outfittery", "Stylight", "Limehome", "StudySmarter", "Plantura", 
+        "Grillido", "Heycater!"
+      ]
+    }
+  }
+}
