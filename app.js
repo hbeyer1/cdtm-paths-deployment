@@ -1184,7 +1184,42 @@ function renderDynamic(data) {
         `<span style="color:#a8a79f">hover a path or node to explore · click to open LinkedIn</span>`;
 }
 
-// ─── Agent debug panel ──────────────────────────────────────────────────────
+// ─── Scroll & section tracking (PostHog) ─────────────────────────────────────
+function initScrollTracking() {
+    if (!window.posthog) return;
+    const sections = [
+        { id: "hero-section",    name: "Hero" },
+        { id: "founder-section", name: "Founder Timeline" },
+        { id: "narrative-2",     name: "Narrative" },
+        { id: "app-section",     name: "Explore" },
+    ];
+    const seen = new Set();
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+            if (e.isIntersecting && !seen.has(e.target.id)) {
+                seen.add(e.target.id);
+                const name = sections.find(s => s.id === e.target.id)?.name || e.target.id;
+                posthog.capture("section_viewed", { section: name });
+            }
+        });
+    }, { threshold: 0.3 });
+    sections.forEach(s => {
+        const el = document.getElementById(s.id);
+        if (el) observer.observe(el);
+    });
+
+    // Scroll depth milestones (25/50/75/100%)
+    const depthSeen = new Set();
+    window.addEventListener("scroll", () => {
+        const pct = Math.round(100 * (window.scrollY + window.innerHeight) / document.documentElement.scrollHeight);
+        [25, 50, 75, 100].forEach(m => {
+            if (pct >= m && !depthSeen.has(m)) {
+                depthSeen.add(m);
+                posthog.capture("scroll_depth", { percent: m });
+            }
+        });
+    }, { passive: true });
+}
 
 // ─── Init ──────────────────────────────────────────────────────────────────────
 async function init() {
@@ -1196,6 +1231,7 @@ async function init() {
         if (window.initHero) initHero(alumni);
         if (window.initFounderTimeline) initFounderTimeline(alumni);
         initPaletteToggle();
+        initScrollTracking();
 
         initChartCanvas(document.getElementById("chart"));
 
