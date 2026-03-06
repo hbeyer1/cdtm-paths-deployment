@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CDTM Alumni Pathways</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><path d='M16 2 L18 12 L28 14 L18 16 L16 26 L14 16 L4 14 L14 12 Z' fill='%230065bd'/><circle cx='24' cy='6' r='2' fill='%230065bd' opacity='0.5'/><circle cx='8' cy='24' r='1.5' fill='%230065bd' opacity='0.4'/></svg>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -210,13 +211,25 @@
             font-weight: 500;
             letter-spacing: 0.18em;
             text-transform: uppercase;
-            color: rgba(26,25,22,0.22);
+            color: var(--cdtm-blue);
             animation: bob 2.5s ease-in-out infinite;
             font-family: 'Inter', sans-serif;
+            display: flex;
+            gap: 0;
+        }
+        .scroll-hint .scroll-char {
+            display: inline-block;
+            font-weight: 500;
+            animation: bob 2.5s ease-in-out infinite, char-wave 3s ease-in-out infinite;
+            animation-delay: var(--d), var(--d);
         }
         @keyframes bob {
-            0%, 100% { transform: translateX(-50%) translateY(0); }
-            50%       { transform: translateX(-50%) translateY(7px); }
+            0%, 100% { transform: translateY(0); }
+            50%       { transform: translateY(7px); }
+        }
+        @keyframes char-wave {
+            0%, 100% { font-weight: 500; opacity: 0.5; }
+            50%      { font-weight: 700; opacity: 1; }
         }
 
         /* ────────────── Narrative sections ────────────── */
@@ -894,7 +907,7 @@
 <section id="hero-section">
   <div id="hero-sticky">
     <canvas id="particle-canvas"></canvas>
-    <div class="scroll-hint">↓ Scroll to explore</div>
+    <div class="scroll-hint" id="scroll-hint"></div>
   </div>
 </section>
 
@@ -1009,6 +1022,17 @@
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in-view'); });
   }, { threshold: 0.12 });
   document.querySelectorAll('.narrative').forEach(s => revealObs.observe(s));
+
+  // Scroll hint — letter-by-letter wave animation
+  (function() {
+    const text = "\u2193  Scroll to explore";
+    const el = document.getElementById("scroll-hint");
+    if (!el) return;
+    el.innerHTML = text.split("").map((ch, i) => {
+      if (ch === " ") return `<span class="scroll-char" style="--d:${i * 0.12}s">&nbsp;</span>`;
+      return `<span class="scroll-char" style="--d:${i * 0.12}s">${ch}</span>`;
+    }).join("");
+  })();
 </script>
 <script src="chart.js"></script>
 <script src="hero.js"></script>
