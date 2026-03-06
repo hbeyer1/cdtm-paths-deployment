@@ -645,9 +645,9 @@ function getCache() {
     catch { return []; }
 }
 
-function saveToCache(query, data) {
-    let cache = getCache().filter(e => e.query.toLowerCase() !== query.toLowerCase());
-    cache.unshift({ query, data });
+function saveToCache(cacheKey, displayQuery, data) {
+    let cache = getCache().filter(e => e.cacheKey !== cacheKey && e.query.toLowerCase() !== displayQuery.toLowerCase());
+    cache.unshift({ cacheKey, query: displayQuery, data });
     if (cache.length > CACHE_MAX) cache = cache.slice(0, CACHE_MAX);
     try {
         localStorage.setItem(CACHE_KEY, JSON.stringify(cache));
@@ -657,8 +657,8 @@ function saveToCache(query, data) {
     }
 }
 
-function getFromCache(query) {
-    return getCache().find(e => e.query.toLowerCase() === query.toLowerCase()) || null;
+function getFromCache(cacheKey) {
+    return getCache().find(e => e.cacheKey === cacheKey) || null;
 }
 
 function querySimilarity(cachedQuery, input) {
@@ -923,7 +923,7 @@ async function handleQuery() {
         aText.textContent  = data.analysis || "";
         aBox.classList.add("active");
         lastExploreResult = data;
-        saveToCache(cacheKey, data);
+        saveToCache(cacheKey, query, data);
         renderDynamic(data);
         renderSuggestions(query);
         showFeedbackBar(query, model, data.trace_id || "");
