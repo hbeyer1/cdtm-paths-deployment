@@ -702,6 +702,38 @@
         }
 
         /* ────────────── Feedback bar ────────────── */
+        /* ── Share button ── */
+        .share-bar {
+            display: none;
+            padding: 10px 0;
+            border-top: 1px solid var(--border);
+            animation: feedback-fade-in 0.4s ease;
+        }
+        .share-bar.active { display: flex; align-items: center; gap: 10px; }
+        .share-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 7px 18px;
+            background: var(--cdtm-blue);
+            color: #fff;
+            border: none;
+            border-radius: 100px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            font-family: inherit;
+            transition: background 0.2s, transform 0.15s;
+            white-space: nowrap;
+        }
+        .share-btn:hover { background: #004d94; transform: translateY(-1px); }
+        .share-btn.copied { background: #16a34a; }
+        .share-hint {
+            font-size: 11px;
+            color: var(--ink-3);
+            font-family: 'Inter', sans-serif;
+        }
+
         .feedback-bar {
             padding: 14px 0;
             border-top: 1px solid var(--border);
@@ -975,6 +1007,12 @@
   </div>
 
   <div class="stats-bar" id="stats"></div>
+
+  <!-- Share bar -->
+  <div id="share-bar" class="share-bar">
+    <button id="share-btn" class="share-btn">Share this graph</button>
+    <span id="share-hint" class="share-hint"></span>
+  </div>
 
   <!-- Feedback bar -->
   <div id="feedback-bar" class="feedback-bar" style="display:none">

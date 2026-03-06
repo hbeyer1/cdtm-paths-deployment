@@ -1,4 +1,4 @@
-import json, os, base64, time
+import json, os, base64, time, hashlib
 from datetime import datetime
 from flask import Flask, request, jsonify, send_from_directory
 import anthropic
@@ -861,6 +861,30 @@ def api_popular_queries():
     except Exception as e:
         print(f"Popular queries error: {e}")
         return jsonify([])
+
+@app.route("/api/shared/<share_id>")
+def api_shared(share_id):
+    """Look up a cached query result by share ID (short hash of cache_key)."""
+    db = _get_db()
+    if not db:
+        return jsonify({"error": "sharing unavailable"}), 503
+    try:
+        with db.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cur:
+            cur.execute(
+                "SELECT query, response_json FROM query_cache "
+                "WHERE md5(cache_key) LIKE %s || '%%' LIMIT 1",
+                (share_id,),
+            )
+            row = cur.fetchone()
+        if not row:
+            return jsonify({"error": "shared graph not found"}), 404
+        result = row["response_json"]
+        result["query"] = row["query"]
+        result["cached"] = True
+        return jsonify(result)
+    except Exception as e:
+        print(f"Shared lookup error: {e}")
+        return jsonify({"error": "lookup failed"}), 500
 
 @app.route("/api/feedback", methods=["POST"])
 def api_feedback():
