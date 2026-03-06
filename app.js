@@ -1149,7 +1149,29 @@ function loadSharedQuery() {
     document.getElementById("app-section").scrollIntoView({ behavior: "instant" });
     document.getElementById("query-input").value = query;
     setTimeout(() => handleQuery(), 300);
+    showBeginNudge();
     return true;
+}
+
+function showBeginNudge() {
+    if (document.getElementById("begin-nudge")) return;
+    const nudge = document.createElement("button");
+    nudge.id = "begin-nudge";
+    nudge.className = "begin-nudge";
+    nudge.textContent = "Start the experience from the beginning";
+    nudge.addEventListener("click", () => {
+        nudge.remove();
+        window.history.replaceState({}, "", window.location.pathname);
+        document.getElementById("hero-section").scrollIntoView({ behavior: "smooth" });
+    });
+    document.body.appendChild(nudge);
+    // Auto-dismiss after scrolling to top
+    window.addEventListener("scroll", function dismiss() {
+        if (window.scrollY < 200) {
+            nudge.remove();
+            window.removeEventListener("scroll", dismiss);
+        }
+    }, { passive: true });
 }
 
 function renderDynamic(data) {
