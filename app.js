@@ -861,8 +861,6 @@ async function handleQuery() {
     if (!query) return;
 
     stopTypewriter();
-    const twEl = document.getElementById("query-typewriter");
-    if (twEl) twEl.style.display = "none";
 
     const model = pickModel(query);
     const detailMode = document.getElementById("detail-mode-toggle")?.checked || false;
@@ -877,6 +875,8 @@ async function handleQuery() {
         renderDynamic(cached.data);
         renderSuggestions(query);
         showFeedbackBar(query, model, cached.data.trace_id || "");
+        showShareBar(query, model);
+        startTypewriter();
         if (cached.data.trace_id) {
             setTimeout(() => saveTraceScreenshot(cached.data.trace_id), 500);
         }
@@ -890,6 +890,7 @@ async function handleQuery() {
     loading.classList.add("active");
     aBox.classList.remove("active");
     hideFeedbackBar();
+    hideShareBar();
     startLoadingWords();
     startActivitySteps();
     document.getElementById("stats").innerHTML = "";
@@ -926,6 +927,8 @@ async function handleQuery() {
         renderDynamic(data);
         renderSuggestions(query);
         showFeedbackBar(query, model, data.trace_id || "");
+        showShareBar(query, model);
+        startTypewriter();
         if (data.trace_id) {
             setTimeout(() => saveTraceScreenshot(data.trace_id), 500);
         }
@@ -1051,6 +1054,102 @@ function hideFeedbackBar() {
     clearTimeout(_feedbackTimer);
     const bar = document.getElementById("feedback-bar");
     if (bar) bar.style.display = "none";
+}
+
+// ─── Share bar ──────────────────────────────────────────────────────────────
+let _currentShareQuery = null;
+let _currentShareModel = null;
+
+const ICON_SHARE = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>`;
+const ICON_CHECK = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`;
+
+async function sha256Prefix(str) {
+    const data = new TextEncoder().encode(str);
+    const hash = await crypto.subtle.digest("SHA-256", data);
+    const arr = Array.from(new Uint8Array(hash));
+    return arr.map(b => b.toString(16).padStart(2, "0")).join("").slice(0, 10);
+}
+
+function showShareBar(query, model) {
+    _currentShareQuery = query;
+    _currentShareModel = model;
+    const bar = document.getElementById("share-bar");
+    const hint = document.getElementById("share-hint");
+    if (bar) {
+        bar.classList.add("active");
+        hint.textContent = "";
+    }
+    const btn = document.getElementById("share-btn");
+    btn.classList.remove("copied");
+    btn.innerHTML = `${ICON_SHARE} Share this graph`;
+
+    // Clone to remove old listeners
+    const newBtn = btn.cloneNode(true);
+    btn.replaceWith(newBtn);
+    newBtn.addEventListener("click", handleShare);
+}
+
+function hideShareBar() {
+    const bar = document.getElementById("share-bar");
+    if (bar) bar.classList.remove("active");
+}
+
+async function handleShare() {
+    const btn = document.getElementById("share-btn");
+    const hint = document.getElementById("share-hint");
+    if (!_currentShareQuery) return;
+
+    try {
+        const cacheKey = `${_currentShareModel}::${_currentShareQuery.toLowerCase()}`;
+        const shareId = await sha256Prefix(cacheKey);
+
+        const url = `${window.location.origin}${window.location.pathname}?q=${encodeURIComponent(_currentShareQuery)}`;
+        await navigator.clipboard.writeText(url);
+
+        btn.classList.add("copied");
+        btn.innerHTML = `${ICON_CHECK} Copied`;
+        hint.textContent = url;
+        if (window.posthog) posthog.capture('graph_shared', { query: _currentShareQuery, share_id: shareId });
+
+        setTimeout(() => {
+            btn.classList.remove("copied");
+            btn.innerHTML = `${ICON_SHARE} Share this graph`;
+        }, 3000);
+    } catch (err) {
+        // Fallback: select text for manual copy
+        const url = `${window.location.origin}${window.location.pathname}?q=${encodeURIComponent(_currentShareQuery)}`;
+        hint.textContent = url;
+        try {
+            const ta = document.createElement("textarea");
+            ta.value = url;
+            ta.style.position = "fixed";
+            ta.style.opacity = "0";
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand("copy");
+            document.body.removeChild(ta);
+            btn.classList.add("copied");
+            btn.innerHTML = `${ICON_CHECK} Copied`;
+            setTimeout(() => {
+                btn.classList.remove("copied");
+                btn.innerHTML = `${ICON_SHARE} Share this graph`;
+            }, 3000);
+        } catch {
+            hint.textContent = url;
+        }
+    }
+}
+
+// ─── Handle incoming share URLs ─────────────────────────────────────────────
+function loadSharedQuery() {
+    const params = new URLSearchParams(window.location.search);
+    const query = params.get("q");
+    if (!query) return false;
+    // Scroll straight to the explore section and auto-submit
+    document.getElementById("app-section").scrollIntoView({ behavior: "instant" });
+    document.getElementById("query-input").value = query;
+    setTimeout(() => handleQuery(), 300);
+    return true;
 }
 
 function renderDynamic(data) {
@@ -1401,13 +1500,12 @@ async function init() {
         document.getElementById("explore-ui").classList.add("active");
         activateExplore();
 
+        // Check for shared graph URL (?q=...)
+        loadSharedQuery();
+
         document.getElementById("query-btn").addEventListener("click", handleQuery);
         document.getElementById("query-input").addEventListener("focus", () => {
-            const twEl = document.getElementById("query-typewriter");
-            if (twEl && twEl.style.display !== "none") {
-                twEl.style.display = "none";
-                stopTypewriter();
-            }
+            stopTypewriter();
         });
         document.getElementById("query-input").addEventListener("keydown", e => {
             if (e.key === "Enter") handleQuery();
