@@ -67,6 +67,17 @@ def _init_db():
                 created_at TIMESTAMP DEFAULT NOW()
             )
         """)
+        cur.execute("""
+            CREATE TABLE IF NOT EXISTS chart_feedback (
+                id SERIAL PRIMARY KEY,
+                trace_id TEXT,
+                query TEXT NOT NULL,
+                model TEXT,
+                rating TEXT NOT NULL,
+                comment TEXT,
+                created_at TIMESTAMP DEFAULT NOW()
+            )
+        """)
     print("Database tables initialized")
 
 _init_db()
@@ -850,6 +861,41 @@ def api_popular_queries():
     except Exception as e:
         print(f"Popular queries error: {e}")
         return jsonify([])
+
+@app.route("/api/feedback", methods=["POST"])
+def api_feedback():
+    """Save chart feedback (thumbs up/down + optional comment)."""
+    body = request.get_json(force=True, silent=True) or {}
+    rating = body.get("rating", "")
+    if rating not in ("up", "down"):
+        return jsonify({"error": "rating must be 'up' or 'down'"}), 400
+    query = (body.get("query") or "").strip()
+    comment = (body.get("comment") or "").strip()[:500]
+    trace_id = body.get("trace_id", "")
+    model = body.get("model", "")
+
+    # Save to DB
+    db = _get_db()
+    if db:
+        try:
+            with db.cursor() as cur:
+                cur.execute(
+                    "INSERT INTO chart_feedback (trace_id, query, model, rating, comment) "
+                    "VALUES (%s, %s, %s, %s, %s)",
+                    (trace_id, query, model, rating, comment or None),
+                )
+        except Exception as e:
+            print(f"Feedback save error: {e}")
+
+    # Log to event_log + PostHog
+    event_data = {"query": query, "model": model, "rating": rating, "comment": comment, "trace_id": trace_id}
+    _log_event("chart_feedback", event_data)
+    try:
+        posthog_lib.capture("server", "chart_feedback", event_data)
+    except Exception:
+        pass
+
+    return jsonify({"ok": True})
 
 @app.route("/api/trace-screenshot", methods=["POST"])
 def api_trace_screenshot():

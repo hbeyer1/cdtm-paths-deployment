@@ -206,6 +206,53 @@
 
   const HERO_DOT = { r: 123, g: 167, b: 204 };
   let heroPathsData = null; // loaded from hero_paths.json
+  let alumniPathsLookup = {}; // name → [step1, step2, ...] from alumni_paths.json
+
+  // Load alumni_paths.json for compact path labels
+  fetch('data/alumni_paths.json')
+    .then(r => r.json())
+    .then(data => {
+      data.forEach(d => {
+        const parts = d.path.split(' | ');
+        const pathStr = parts.length >= 3 ? parts.slice(2).join(' | ') : parts[parts.length - 1];
+        const steps = pathStr.split(' -> ').map(s => s.trim()).filter(s => s.length > 0);
+        alumniPathsLookup[d.name] = steps;
+      });
+    })
+    .catch(() => {});
+
+  // ── Career path waypoint generation ─────────────────────────────────────────
+  function buildCareerWaypoints(name, sx, sy, canvasW, canvasH) {
+    const steps = alumniPathsLookup[name];
+    if (!steps || steps.length === 0) return null;
+
+    const centerX = canvasW / 2, centerY = canvasH / 2 - 50;
+    let angle = Math.atan2(sy - centerY, sx - centerX) + (Math.random() - 0.5) * 0.8;
+
+    const stepLen = Math.min(canvasW, canvasH) * 0.11;
+    const waypoints = [{ x: sx, y: sy, label: null }];
+
+    let cx = sx, cy = sy;
+    for (let i = 0; i < steps.length; i++) {
+      // Turn with alternating direction
+      const turnSign = (i % 2 === 0 ? 1 : -1) * (0.7 + Math.random() * 0.6);
+      angle += turnSign * (0.44 + Math.random() * 0.7);
+
+      const len = stepLen * (0.8 + Math.random() * 0.5);
+      cx += Math.cos(angle) * len;
+      cy += Math.sin(angle) * len;
+
+      // Keep on screen
+      cx = Math.max(80, Math.min(canvasW - 80, cx));
+      cy = Math.max(50, Math.min(canvasH - 50, cy));
+
+      // Truncate label for display
+      const label = steps[i].slice(0, 32) + (steps[i].length > 32 ? '…' : '');
+      waypoints.push({ x: cx, y: cy, label });
+    }
+
+    return waypoints;
+  }
 
   // ── Build hero chart from pre-computed hero_paths.json ──────────────────────
   function buildHeroChart(alumniData, canvasW, canvasH) {
@@ -397,7 +444,7 @@
     let W = 0, H = 0;
 
     const MAX_AMB    = 4;
-    const AMB_DUR    = 16000;
+    const AMB_DUR    = 22000;
     const AMB_SPAWN  = 2800;
     let   ambList    = [];
     let   ambSpawnMs = Date.now() + 2800;
@@ -510,7 +557,7 @@
       // ── Ambassadors: spawn + cull ─────────────────────────────────────────
       const nowMs = Date.now();
       if (progress > 0.10) { ambList = []; }
-      ambList = ambList.filter(a => (nowMs - a.t0) < AMB_DUR + 400);
+      ambList = ambList.filter(a => (nowMs - a.t0) < AMB_DUR + 2000);
 
       if (progress < 0.08 && ambList.length < MAX_AMB && nowMs >= ambSpawnMs && weightedPool.length > 0) {
         const ri   = weightedPool[Math.floor(Math.random() * weightedPool.length)];
@@ -519,13 +566,28 @@
         if (p && !ambList.some(a => a.p === p)) {
           const sx = zoomCX + (p.logoX - zoomCX) * zoomFactor;
           const sy = zoomCY + (p.logoY - zoomCY) * zoomFactor;
-          const baseAngle = Math.atan2(sy - zoomCY, sx - zoomCX);
-          const angle     = baseAngle + (Math.random() - 0.5) * 1.0;
-          const farDist   = Math.hypot(W, H) * 0.65 + 150;
-          ambList.push({ p, sx, sy, tx: sx + Math.cos(angle) * farDist, ty: sy + Math.sin(angle) * farDist, t0: nowMs });
-          ambSpawnMs = nowMs + AMB_SPAWN + Math.random() * 1200;
 
-          // Kick off headshot load as soon as ambassador is spawned
+          // Build career waypoints for path tracing
+          const waypoints = buildCareerWaypoints(p.name, sx, sy, W, H);
+          if (waypoints && waypoints.length >= 2) {
+            // Compute total path length for even timing
+            let totalLen = 0;
+            for (let i = 1; i < waypoints.length; i++) {
+              totalLen += Math.hypot(waypoints[i].x - waypoints[i-1].x, waypoints[i].y - waypoints[i-1].y);
+            }
+            ambList.push({ p, sx, sy, waypoints, totalLen, trail: [], t0: nowMs });
+          } else {
+            // Fallback: straight line (no career data)
+            const baseAngle = Math.atan2(sy - zoomCY, sx - zoomCX);
+            const angle     = baseAngle + (Math.random() - 0.5) * 1.0;
+            const farDist   = Math.hypot(W, H) * 0.65 + 150;
+            const wp = [
+              { x: sx, y: sy, label: null },
+              { x: sx + Math.cos(angle) * farDist, y: sy + Math.sin(angle) * farDist, label: null },
+            ];
+            ambList.push({ p, sx, sy, waypoints: wp, totalLen: farDist, trail: [], t0: nowMs });
+          }
+          ambSpawnMs = nowMs + AMB_SPAWN + Math.random() * 1200;
           requestHeadshot(p.name);
         }
       }
@@ -610,151 +672,161 @@
         ctx.fill();
       }
 
-      // ── Ambassador draw ───────────────────────────────────────────────────
+      // ── Ambassador draw (path-tracing) ──────────────────────────────────
       lastAmbPositions = [];
       for (const amb of ambList) {
-        const { p, sx, sy, tx, ty, t0 } = amb;
-        const rawT  = Math.min(1, (nowMs - t0) / AMB_DUR);
-        const f     = rawT < 0.5
-                    ? 2 * rawT * rawT
-                    : 1 - Math.pow(-2 * rawT + 2, 2) / 2;
-        const ax    = lerp(sx, tx, f);
-        const ay    = lerp(sy, ty, f);
+        const { p, waypoints, totalLen, t0 } = amb;
+        const rawT = Math.min(1, (nowMs - t0) / AMB_DUR);
 
-        // Label alpha: ramp up t=0.08→0.22, hold, ramp down t=0.55→0.72
-        const labelA = rawT < 0.08  ? 0
-                     : rawT < 0.22  ? (rawT - 0.08) / 0.14
-                     : rawT < 0.55  ? 1
-                     : rawT < 0.72  ? 1 - (rawT - 0.55) / 0.17
-                     : 0;
-        const edgeFade = Math.min(1,
-          (ax + 60)  / 60, (W - ax + 60) / 60,
-          (ay + 60)  / 60, (H - ay + 60) / 60);
-        const la = labelA * Math.max(0, edgeFade);
+        // Position along waypoint path
+        const travelT = rawT < 0.5 ? 2 * rawT * rawT : 1 - Math.pow(-2 * rawT + 2, 2) / 2;
+        const targetDist = travelT * totalLen;
 
-        // Store position for click hit-testing
-        const hitR = PORTRAIT_R * 1.1;
-        lastAmbPositions.push({ x: ax, y: ay, r: hitR, linkedin: p.linkedin, name: p.name });
+        // Walk along segments to find current position
+        let walked = 0, ax = waypoints[0].x, ay = waypoints[0].y;
+        let currentSeg = 0;
+        for (let i = 1; i < waypoints.length; i++) {
+          const segLen = Math.hypot(waypoints[i].x - waypoints[i-1].x, waypoints[i].y - waypoints[i-1].y);
+          if (walked + segLen >= targetDist) {
+            const segT = segLen > 0 ? (targetDist - walked) / segLen : 0;
+            ax = lerp(waypoints[i-1].x, waypoints[i].x, segT);
+            ay = lerp(waypoints[i-1].y, waypoints[i].y, segT);
+            currentSeg = i;
+            break;
+          }
+          walked += segLen;
+          ax = waypoints[i].x;
+          ay = waypoints[i].y;
+          currentSeg = i;
+        }
 
-        // Portrait shrinks as it nears the screen boundary
-        const SHRINK_MARGIN   = 220; // px from edge where shrinking starts
-        const edgeProximity   = clamp01(Math.min(
-          ax / SHRINK_MARGIN, (W - ax) / SHRINK_MARGIN,
-          ay / SHRINK_MARGIN, (H - ay) / SHRINK_MARGIN));
-        const portraitEdgeScale = lerp(0.20, 1.0, easeInOut(edgeProximity));
+        // Record trail point
+        amb.trail.push({ x: ax, y: ay, t: nowMs });
 
-        // WATER-DROP formation:
-        //   The whole portrait emerges as one cohesive drop from the logo dot.
-        //   The leading edge (travel direction) bulges out first.
-        //   The trailing edge (back toward logo) follows last — creating the neck/teardrop.
-        //   Once the drop fully releases, the portrait is complete and travels away.
-        const FORM_DUR = 0.38; // fraction of AMB_DUR for the full drop to emerge
+        // Fade: global fade out near end
+        const fadeOut = rawT > 0.90 ? clamp01(1 - (rawT - 0.90) / 0.10) : 1;
 
-        // Global formation progress (0 → 1)
-        const formT     = easeInOut(clamp01(rawT / FORM_DUR));
-        const expandScale = formT; // used for label card edge radius below
-        const fadeOut     = rawT > 0.80 ? clamp01(1 - (rawT - 0.80) / 0.20) : 1;
+        // ── Draw fading trail ──────────────────────────────────────────────
+        if (amb.trail.length >= 2) {
+          ctx.lineCap = 'round';
+          ctx.lineJoin = 'round';
+          for (let i = 1; i < amb.trail.length; i++) {
+            const age = (nowMs - amb.trail[i].t) / 1000;
+            const trailA = Math.max(0, (1 - age / 14)) * 0.55 * fadeOut;
+            if (trailA < 0.005) continue;
+            ctx.beginPath();
+            ctx.moveTo(amb.trail[i-1].x, amb.trail[i-1].y);
+            ctx.lineTo(amb.trail[i].x, amb.trail[i].y);
+            ctx.strokeStyle = `rgba(${p.fieldR},${p.fieldG},${p.fieldB},${trailA.toFixed(3)})`;
+            ctx.lineWidth = 1.8;
+            ctx.stroke();
+          }
+        }
 
-        // Travel direction: leading edge of the drop points this way
-        const tCX = (tx - sx) / (Math.hypot(tx - sx, ty - sy) || 1);
-        const tCY = (ty - sy) / (Math.hypot(tx - sx, ty - sy) || 1);
+        // Trim old trail points (faded out)
+        while (amb.trail.length > 2 && (nowMs - amb.trail[0].t) > 16000) {
+          amb.trail.shift();
+        }
 
-        // ── Source logo dot: the "faucet" — swells as the drop forms, then fades ──
+        // ── Draw waypoint dots and labels at turns already reached ────────
+        let walkedCheck = 0;
+        for (let i = 1; i < waypoints.length; i++) {
+          const wp = waypoints[i];
+          const prevWp = waypoints[i-1];
+          const segLen = Math.hypot(wp.x - prevWp.x, wp.y - prevWp.y);
+          walkedCheck += segLen;
+
+          // Only show waypoints already passed
+          if (walkedCheck > targetDist + 5) break;
+
+          const wpAge = clamp01((targetDist - walkedCheck + segLen) / (totalLen * 0.15));
+          const wpFade = Math.min(wpAge * 2, 1) * fadeOut;
+          if (wpFade < 0.02) continue;
+
+          // Small dot at turn point
+          ctx.beginPath();
+          ctx.arc(wp.x, wp.y, 3, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(${p.fieldR},${p.fieldG},${p.fieldB},${(wpFade * 0.7).toFixed(2)})`;
+          ctx.fill();
+
+          // Label
+          if (wp.label && wpFade > 0.1) {
+            ctx.save();
+            ctx.globalAlpha = wpFade * 0.85;
+            ctx.font = '500 10px Inter, -apple-system, sans-serif';
+            // Position label to the side of the path direction
+            const dx = wp.x - prevWp.x, dy = wp.y - prevWp.y;
+            const perpX = -dy, perpY = dx;
+            const perpLen = Math.hypot(perpX, perpY) || 1;
+            const offX = (perpX / perpLen) * 12;
+            const offY = (perpY / perpLen) * 12;
+            ctx.textAlign = offX >= 0 ? 'left' : 'right';
+            ctx.fillStyle = 'rgba(26,25,22,0.55)';
+            ctx.fillText(wp.label, wp.x + offX, wp.y + offY);
+            ctx.restore();
+          }
+        }
+
+        // ── Source logo dot: swells then fades ────────────────────────────
         const srcFade = clamp01(1 - rawT * 3.2);
         if (srcFade > 0) {
           const { x: lx, y: ly } = ppos(p);
-          const growR = BASE_R * p.radiusScale * lerp(1, 2.4, formT);
           ctx.beginPath();
-          ctx.arc(lx, ly, growR, 0, Math.PI * 2);
+          ctx.arc(lx, ly, BASE_R * p.radiusScale * lerp(1, 2.2, clamp01(rawT * 3)), 0, Math.PI * 2);
           ctx.fillStyle = `rgba(${p.logoR},${p.logoG},${p.logoB},${(p.alpha * srcFade).toFixed(2)})`;
           ctx.fill();
         }
 
-        const hs          = headshots[p.name];
+        // ── Leading dot (the "person" moving along the path) ─────────────
+        const hs = headshots[p.name];
         const hasPortrait = hs && hs.state === 'ready' && hs.dots.length > 0;
+        const dotR = hasPortrait ? PORTRAIT_R * 0.35 : BASE_R * 2.8;
+
+        // Store position for click hit-testing
+        lastAmbPositions.push({ x: ax, y: ay, r: dotR + 10, linkedin: p.linkedin, name: p.name });
 
         if (hasPortrait) {
-          // ── Water-drop dot portrait ───────────────────────────────────────────
+          // Mini portrait at the leading dot
+          const scale = 0.35 * fadeOut;
           for (const dot of hs.dots) {
-            // Project dot onto travel axis: +1 = leading (first out), -1 = trailing (last out)
-            const normProj = (dot.ox * tCX + dot.oy * tCY) / PORTRAIT_R; // -1 … +1
-
-            // Trailing dots are delayed — the neck of the teardrop forms last.
-            // delay=0 for leading, delay=0.55 for max trailing.
-            const delay    = Math.max(0, -normProj) * 0.55;
-            const dotFormT = clamp01((formT - delay) / Math.max(0.01, 1 - delay));
-            if (dotFormT <= 0) continue; // still inside the logo dot
-
-            const dotScale = easeOutBack(dotFormT) * portraitEdgeScale;
-
-            const wx  = Math.sin(now * dot.wiggleFreq       + dot.wigglePhaseX) * wiggleAmp;
-            const wy  = Math.sin(now * dot.wiggleFreq * 1.3 + dot.wigglePhaseY) * wiggleAmp;
-            const dpx = ax + dot.ox * dotScale + wx;
-            const dpy = ay + dot.oy * dotScale + wy;
-
-            // Fade each dot in as it emerges (quick ramp so it pops into view cleanly)
-            const a = Math.min(1, dotFormT * 3) * fadeOut * edgeFade * 0.90;
-            if (a < 0.004) continue;
+            const dpx = ax + dot.ox * scale;
+            const dpy = ay + dot.oy * scale;
+            const a = fadeOut * 0.92;
+            if (a < 0.01) continue;
             ctx.beginPath();
-            ctx.arc(dpx, dpy, DOT_R_FACE * portraitEdgeScale, 0, Math.PI * 2);
+            ctx.arc(dpx, dpy, DOT_R_FACE * 0.9, 0, Math.PI * 2);
             ctx.fillStyle = `rgba(${dot.r},${dot.g},${dot.b},${a.toFixed(2)})`;
             ctx.fill();
           }
-
         } else {
-          // ── Fallback: soft glow + enlarged dot (no headshot / still loading) ──
-          const fallbackA = formT * fadeOut * edgeFade;
-          const glowA = fallbackA * 0.28;
-          const gr    = ctx.createRadialGradient(ax, ay, BASE_R, ax, ay, BASE_R * 6);
-          gr.addColorStop(0, `rgba(${p.fieldR},${p.fieldG},${p.fieldB},${glowA.toFixed(2)})`);
+          // Glow + dot
+          const ga = fadeOut * 0.25;
+          const gr = ctx.createRadialGradient(ax, ay, BASE_R, ax, ay, BASE_R * 5);
+          gr.addColorStop(0, `rgba(${p.fieldR},${p.fieldG},${p.fieldB},${ga.toFixed(2)})`);
           gr.addColorStop(1, `rgba(${p.fieldR},${p.fieldG},${p.fieldB},0)`);
-          ctx.beginPath(); ctx.arc(ax, ay, BASE_R * 6, 0, Math.PI * 2);
+          ctx.beginPath(); ctx.arc(ax, ay, BASE_R * 5, 0, Math.PI * 2);
           ctx.fillStyle = gr; ctx.fill();
 
-          ctx.beginPath(); ctx.arc(ax, ay, BASE_R * 2.4, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(${p.fieldR},${p.fieldG},${p.fieldB},${(fallbackA * 0.93).toFixed(2)})`;
+          ctx.beginPath(); ctx.arc(ax, ay, BASE_R * 2.2, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(${p.fieldR},${p.fieldG},${p.fieldB},${(fadeOut * 0.9).toFixed(2)})`;
           ctx.fill();
         }
 
-        // ── Label card ────────────────────────────────────────────────────
-        if (la > 0.02) {
-          const side = (tx - sx) >= 0 ? 1 : -1;
-          const edgeR = hasPortrait
-            ? PORTRAIT_R * Math.min(1.05, Math.max(0.3, expandScale))
-            : BASE_R * 2.4;
-          const labX = ax + side * (edgeR + 13);
-
-          ctx.globalAlpha = Math.min(1, la * 1.5);
-
-          // Thin connector nub
-          ctx.beginPath();
-          ctx.moveTo(ax + side * edgeR, ay);
-          ctx.lineTo(ax + side * (edgeR + 9), ay);
-          ctx.strokeStyle = `rgba(${p.fieldR},${p.fieldG},${p.fieldB},0.38)`;
-          ctx.lineWidth = 0.9; ctx.stroke();
-
-          ctx.textAlign = side > 0 ? 'left' : 'right';
-
-          ctx.font = 'bold 13px Inter, -apple-system, sans-serif';
+        // ── Name label next to leading dot ───────────────────────────────
+        const labelA = rawT < 0.06 ? 0 : rawT < 0.18 ? (rawT - 0.06) / 0.12 : rawT < 0.75 ? 1 : rawT < 0.88 ? 1 - (rawT - 0.75) / 0.13 : 0;
+        if (labelA > 0.02) {
+          ctx.save();
+          ctx.globalAlpha = labelA * fadeOut;
+          ctx.font = 'bold 12px Inter, -apple-system, sans-serif';
           ctx.fillStyle = '#1a2f38';
-          ctx.fillText(p.name, labX, ay - 6);
-
+          ctx.textAlign = 'left';
+          ctx.fillText(p.name, ax + dotR + 8, ay - 3);
           if (p.headline) {
-            ctx.font = '11px Inter, -apple-system, sans-serif';
-            ctx.fillStyle = 'rgba(45,104,117,0.85)';
-            ctx.fillText(p.headline, labX, ay + 9);
-          }
-
-          const extras = [];
-          if (p.recency >= 2024) extras.push(`Active ${p.recency}`);
-          if (p.linkedin)        extras.push('→ LinkedIn');
-          if (extras.length) {
             ctx.font = '10px Inter, -apple-system, sans-serif';
-            ctx.fillStyle = 'rgba(45,104,117,0.50)';
-            ctx.fillText(extras.join('  ·  '), labX, ay + 24);
+            ctx.fillStyle = 'rgba(45,104,117,0.75)';
+            ctx.fillText(p.headline, ax + dotR + 8, ay + 10);
           }
-
-          ctx.globalAlpha = 1;
+          ctx.restore();
         }
       }
 
@@ -845,6 +917,27 @@
     let lastLinePositions = []; // [{points: [{x,y},...], ri}] computed each frame
     let lastAmbPositions  = []; // [{x, y, r, linkedin}] computed each frame
 
+    function hitTestAmbTrail(mx, my, threshold) {
+      for (const amb of ambList) {
+        const wp = amb.waypoints;
+        if (!wp || wp.length < 2) continue;
+        const rawT = Math.min(1, (Date.now() - amb.t0) / AMB_DUR);
+        if (rawT > 0.9) continue; // mostly faded
+        for (let i = 1; i < wp.length; i++) {
+          const a = wp[i - 1], b = wp[i];
+          const dx = b.x - a.x, dy = b.y - a.y;
+          const len2 = dx * dx + dy * dy;
+          if (len2 === 0) continue;
+          const t = clamp01(((mx - a.x) * dx + (my - a.y) * dy) / len2);
+          const px = a.x + t * dx, py = a.y + t * dy;
+          if (Math.hypot(mx - px, my - py) < threshold) {
+            return amb.p;
+          }
+        }
+      }
+      return null;
+    }
+
     function hitTestLine(mx, my, threshold) {
       // Test mouse point against each polyline (sampled from bezier)
       for (let li = lastLinePositions.length - 1; li >= 0; li--) {
@@ -916,6 +1009,22 @@
         }
       }
 
+      // Check ambassador trail hover
+      const trailP = hitTestAmbTrail(mx, my, 8);
+      if (trailP) {
+        hoveredGroup = -1;
+        hoveredNode = null;
+        hoveredNodeGroups = null;
+        canvas.style.cursor = "pointer";
+        if (tooltip) {
+          tooltip.innerHTML = `<strong>${trailP.name}</strong><br><span style="opacity:0.8">${trailP.headline || ''}</span><br><span style="font-size:11px;opacity:0.55">Click to open LinkedIn</span>`;
+          tooltip.classList.add("visible");
+          tooltip.style.left = (e.clientX + 14) + "px";
+          tooltip.style.top = (e.clientY - 10) + "px";
+        }
+        return;
+      }
+
       // Check node (cluster) hover first
       const node = hitTestNode(mx, my);
       if (node) {
@@ -972,12 +1081,17 @@
       const rect = canvas.getBoundingClientRect();
       const mx = e.clientX - rect.left, my = e.clientY - rect.top;
 
-      // Check ambassador click first
+      // Check ambassador click first (dot + trail)
       for (const amb of lastAmbPositions) {
         if (Math.hypot(mx - amb.x, my - amb.y) <= amb.r) {
           if (amb.linkedin) window.open(amb.linkedin, "_blank");
           return;
         }
+      }
+      const trailHit = hitTestAmbTrail(mx, my, 8);
+      if (trailHit) {
+        if (trailHit.linkedin) window.open(trailHit.linkedin, "_blank");
+        return;
       }
 
       const ri = hitTestLine(mx, my, 6);

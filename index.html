@@ -206,7 +206,7 @@
             bottom: 36px;
             left: 50%;
             transform: translateX(-50%);
-            font-size: 9.5px;
+            font-size: 14px;
             font-weight: 500;
             letter-spacing: 0.18em;
             text-transform: uppercase;
@@ -688,6 +688,116 @@
             50%      { opacity: 1; transform: scale(1.3); }
         }
 
+        /* ────────────── Feedback bar ────────────── */
+        .feedback-bar {
+            padding: 14px 0;
+            border-top: 1px solid var(--border);
+            animation: feedback-fade-in 0.4s ease;
+        }
+        @keyframes feedback-fade-in {
+            from { opacity: 0; transform: translateY(8px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        .feedback-prompt {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            position: relative;
+        }
+        .feedback-label {
+            font-size: 12px;
+            color: var(--ink-3);
+            font-family: 'Inter', sans-serif;
+        }
+        .feedback-btn {
+            background: none;
+            border: 1px solid rgba(0,101,189,0.25);
+            border-radius: 100px;
+            padding: 4px 10px;
+            cursor: pointer;
+            font-size: 14px;
+            line-height: 1;
+            transition: border-color 0.15s, background 0.15s, transform 0.1s;
+            filter: grayscale(1) brightness(0.6) sepia(1) hue-rotate(180deg) saturate(3);
+        }
+        .feedback-btn:hover {
+            border-color: var(--cdtm-blue);
+            background: rgba(0,101,189,0.06);
+            transform: scale(1.1);
+        }
+        .feedback-btn.selected {
+            border-color: var(--cdtm-blue);
+            background: rgba(0,101,189,0.10);
+        }
+        .feedback-nudge {
+            display: inline-block;
+            font-size: 11px;
+            color: rgba(0,101,189,0.6);
+            font-family: 'Inter', sans-serif;
+            margin-left: 4px;
+            animation: nudge-fade 0.5s ease 2.5s both;
+        }
+        @keyframes nudge-fade {
+            from { opacity: 0; transform: translateX(-4px); }
+            to   { opacity: 1; transform: translateX(0); }
+        }
+        .feedback-comment {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 10px;
+            animation: feedback-fade-in 0.3s ease;
+        }
+        .feedback-input {
+            flex: 1;
+            padding: 8px 0;
+            border: none;
+            border-bottom: 1.5px solid var(--border);
+            font-size: 13px;
+            font-family: inherit;
+            color: var(--ink);
+            background: transparent;
+            outline: none;
+            transition: border-color 0.2s;
+            border-radius: 0;
+            -webkit-appearance: none;
+        }
+        .feedback-input:focus { border-bottom-color: var(--amber); }
+        .feedback-input::placeholder { color: var(--ink-3); }
+        .feedback-submit {
+            padding: 6px 16px;
+            background: var(--ink);
+            color: var(--cream);
+            border: none;
+            border-radius: 100px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            font-family: inherit;
+            transition: background 0.15s;
+            white-space: nowrap;
+        }
+        .feedback-submit:hover { background: #2d2c27; }
+        .feedback-skip {
+            padding: 6px 12px;
+            background: none;
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            font-size: 12px;
+            color: var(--ink-3);
+            cursor: pointer;
+            font-family: inherit;
+            transition: border-color 0.15s;
+            white-space: nowrap;
+        }
+        .feedback-skip:hover { border-color: rgba(26,25,22,0.25); }
+        .feedback-thanks {
+            font-size: 12px;
+            color: var(--ink-3);
+            font-family: 'Inter', sans-serif;
+            animation: feedback-fade-in 0.3s ease;
+        }
+
         /* ────────────── Founder timeline section ────────────── */
         #founder-section {
             height: 260vh;
@@ -784,7 +894,7 @@
 <section id="hero-section">
   <div id="hero-sticky">
     <canvas id="particle-canvas"></canvas>
-    <div class="scroll-hint">↓ scroll</div>
+    <div class="scroll-hint">↓ Scroll to explore</div>
   </div>
 </section>
 
@@ -852,6 +962,24 @@
   </div>
 
   <div class="stats-bar" id="stats"></div>
+
+  <!-- Feedback bar -->
+  <div id="feedback-bar" class="feedback-bar" style="display:none">
+    <div class="feedback-prompt" id="feedback-prompt">
+      <span class="feedback-label">How's this chart?</span>
+      <button class="feedback-btn feedback-up" id="feedback-up" title="Looks good">&#x1F44D;</button>
+      <button class="feedback-btn feedback-down" id="feedback-down" title="Something's off">&#x1F44E;</button>
+      <span class="feedback-nudge">Something doesn't look right? Give feedback here!</span>
+    </div>
+    <div class="feedback-comment" id="feedback-comment" style="display:none">
+      <input type="text" id="feedback-input" class="feedback-input" placeholder="What's wrong with this chart?" maxlength="500" />
+      <button id="feedback-submit" class="feedback-submit">Send</button>
+      <button id="feedback-skip" class="feedback-skip">Skip</button>
+    </div>
+    <div class="feedback-thanks" id="feedback-thanks" style="display:none">
+      Thanks for the feedback!
+    </div>
+  </div>
 </div>
 
 <div class="tooltip" id="tooltip"></div>
