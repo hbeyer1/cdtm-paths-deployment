@@ -737,29 +737,104 @@
         /* ── Share button ── */
         .share-bar {
             display: none;
-            padding: 10px 0;
-            border-top: 1px solid var(--border);
-            animation: feedback-fade-in 0.4s ease;
+            padding: 18px 0;
+            animation: feedback-fade-in 0.5s ease;
         }
-        .share-bar.active { display: flex; align-items: center; gap: 10px; }
+        .share-bar.active {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
         .share-btn {
+            position: relative;
             display: inline-flex;
             align-items: center;
-            gap: 6px;
-            padding: 7px 18px;
-            background: var(--cdtm-blue);
-            color: #fff;
-            border: none;
+            gap: 7px;
+            padding: 10px 26px;
             border-radius: 100px;
+            background: var(--cdtm-blue);
+            border: 1px solid rgba(255,255,255,0.25);
+            box-shadow: 0 4px 18px rgba(0,0,0,0.18),
+                        inset 0 1px 0 rgba(255,255,255,0.15);
+            color: #fff;
             font-size: 13px;
             font-weight: 500;
+            letter-spacing: 0.02em;
+            font-family: 'Inter', sans-serif;
             cursor: pointer;
-            font-family: inherit;
-            transition: background 0.2s, transform 0.15s;
             white-space: nowrap;
+            transition: background 0.2s, transform 0.15s;
+            overflow: hidden;
         }
-        .share-btn:hover { background: #004d94; transform: translateY(-1px); }
-        .share-btn.copied { background: #16a34a; }
+        /* Grain texture */
+        .share-btn::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='g' x='0' y='0' width='100%25' height='100%25' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.70' numOctaves='4' stitchTiles='stitch' result='noise'/%3E%3CfeColorMatrix in='noise' type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23g)'/%3E%3C/svg%3E");
+            background-size: 300px 300px;
+            background-repeat: repeat;
+            opacity: 0.15;
+            pointer-events: none;
+            border-radius: inherit;
+        }
+        .share-btn:hover {
+            background: #004d94;
+            transform: translateY(-1px);
+        }
+        .share-btn.copied {
+            background: #16a34a;
+        }
+        /* Glint — travels around border and fill edge in sync */
+        .share-btn::after {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            border-radius: 100px;
+            background: conic-gradient(
+                from var(--glint-angle, 0deg),
+                transparent 0%,
+                transparent 30%,
+                rgba(255,255,255,0.2) 38%,
+                rgba(255,255,255,0.45) 45%,
+                rgba(255,255,255,0.65) 50%,
+                rgba(255,255,255,0.45) 55%,
+                rgba(255,255,255,0.2) 62%,
+                transparent 70%,
+                transparent 100%
+            );
+            -webkit-mask: radial-gradient(
+                farthest-side at center,
+                transparent 50%,
+                rgba(0,0,0,0.25) 65%,
+                rgba(0,0,0,0.6) 80%,
+                #000 100%
+            );
+            mask: radial-gradient(
+                farthest-side at center,
+                transparent 50%,
+                rgba(0,0,0,0.25) 65%,
+                rgba(0,0,0,0.6) 80%,
+                #000 100%
+            );
+            opacity: 0.6;
+            pointer-events: none;
+            animation: share-glint 3s linear infinite;
+        }
+        @keyframes share-glint {
+            from { --glint-angle: 0deg; }
+            to   { --glint-angle: 360deg; }
+        }
+        @property --glint-angle {
+            syntax: '<angle>';
+            initial-value: 0deg;
+            inherits: false;
+        }
+        .share-btn.copied::after {
+            animation: none;
+            opacity: 0;
+        }
         .share-hint {
             font-size: 11px;
             color: var(--ink-3);
