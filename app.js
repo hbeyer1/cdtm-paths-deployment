@@ -76,10 +76,13 @@ function stopLoadingWords() {
 }
 
 // ─── Layout constants ──────────────────────────────────────────────────────────
-const MARGIN    = { top: 64, right: 230, bottom: 36, left: 230 };
+function isMobile() { return window.innerWidth < 768; }
+const MARGIN    = isMobile()
+    ? { top: 40, right: 20, bottom: 24, left: 20 }
+    : { top: 64, right: 230, bottom: 36, left: 230 };
 const OVAL_RX   = 11;  // fixed half-width of every oval node
-const NODE_GAP  = 14;  // vertical gap between nodes within a column
-const CHART_H   = 680; // svg height
+const NODE_GAP  = isMobile() ? 22 : 14;  // vertical gap between nodes within a column
+const CHART_H   = isMobile() ? 820 : 680; // svg height
 const BG_COLOR  = "#f5f0e8"; // cream — matches page background
 
 // ─── Colour palettes ───────────────────────────────────────────────────────────
@@ -1176,6 +1179,238 @@ function showBeginNudge() {
     }, { passive: true });
 }
 
+// ─── Mobile vertical chart renderer ─────────────────────────────────────────
+function renderDynamicMobile(data, container) {
+    const columnLabels = data.column_labels;
+    const nCols = columnLabels.length;
+    const svgW = container.clientWidth || 375;
+    const M = { top: 28, right: 12, bottom: 20, left: 12 };
+    const ROW_H = 150;
+    const LABEL_AREA = 22;
+    const chartH = M.top + ROW_H * nCols + M.bottom;
+    const iW = svgW - M.left - M.right;
+
+    // ── Build rows ──
+    const rows = data.paths.map(p => ({
+        person: { full_name: p.name, linkedin: p.linkedin || null, headline: p.headline || "" },
+        vals: p.values.map(v => (v != null && v !== "") ? String(v) : null),
+    }));
+
+    // ── Build nodes per column (stack horizontally) ──
+    const columns = columnLabels.map((label, ci) => {
+        const counts = {};
+        rows.forEach(r => { const v = r.vals[ci]; if (v != null) counts[v] = (counts[v] || 0) + 1; });
+        const vals = Object.keys(counts);
+        const looksChronological = vals.length >= 2 && vals.every(v =>
+            /^(spring|fall|winter|summer)?\s*\d{4}/i.test(v) || /^\d{4}\s*[-–]\s*\d{4}$/.test(v) || /^\d{4}$/.test(v)
+        );
+        const cohortOrder = v => { const m = v.match(/(\d{4})/); return (m ? parseInt(m[1]) : 9999) + (/^fall/i.test(v) ? 0.5 : 0); };
+        const nodes = Object.entries(counts)
+            .sort((a, b) => looksChronological ? cohortOrder(a[0]) - cohortOrder(b[0]) : b[1] - a[1])
+            .map(([value, count]) => ({ colIndex: ci, value, count, x: 0, width: 0 }));
+        const totalPad = Math.max(0, nodes.length - 1) * NODE_GAP;
+        const available = iW - totalPad;
+        const total = nodes.reduce((s, n) => s + n.count, 0) || 1;
+        let x = 0;
+        nodes.forEach(n => { n.width = (n.count / total) * available; n.x = x; x += n.width + NODE_GAP; });
+        return { col: { label }, index: ci, nodes };
+    });
+
+    // ── Sort rows to minimise crossings ──
+    const nodeIndexMaps = columns.map(col => Object.fromEntries(col.nodes.map((n, i) => [n.value, i])));
+    rows.sort((a, b) => {
+        for (let ci = 0; ci < nCols; ci++) {
+            const ai = a.vals[ci] != null ? (nodeIndexMaps[ci][a.vals[ci]] ?? 99) : 100;
+            const bi = b.vals[ci] != null ? (nodeIndexMaps[ci][b.vals[ci]] ?? 99) : 100;
+            if (ai !== bi) return ai - bi;
+        }
+        return 0;
+    });
+
+    // ── Colors ──
+    const EC = ["#1b3a6b","#e2b84a","#2e6ca4","#d4a83a","#4889d0","#93c5fd","#c49530","#7ab3e8","#3b7dc9","#bfdbfe","#1e4d8c","#a5c8ef"];
+    const firstColVals = [...new Set(rows.map(r => r.vals[0]))];
+    const valColorMap = {};
+    firstColVals.forEach((v, i) => { valColorMap[v] = PALETTE[v] || EC[i % EC.length]; });
+
+    // ── Circle radius (smaller for mobile) ──
+    const maxCount = Math.max(...columns.flatMap(col => col.nodes.map(n => n.count)));
+    const minR = 4, maxR = 24;
+    const nodeR = count => Math.max(minR, Math.min(maxR, Math.sqrt(count / maxCount) * maxR));
+
+    // ── Node centres: Y fixed per row, X spread within row ──
+    const rowY = ci => M.top + LABEL_AREA + ci * ROW_H + (ROW_H - LABEL_AREA) / 2;
+    const ncx = columns.map(col => {
+        const m = {}; col.nodes.forEach(n => { m[n.value] = M.left + n.x + n.width / 2; }); return m;
+    });
+
+    // ── Person positions at each node ──
+    const pX = rows.map(() => new Array(nCols).fill(null));
+    const pY = rows.map(() => new Array(nCols).fill(null));
+    columns.forEach((col, ci) => {
+        const cy = rowY(ci);
+        const groups = {};
+        rows.forEach((r, ri) => { const v = r.vals[ci]; if (v != null) { if (!groups[v]) groups[v] = []; groups[v].push(ri); } });
+        for (const [val, indices] of Object.entries(groups)) {
+            const cx = ncx[ci][val];
+            const r = nodeR(indices.length <= 1 ? 1 : indices.length);
+            const spread = r * 0.7;
+            const n = indices.length;
+            indices.forEach((ri, k) => {
+                const t = n === 1 ? 0 : (k / (n - 1)) * 2 - 1;
+                pX[ri][ci] = cx + t * spread;
+                pY[ri][ci] = cy;
+            });
+        }
+    });
+
+    // ── Build SVG ──
+    container.innerHTML = "";
+    const svg = d3.select(container).append("svg")
+        .attr("width", svgW).attr("height", chartH)
+        .style("display", "block");
+    svg.append("rect").attr("width", svgW).attr("height", chartH).attr("fill", BG_COLOR);
+
+    // Column labels (centred above each row)
+    columns.forEach((col, ci) => {
+        svg.append("text")
+            .attr("x", svgW / 2).attr("y", M.top + ci * ROW_H + 14)
+            .attr("text-anchor", "middle")
+            .attr("fill", "#6b6960")
+            .style("font", "bold 9.5px 'Inter', sans-serif")
+            .style("letter-spacing", "0.10em")
+            .text(col.col.label);
+    });
+
+    // Row separators
+    for (let i = 0; i + 1 < nCols; i++) {
+        const sy = M.top + (i + 1) * ROW_H;
+        svg.append("line")
+            .attr("x1", M.left + 8).attr("y1", sy)
+            .attr("x2", svgW - M.right - 8).attr("y2", sy)
+            .attr("stroke", "rgba(26,25,22,0.08)")
+            .attr("stroke-width", 0.8)
+            .attr("stroke-dasharray", "4,7");
+    }
+
+    // Node circles (visual only, pointer-events: none)
+    const nodesG = svg.append("g").style("pointer-events", "none");
+    const labelsG = svg.append("g").style("pointer-events", "none");
+    columns.forEach((col, ci) => {
+        const cy = rowY(ci);
+        col.nodes.forEach(node => {
+            const cx = ncx[ci][node.value];
+            const r = nodeR(node.count);
+            nodesG.append("circle")
+                .attr("cx", cx).attr("cy", cy).attr("r", r)
+                .attr("fill", "none")
+                .attr("stroke", "rgba(26,25,22,0.22)")
+                .attr("stroke-width", 1);
+            // Label below — only for circles large enough
+            if (r >= 7) {
+                const lbl = node.value.length > 15 ? node.value.slice(0, 13) + "…" : node.value;
+                labelsG.append("text")
+                    .attr("x", cx).attr("y", cy + r + 11)
+                    .attr("text-anchor", "middle")
+                    .attr("fill", "#1a1916")
+                    .style("font", "italic 8px 'Inter', Georgia, serif")
+                    .text(lbl);
+                labelsG.append("text")
+                    .attr("x", cx).attr("y", cy + r + 20)
+                    .attr("text-anchor", "middle")
+                    .attr("fill", "rgba(26,25,22,0.40)")
+                    .style("font", "7.5px 'Inter', sans-serif")
+                    .text(node.count);
+            }
+        });
+    });
+
+    // ── Vertical bezier paths ──
+    function vPath(ri) {
+        const pts = [];
+        for (let ci = 0; ci < nCols; ci++) {
+            if (pX[ri][ci] != null) pts.push({ x: pX[ri][ci], y: pY[ri][ci] });
+        }
+        if (pts.length < 2) return "";
+        let d = `M${pts[0].x},${pts[0].y}`;
+        for (let i = 1; i < pts.length; i++) {
+            const my = (pts[i - 1].y + pts[i].y) / 2;
+            d += ` C${pts[i-1].x},${my} ${pts[i].x},${my} ${pts[i].x},${pts[i].y}`;
+        }
+        return d;
+    }
+
+    const pathsG = svg.append("g");
+    const lw = Math.max(0.8, Math.min(2.2, 50 / rows.length));
+    const hlw = Math.max(2, Math.min(3.5, 90 / rows.length));
+    const allPaths = pathsG.selectAll("path").data(rows).join("path")
+        .attr("d", (_, ri) => vPath(ri))
+        .attr("fill", "none")
+        .attr("stroke", r => valColorMap[r.vals[0]] || "#94a3b8")
+        .attr("stroke-width", lw)
+        .attr("opacity", 0.5)
+        .attr("stroke-linecap", "round");
+
+    // ── Touch interaction: single SVG click handler ──
+    svg.on("click", function(evt) {
+        const [mx, my] = d3.pointer(evt);
+
+        // Priority 1: node proximity — highlight all paths through that node
+        let bestNode = null, bestCi = -1, bestDist = Infinity;
+        columns.forEach((col, ci) => {
+            col.nodes.forEach(node => {
+                const cx = ncx[ci][node.value], cy = rowY(ci);
+                const dist = Math.sqrt((mx - cx) ** 2 + (my - cy) ** 2);
+                if (dist < nodeR(node.count) + 12 && dist < bestDist) {
+                    bestDist = dist; bestNode = node; bestCi = ci;
+                }
+            });
+        });
+        if (bestNode) {
+            allPaths
+                .attr("opacity", d => d.vals[bestCi] === bestNode.value ? 1 : 0.06)
+                .attr("stroke-width", d => d.vals[bestCi] === bestNode.value ? hlw : lw * 0.5);
+            allPaths.filter(d => d.vals[bestCi] === bestNode.value).raise();
+            activePath = null;
+            document.getElementById("selected-bar").style.display = "none";
+            return;
+        }
+
+        // Priority 2: path tap — select individual
+        if (evt.target.tagName === 'path') {
+            const row = d3.select(evt.target).datum();
+            if (row && row.person) {
+                if (activePath === evt.target) {
+                    // Toggle off
+                    allPaths.attr("opacity", 0.5).attr("stroke-width", lw);
+                    activePath = null;
+                    document.getElementById("selected-bar").style.display = "none";
+                } else {
+                    allPaths.attr("opacity", 0.1).attr("stroke-width", lw);
+                    d3.select(evt.target).attr("opacity", 1).attr("stroke-width", hlw).raise();
+                    activePath = evt.target;
+                    document.getElementById("sel-name").textContent = row.person.full_name || "—";
+                    document.getElementById("sel-headline").textContent = (row.person.headline || "").trim();
+                    const linkEl = document.getElementById("sel-link");
+                    if (row.person.linkedin) { linkEl.href = row.person.linkedin; linkEl.style.display = "inline"; }
+                    else { linkEl.style.display = "none"; }
+                    document.getElementById("selected-bar").style.display = "flex";
+                }
+                return;
+            }
+        }
+
+        // Priority 3: background — deselect
+        allPaths.attr("opacity", 0.5).attr("stroke-width", lw);
+        activePath = null;
+        document.getElementById("selected-bar").style.display = "none";
+    });
+
+    document.getElementById("stats").innerHTML =
+        `<strong>${rows.length.toLocaleString()}</strong> alumni match · ` +
+        `<span style="color:#a8a79f">tap a node or path to explore</span>`;
+}
+
 function renderDynamic(data) {
     const container = document.getElementById("chart");
     activePath = null;
@@ -1187,6 +1422,9 @@ function renderDynamic(data) {
         document.getElementById("stats").innerHTML = "";
         return;
     }
+
+    // Mobile: render vertically
+    if (isMobile()) return renderDynamicMobile(data, container);
 
     const columnLabels = data.column_labels;
     const nCols = columnLabels.length;

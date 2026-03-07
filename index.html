@@ -212,18 +212,24 @@
             letter-spacing: 0.18em;
             text-transform: uppercase;
             color: var(--cdtm-blue);
-            animation: bob 2.5s ease-in-out infinite;
+            animation: bob-hint 2.5s ease-in-out infinite;
             font-family: 'Inter', sans-serif;
             display: flex;
+            justify-content: center;
             gap: 0;
             z-index: 20;
             transition: opacity 0.3s ease;
+            width: max-content;
         }
         .scroll-hint .scroll-char {
             display: inline-block;
             font-weight: 500;
             animation: bob 2.5s ease-in-out infinite, char-wave 3s ease-in-out infinite;
             animation-delay: var(--d), var(--d);
+        }
+        @keyframes bob-hint {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50%       { transform: translateX(-50%) translateY(7px); }
         }
         @keyframes bob {
             0%, 100% { transform: translateY(0); }
@@ -1038,6 +1044,80 @@
             color: rgba(0,101,189,0.65);
             margin-top: 9px;
             font-family: 'Inter', sans-serif;
+        }
+        /* ────────────── Mobile responsive ────────────── */
+        @media (max-width: 767px) {
+            /* Nav */
+            .nav-links { display: none; }
+            .nav-cta { font-size: 11px; padding: 4px 12px; }
+            #site-nav { width: calc(100% - 24px); top: 10px; height: 38px; }
+            .nav-inner { padding: 0 12px; }
+            .nav-brand-text { font-size: 11px; }
+
+            /* Hero */
+            #hero-section { height: 400vh; }
+            #hero-text { padding: 20px 24px 24px; border-radius: 18px; }
+            #hero-text h1 { font-size: clamp(32px, 10vw, 52px); }
+            #hero-sub { font-size: 11px; margin-top: 14px; }
+            #hero-eyebrow { font-size: 9px; margin-bottom: 10px; }
+            .scroll-hint { font-size: 11px; bottom: 20px; letter-spacing: 0.12em; }
+
+            /* Founder */
+            #founder-section { height: 180vh; }
+            #founder-tip { max-width: 200px; padding: 10px 12px; }
+
+            /* Scroll bridge */
+            .scroll-bridge { font-size: 12px; padding: 32px 16px; }
+
+            /* Narrative */
+            .narrative { padding: 60px 20px; min-height: 50vh; }
+            .narrative-hl { font-size: clamp(32px, 9vw, 56px); }
+            .narrative-body { font-size: 14px; max-width: 100%; }
+            .narrative-rule { margin: 24px 0; }
+
+            /* App section */
+            .page { padding: 32px 12px 48px; }
+            .app-header h1 { font-size: clamp(22px, 6vw, 32px); }
+            .app-header p { font-size: 12px; }
+
+            /* Query bar */
+            .query-bar { height: 46px; padding: 0 4px 0 14px; }
+            .query-input { font-size: 14px; }
+            .query-btn { font-size: 12px; padding: 7px 14px; }
+            .typewriter-text { font-size: clamp(14px, 4vw, 18px); }
+            .query-typewriter { min-height: 28px; margin-bottom: 12px; }
+
+            /* Suggestions */
+            .suggestions { gap: 5px; margin-top: 8px; }
+            .suggestion-chip { font-size: 10px; padding: 3px 9px; max-width: 180px; }
+
+            /* Chart */
+            #chart { overflow-x: hidden; min-height: 300px; }
+
+            /* Selected bar */
+            #selected-bar { flex-wrap: wrap; font-size: 12px; gap: 6px; padding: 10px 0; }
+            #selected-bar .sel-headline { white-space: normal; }
+
+            /* Stats */
+            .stats-bar { font-size: 11px; }
+
+            /* Tooltip */
+            .tooltip { max-width: 200px; font-size: 11px; padding: 7px 10px; }
+
+            /* Feedback */
+            .feedback-prompt { flex-wrap: wrap; gap: 8px; }
+            .feedback-nudge { display: none; }
+            .feedback-bar { padding: 10px 0; }
+            .feedback-comment { flex-wrap: wrap; }
+
+            /* Share */
+            .share-btn { font-size: 12px; padding: 8px 20px; }
+
+            /* Palette toggle */
+            .palette-toggle { margin-left: 0; margin-top: 8px; }
+
+            /* Loading */
+            .loading-strip { padding: 60px 20px; min-height: 300px; }
         }
     </style>
     <!-- PostHog analytics -->

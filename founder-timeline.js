@@ -167,9 +167,11 @@
       const view = VIEWS[0];
       const { rows } = buildLayout(alumniData, view, W);
 
-      chartRight  = Math.round(W * 0.50) - 20;
+      const mobile = W < 768;
+      chartRight  = mobile ? (W - 20) : (Math.round(W * 0.50) - 20);
       const innerW = chartRight - PAD_L;
-      const innerH = H - PAD_T - PAD_B;
+      const chartBottom = mobile ? Math.round(H * 0.55) : H;
+      const innerH = chartBottom - PAD_T - PAD_B;
       colSpacing   = innerW / (N_YEARS - 1);
 
       yearCounts = {};
@@ -241,7 +243,7 @@
           const col_i   = di % dotsPerRow;
           const xOff    = (col_i - (dotsPerRow - 1) / 2) * dotPitch;
           const targetX = xCenter + xOff;
-          const targetY = H - PAD_B - dotR - row_i * rowHeight;
+          const targetY = chartBottom - PAD_B - dotR - row_i * rowHeight;
 
           colArr.push({ x: targetX, y: targetY, r: f.r, g: f.g, b: f.b });
 
@@ -279,10 +281,11 @@
     function buildMap() {
       if (!worldTopo || W === 0) return;
 
-      mapLeft = chartRight + MAP_PAD_L;
-      const mapRight  = W - MAP_PAD_R;
-      const mapTop    = MAP_PAD_T;
-      const mapBottom = H - MAP_PAD_B;
+      const mobile = W < 768;
+      mapLeft = mobile ? 16 : (chartRight + MAP_PAD_L);
+      const mapRight  = W - (mobile ? 16 : MAP_PAD_R);
+      const mapTop    = mobile ? Math.round(H * 0.58) : MAP_PAD_T;
+      const mapBottom = H - (mobile ? 16 : MAP_PAD_B);
       const mW        = mapRight - mapLeft;
       const mH        = mapBottom - mapTop;
 
@@ -455,8 +458,10 @@
 
       // ── X-axis ────────────────────────────────────────────────────────────
       const t_axis = easeOut3(clamp01((progress - 0.03) / 0.16));
+      const mobile = W < 768;
+      const axisBottom = mobile ? Math.round(H * 0.55) : H;
       if (t_axis > 0.01) {
-        const axisY = H - PAD_B + 12;
+        const axisY = axisBottom - PAD_B + 12;
         ctx.save();
 
         ctx.globalAlpha = t_axis * 0.15;
@@ -467,7 +472,8 @@
         ctx.lineWidth   = 1;
         ctx.stroke();
 
-        ctx.font = '10px Inter, sans-serif';
+        ctx.font = mobile ? '8px Inter, sans-serif' : '10px Inter, sans-serif';
+        const labelEvery = mobile ? 4 : 2;
         for (let i = 0; i < N_YEARS; i++) {
           const year = YEAR_MIN + i;
           const x    = PAD_L + i * colSpacing;
@@ -480,7 +486,7 @@
           ctx.lineWidth   = 1;
           ctx.stroke();
 
-          if (year % 2 === 0) {
+          if (year % labelEvery === 0) {
             ctx.globalAlpha = t_axis * 0.50;
             ctx.fillStyle   = '#6b6960';
             ctx.textAlign   = 'center';
@@ -497,11 +503,12 @@
         ctx.globalAlpha = t_title;
         ctx.textAlign   = 'left';
 
-        ctx.font      = '600 10px Inter, sans-serif';
+        const tagSize = mobile ? 8 : 10;
+        ctx.font      = `600 ${tagSize}px Inter, sans-serif`;
         ctx.fillStyle = 'rgba(168,167,159,0.95)';
         ctx.fillText('CDTM ALUMNI · COMPANIES FOUNDED', PAD_L, 34);
 
-        const sz = Math.round(Math.min(36, Math.max(22, W / 44)));
+        const sz = mobile ? Math.round(Math.min(20, Math.max(16, W / 20))) : Math.round(Math.min(36, Math.max(22, W / 44)));
         ctx.font      = `800 ${sz}px 'Bricolage Grotesque', sans-serif`;
         ctx.fillStyle = 'rgba(26,25,22,0.82)';
         ctx.fillText('Each dot, a company built.', PAD_L, 34 + sz * 1.18);
@@ -513,22 +520,34 @@
       if (arrivedCount > 0 && mapFadeIn > 0.01) {
         const fade = Math.min(1, arrivedCount / 8) * mapFadeIn;
 
-        // position: top-right corner of the map area
-        const counterX = W - MAP_PAD_R - 16;
-        const counterY = MAP_PAD_T + 16;
-
         ctx.save();
         ctx.globalAlpha = fade;
-        ctx.textAlign   = 'right';
 
-        const numSize = Math.round(Math.min(80, Math.max(48, (W - chartRight) / 5)));
-        ctx.font      = `800 ${numSize}px 'Bricolage Grotesque', sans-serif`;
-        ctx.fillStyle = 'rgba(245,158,11,0.94)';
-        ctx.fillText(String(arrivedCount), counterX, counterY + numSize);
-
-        ctx.font      = '500 11px Inter, sans-serif';
-        ctx.fillStyle = 'rgba(107,105,96,0.75)';
-        ctx.fillText('companies founded', counterX, counterY + numSize + 16);
+        if (mobile) {
+          // Mobile: counter top-right of chart area
+          const counterX = W - 20;
+          const counterY = 28;
+          ctx.textAlign = 'right';
+          const numSize = Math.round(Math.min(40, Math.max(28, W / 10)));
+          ctx.font      = `800 ${numSize}px 'Bricolage Grotesque', sans-serif`;
+          ctx.fillStyle = 'rgba(245,158,11,0.94)';
+          ctx.fillText(String(arrivedCount), counterX, counterY + numSize);
+          ctx.font      = '500 9px Inter, sans-serif';
+          ctx.fillStyle = 'rgba(107,105,96,0.75)';
+          ctx.fillText('companies founded', counterX, counterY + numSize + 12);
+        } else {
+          // Desktop: top-right corner of the map area
+          const counterX = W - MAP_PAD_R - 16;
+          const counterY = MAP_PAD_T + 16;
+          ctx.textAlign = 'right';
+          const numSize = Math.round(Math.min(80, Math.max(48, (W - chartRight) / 5)));
+          ctx.font      = `800 ${numSize}px 'Bricolage Grotesque', sans-serif`;
+          ctx.fillStyle = 'rgba(245,158,11,0.94)';
+          ctx.fillText(String(arrivedCount), counterX, counterY + numSize);
+          ctx.font      = '500 11px Inter, sans-serif';
+          ctx.fillStyle = 'rgba(107,105,96,0.75)';
+          ctx.fillText('companies founded', counterX, counterY + numSize + 16);
+        }
 
         ctx.restore();
       }
@@ -542,7 +561,7 @@
       H = window.innerHeight;
       canvas.width  = W;
       canvas.height = H;
-      chartRight = Math.round(W * 0.50) - 20;
+      chartRight = W < 768 ? (W - 20) : (Math.round(W * 0.50) - 20);
       build();
       buildMap();
     }
