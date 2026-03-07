@@ -241,6 +241,7 @@
 
   // Spotlights match against hero_paths.json values (same data the graph nodes use)
   // except Unicorn Founders which uses verified list
+  // Stages: 0=STUDIED, 1=RESEARCH ABROAD, 2=STARTED IN, 3=MOVED TO, 4=ACHIEVEMENT
   const SPOTLIGHTS = [
     {
       label: "Unicorn Founders",
@@ -505,6 +506,10 @@
     const ctx = canvas.getContext("2d");
     let particles = [], groups = [], logoFill = [], weightedPool = [], headshotPool = [];
     let heroChart = null;
+    let storyHeroIdx = -1;
+    let storyPathIdxs = [];
+    let storyAdjacentIdxs = [];
+    let storyBreakoutPts = [];
     let W = 0, H = 0;
 
     const MAX_AMB    = 4;
@@ -556,6 +561,77 @@
 
       buildSpotlightSets(chart.rows);
 
+      // Select storytelling hero dot and build a path chain through nearby dots
+      if (particles.length > 0) {
+        const cx = W / 2, cy = H / 2 - 50;
+        let bestD = Infinity;
+        for (let i = 0; i < particles.length; i++) {
+          const d = Math.hypot(particles[i].logoX - cx, particles[i].logoY - cy);
+          if (d < bestD) { bestD = d; storyHeroIdx = i; }
+        }
+
+        // Build a chain of ~10 dots forming a smooth path
+        storyPathIdxs = [storyHeroIdx];
+        const pathUsed = new Set([storyHeroIdx]);
+        let curr = storyHeroIdx;
+        let angle = -Math.PI / 5; // start going upper-right
+        for (let step = 0; step < 9; step++) {
+          const cp = particles[curr];
+          let bestI = -1, bestScore = Infinity;
+          for (let i = 0; i < particles.length; i++) {
+            if (pathUsed.has(i)) continue;
+            const dx = particles[i].logoX - cp.logoX;
+            const dy = particles[i].logoY - cp.logoY;
+            const dist = Math.hypot(dx, dy);
+            const dotAngle = Math.atan2(dy, dx);
+            let angleDiff = dotAngle - angle;
+            while (angleDiff > Math.PI) angleDiff -= 2 * Math.PI;
+            while (angleDiff < -Math.PI) angleDiff += 2 * Math.PI;
+            if (Math.abs(angleDiff) > Math.PI * 0.6) continue;
+            const score = dist * (1 + Math.abs(angleDiff) * 0.5);
+            if (score < bestScore) { bestScore = score; bestI = i; }
+          }
+          if (bestI < 0) break;
+          storyPathIdxs.push(bestI);
+          pathUsed.add(bestI);
+          const np = particles[bestI];
+          angle = Math.atan2(np.logoY - cp.logoY, np.logoX - cp.logoX) + 0.25;
+          curr = bestI;
+        }
+
+        // Find adjacent dots: close to any path dot but not on the path
+        const adjCandidates = [];
+        for (let i = 0; i < particles.length; i++) {
+          if (pathUsed.has(i)) continue;
+          let minD = Infinity;
+          for (const pi of storyPathIdxs) {
+            const d = Math.hypot(particles[i].logoX - particles[pi].logoX, particles[i].logoY - particles[pi].logoY);
+            if (d < minD) minD = d;
+          }
+          adjCandidates.push({ i, d: minD });
+        }
+        adjCandidates.sort((a, b) => a.d - b.d);
+        storyAdjacentIdxs = adjCandidates.slice(0, 12).map(c => c.i);
+
+        // Compute breakout waypoints: dramatic sweep away from the logo
+        if (storyPathIdxs.length >= 2) {
+          const lastP = particles[storyPathIdxs[storyPathIdxs.length - 1]];
+          const prevP = particles[storyPathIdxs[storyPathIdxs.length - 2]];
+          let breakAngle = Math.atan2(lastP.logoY - prevP.logoY, lastP.logoX - prevP.logoX);
+          let bx = lastP.logoX, by = lastP.logoY;
+          storyBreakoutPts = [];
+          // Sharp initial turn then straighten out
+          breakAngle += 1.2 + rand(storyHeroIdx * 7) * 0.4; // big initial kink
+          for (let i = 0; i < 6; i++) {
+            breakAngle += 0.08 + rand(storyHeroIdx * 7 + i + 1) * 0.1;
+            const stepLen = 18 + i * 12;
+            bx += Math.cos(breakAngle) * stepLen;
+            by += Math.sin(breakAngle) * stepLen;
+            storyBreakoutPts.push({ x: bx, y: by });
+          }
+        }
+      }
+
       rebuildHeadshotPool();
 
       // Preload headshots for the top ~15 most-weighted people
@@ -577,17 +653,63 @@
 
     function draw() {
       const progress  = getProgress();
-      // Adjusted phases for 500vh hero:
-      // 0–12%: logo, 12–40%: zoom, 40–60%: chart forms, 62–90%: spotlights
-      const t_zoom  = easeInOut(clamp01((progress - 0.12) / 0.28));
-      const t_graph = easeInOut(clamp01((progress - 0.40) / 0.20));
+      // Adjusted phases for 750vh hero:
+      // 0–8%: logo, 8–25%: zoom, 25–50%: storytelling, 50–65%: chart, 67–90%: spotlights
+      const t_zoom  = easeInOut(clamp01((progress - 0.08) / 0.17));
+      const t_graph = easeInOut(clamp01((progress - 0.50) / 0.15));
       const wiggleAmp = 3.2 * Math.max(0.25, 1 - t_graph * 0.6);
-      const lineAlpha = clamp01((progress - 0.50) / 0.10);
+      const lineAlpha = clamp01((progress - 0.57) / 0.08);
       const now       = Date.now() * 0.001;
+
+      // ── Storytelling state ─────────────────────────────────────────────
+      const STORY_START = 0.25, STORY_END = 0.50;
+      const STORY_TEXTS = [
+        "Your life is a series of decisions",
+        "The people around you can completely change\nthe trajectory of your life",
+        "every once in a while something comes along\nthat changes your trajectory completely",
+        "CDTM does this for 25 people every semester",
+        "This is what the result of this looks like",
+      ];
+      const N_BEATS = STORY_TEXTS.length;
+      const BEAT_DUR = (STORY_END - STORY_START) / N_BEATS;
+      const BEAT_FADE = 0.01;
+      let storyBeat = -1, storyBeatAlpha = 0;
+      let storyActive = false;
+      let storyPathMap = null;   // particle ref → path index
+      let storyAdjMap = null;    // particle ref → adj index
+      let pathDrawProgress = 0;  // 0–1: how much of the curve is drawn
+      let adjHighlightCount = 0; // how many adjacent dots are lit
+
+      if (progress >= STORY_START && progress < STORY_END && storyHeroIdx >= 0) {
+        storyActive = true;
+        const local = progress - STORY_START;
+        storyBeat = Math.min(N_BEATS - 1, Math.floor(local / BEAT_DUR));
+        const beatLocal = local - storyBeat * BEAT_DUR;
+        if (beatLocal < BEAT_FADE) storyBeatAlpha = beatLocal / BEAT_FADE;
+        else if (beatLocal > BEAT_DUR - BEAT_FADE) storyBeatAlpha = (BEAT_DUR - beatLocal) / BEAT_FADE;
+        else storyBeatAlpha = 1;
+        storyBeatAlpha = clamp01(storyBeatAlpha);
+
+        storyPathMap = new Map();
+        storyPathIdxs.forEach((pi, i) => storyPathMap.set(particles[pi], i));
+        storyAdjMap = new Map();
+        storyAdjacentIdxs.forEach((ai, i) => storyAdjMap.set(particles[ai], i));
+
+        // Path draws progressively during beat 0
+        pathDrawProgress = storyBeat === 0
+          ? clamp01((progress - STORY_START) / (BEAT_DUR * 0.75))
+          : 1;
+
+        // Adjacent dots light up sequentially during beat 1
+        const adjT = storyBeat >= 1
+          ? clamp01((progress - (STORY_START + BEAT_DUR)) / (BEAT_DUR * 0.7))
+          : 0;
+        adjHighlightCount = Math.floor(adjT * storyAdjacentIdxs.length);
+      }
 
       // ── Spotlight state ────────────────────────────────────────────────
       // 4 spotlights after graph is formed, spread across scroll 62%–90%
-      const SPOT_START = 0.62, SPOT_EACH = 0.07;
+      const SPOT_START = 0.70, SPOT_EACH = 0.05;
       const SPOT_FADE_IN = 0.015, SPOT_HOLD = 0.04, SPOT_FADE_OUT = 0.015;
       let activeSpotlight = -1;
       let spotlightAlpha = 0;
@@ -615,7 +737,7 @@
 
       const zoomCX = W / 2;
       const zoomCY = H / 2 - 50;
-      const zoomFactor = 1 + t_zoom * 4.5;
+      const zoomFactor = 1 + t_zoom * 9;
 
       function ppos(p) {
         const zoomedX = zoomCX + (p.logoX - zoomCX) * zoomFactor;
@@ -631,7 +753,8 @@
       const BASE_R = 2.1;
 
       // ── Logo fill dots (fade out as graph forms) ─────────────────────────
-      const fillAlpha = clamp01(1 - t_graph * 3);
+      const storyFillDim = storyActive ? lerp(1, 0.18, clamp01((progress - STORY_START) / 0.025)) : 1;
+      const fillAlpha = clamp01(1 - t_graph * 3) * storyFillDim;
       if (fillAlpha > 0) {
         for (const p of logoFill) {
           const wx = Math.sin(now * p.wiggleFreq       + p.wigglePhaseX) * wiggleAmp;
@@ -648,10 +771,10 @@
 
       // ── Ambassadors: spawn + cull ─────────────────────────────────────────
       const nowMs = Date.now();
-      if (progress > 0.10) { ambList = []; }
+      if (progress > 0.07) { ambList = []; }
       ambList = ambList.filter(a => (nowMs - a.t0) < AMB_DUR + 2000);
 
-      if (progress < 0.08 && ambList.length < MAX_AMB && nowMs >= ambSpawnMs && weightedPool.length > 0) {
+      if (progress < 0.06 && ambList.length < MAX_AMB && nowMs >= ambSpawnMs && weightedPool.length > 0) {
         const ri   = weightedPool[Math.floor(Math.random() * weightedPool.length)];
         const p    = particles[groups[ri][0]];
 
@@ -763,6 +886,65 @@
         }
       }
 
+      // ── Story path curve (Catmull-Rom spline + breakout) ────────────────
+      if (storyActive && storyPathIdxs.length >= 2) {
+        const pathPts = storyPathIdxs.map(i => ppos(particles[i]));
+
+        // Append breakout points (zoomed to screen space) during beat 2+
+        let allPts = pathPts;
+        if (storyBeat >= 2 && storyBreakoutPts.length > 0) {
+          const breakZoomed = storyBreakoutPts.map(bp => ({
+            x: zoomCX + (bp.x - zoomCX) * zoomFactor + Math.sin(now * 0.7) * wiggleAmp,
+            y: zoomCY + (bp.y - zoomCY) * zoomFactor + Math.sin(now * 0.9) * wiggleAmp,
+          }));
+          allPts = [...pathPts, ...breakZoomed];
+        }
+
+        // Generate smooth Catmull-Rom points
+        const SEGS = 8;
+        const curvePts = [allPts[0]];
+        for (let i = 0; i < allPts.length - 1; i++) {
+          const p0 = allPts[Math.max(0, i - 1)];
+          const p1 = allPts[i];
+          const p2 = allPts[i + 1];
+          const p3 = allPts[Math.min(allPts.length - 1, i + 2)];
+          for (let s = 1; s <= SEGS; s++) {
+            const t = s / SEGS, t2 = t * t, t3 = t2 * t;
+            curvePts.push({
+              x: 0.5 * ((2*p1.x) + (-p0.x+p2.x)*t + (2*p0.x-5*p1.x+4*p2.x-p3.x)*t2 + (-p0.x+3*p1.x-3*p2.x+p3.x)*t3),
+              y: 0.5 * ((2*p1.y) + (-p0.y+p2.y)*t + (2*p0.y-5*p1.y+4*p2.y-p3.y)*t2 + (-p0.y+3*p1.y-3*p2.y+p3.y)*t3),
+            });
+          }
+        }
+
+        // Determine how much to draw
+        const pathCurveLen = (pathPts.length - 1) * SEGS + 1;
+        let drawCount;
+        if (storyBeat === 0) {
+          drawCount = Math.max(2, Math.floor(pathDrawProgress * pathCurveLen));
+        } else if (storyBeat >= 2 && storyBreakoutPts.length > 0) {
+          const breakT = clamp01((progress - (STORY_START + BEAT_DUR * 2)) / (BEAT_DUR * 0.65));
+          const breakCurveLen = curvePts.length - pathCurveLen;
+          drawCount = pathCurveLen + Math.floor(breakT * breakCurveLen);
+        } else {
+          drawCount = pathCurveLen;
+        }
+        drawCount = Math.min(drawCount, curvePts.length);
+
+        if (drawCount >= 2) {
+          ctx.beginPath();
+          ctx.moveTo(curvePts[0].x, curvePts[0].y);
+          for (let i = 1; i < drawCount; i++) {
+            ctx.lineTo(curvePts[i].x, curvePts[i].y);
+          }
+          ctx.strokeStyle = 'rgba(255,195,35,0.40)';
+          ctx.lineWidth = 2.5;
+          ctx.lineCap = 'round';
+          ctx.lineJoin = 'round';
+          ctx.stroke();
+        }
+      }
+
       // ── Dots ─────────────────────────────────────────────────────────────
       for (const p of particles) {
         if (ambList.some(a => a.p === p)) continue;
@@ -793,10 +975,84 @@
           }
         }
 
+        // Storytelling: highlight path dots, adjacent dots, dim rest
+        if (storyActive && storyPathMap) {
+          const pathPos = storyPathMap.get(p);
+          const adjPos = storyAdjMap ? storyAdjMap.get(p) : undefined;
+
+          if (pathPos !== undefined) {
+            // Path dot: highlight when the curve has reached it
+            const dotT = pathPos / Math.max(1, storyPathIdxs.length - 1);
+            if (dotT <= pathDrawProgress) {
+              r = 255; g = 195; b = 35;
+              radius *= 2;
+              dotAlpha = 1;
+            } else {
+              dotAlpha *= 0.18;
+            }
+          } else if (adjPos !== undefined && adjPos < adjHighlightCount) {
+            // Adjacent dot: bright blue, highlighted sequentially
+            r = 59; g = 130; b = 246;
+            radius *= 1.6;
+            dotAlpha = 0.90;
+          } else {
+            dotAlpha *= 0.18;
+          }
+        }
+
+        // Glow around highlighted path dots
+        if (storyActive && storyPathMap) {
+          const pathPos = storyPathMap.get(p);
+          if (pathPos !== undefined) {
+            const dotT = pathPos / Math.max(1, storyPathIdxs.length - 1);
+            if (dotT <= pathDrawProgress) {
+              const ga = 0.25;
+              const gr = ctx.createRadialGradient(x, y, radius * 0.5, x, y, radius * 4);
+              gr.addColorStop(0, `rgba(255,195,35,${ga})`);
+              gr.addColorStop(1, 'rgba(255,195,35,0)');
+              ctx.beginPath();
+              ctx.arc(x, y, radius * 4, 0, Math.PI * 2);
+              ctx.fillStyle = gr;
+              ctx.fill();
+            }
+          }
+        }
+
         ctx.beginPath();
         ctx.arc(x, y, Math.max(0.5, radius), 0, Math.PI * 2);
         ctx.fillStyle = `rgba(${r},${g},${b},${dotAlpha.toFixed(2)})`;
         ctx.fill();
+      }
+
+      // ── Storytelling text overlay (large, slides left→right) ──────────
+      if (storyBeat >= 0 && storyBeatAlpha > 0.01) {
+        ctx.save();
+        ctx.globalAlpha = storyBeatAlpha * 0.92;
+
+        // Compute slide offset: enter from left, exit to right
+        const beatLocal = (progress - STORY_START) - storyBeat * BEAT_DUR;
+        const slideRange = W * 0.06;
+        const fadeInT = clamp01(beatLocal / BEAT_FADE);
+        const fadeOutT = clamp01((beatLocal - (BEAT_DUR - BEAT_FADE)) / BEAT_FADE);
+        const slideX = beatLocal < BEAT_DUR / 2
+          ? lerp(-slideRange, 0, easeInOut(fadeInT))
+          : lerp(0, slideRange, easeInOut(fadeOutT));
+
+        const storyText = STORY_TEXTS[storyBeat];
+        const fontSize = Math.min(W * 0.055, 44);
+        ctx.font = `600 ${fontSize}px 'Bricolage Grotesque', sans-serif`;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillStyle = 'rgba(26, 25, 22, 0.85)';
+
+        const lines = storyText.split('\n');
+        const lineH = fontSize * 1.4;
+        const baseY = H * 0.82;
+        lines.forEach((line, li) => {
+          ctx.fillText(line, W / 2 + slideX, baseY + (li - (lines.length - 1) / 2) * lineH);
+        });
+
+        ctx.restore();
       }
 
       // ── Spotlight text overlay ─────────────────────────────────────────
@@ -1064,6 +1320,12 @@
         }
 
         ctx.restore();
+      }
+
+      // ── Hide DOM scroll-hint during middle phases ──────────────────────
+      const scrollHintEl = document.getElementById('scroll-hint');
+      if (scrollHintEl) {
+        scrollHintEl.style.opacity = progress < 0.06 ? String(1 - progress / 0.06) : '0';
       }
 
       requestAnimationFrame(draw);

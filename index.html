@@ -140,7 +140,7 @@
 
         /* ────────────── Hero ────────────── */
         #hero-section {
-            height: 500vh;
+            height: 750vh;
             background: var(--hero-bg);
         }
         #hero-sticky {
@@ -216,6 +216,8 @@
             font-family: 'Inter', sans-serif;
             display: flex;
             gap: 0;
+            z-index: 20;
+            transition: opacity 0.3s ease;
         }
         .scroll-hint .scroll-char {
             display: inline-block;
@@ -230,6 +232,31 @@
         @keyframes char-wave {
             0%, 100% { font-weight: 500; opacity: 0.5; }
             50%      { font-weight: 700; opacity: 1; }
+        }
+
+        /* ────────────── Scroll bridge ────────────── */
+        .scroll-bridge {
+            background: var(--hero-bg);
+            padding: 48px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            font-family: 'Inter', -apple-system, sans-serif;
+            font-size: 15px;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--cdtm-blue);
+            animation: bridge-pulse 2.5s ease-in-out infinite;
+        }
+        .scroll-bridge-arrow {
+            font-size: 20px;
+            animation: bob 2s ease-in-out infinite;
+        }
+        @keyframes bridge-pulse {
+            0%, 100% { opacity: 0.6; }
+            50%      { opacity: 1; }
         }
 
         /* ────────────── Narrative sections ────────────── */
@@ -1057,6 +1084,11 @@
   </div>
 </section>
 
+<div class="scroll-bridge" id="scroll-bridge">
+  <span class="scroll-bridge-arrow">&darr;</span>
+  <span>Keep scrolling to explore</span>
+  <span class="scroll-bridge-arrow">&darr;</span>
+</div>
 
 <!-- ── Narrative 2 ── -->
 <section class="narrative" id="narrative-2">
