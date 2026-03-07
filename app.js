@@ -1063,12 +1063,6 @@ let _currentShareModel = null;
 const ICON_SHARE = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>`;
 const ICON_CHECK = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`;
 
-function _shareWaveText(text) {
-    return text.split("").map((ch, i) => {
-        if (ch === " ") return `<span class="share-char" style="--d:${i * 0.1}s">&nbsp;</span>`;
-        return `<span class="share-char" style="--d:${i * 0.1}s">${ch}</span>`;
-    }).join("");
-}
 
 async function sha256Prefix(str) {
     const data = new TextEncoder().encode(str);
@@ -1088,7 +1082,7 @@ function showShareBar(query, model) {
     }
     const btn = document.getElementById("share-btn");
     btn.classList.remove("copied");
-    btn.innerHTML = `${ICON_SHARE} ${_shareWaveText("Share this graph")}`;
+    btn.innerHTML = `${ICON_SHARE} Share this graph`;
 
     // Clone to remove old listeners
     const newBtn = btn.cloneNode(true);
@@ -1114,13 +1108,13 @@ async function handleShare() {
         await navigator.clipboard.writeText(url);
 
         btn.classList.add("copied");
-        btn.innerHTML = `${ICON_CHECK} ${_shareWaveText("Copied")}`;
+        btn.innerHTML = `${ICON_CHECK} Copied`;
         hint.textContent = url;
         if (window.posthog) posthog.capture('graph_shared', { query: _currentShareQuery, share_id: shareId });
 
         setTimeout(() => {
             btn.classList.remove("copied");
-            btn.innerHTML = `${ICON_SHARE} ${_shareWaveText("Share this graph")}`;
+            btn.innerHTML = `${ICON_SHARE} Share this graph`;
         }, 3000);
     } catch (err) {
         // Fallback: select text for manual copy
@@ -1136,10 +1130,10 @@ async function handleShare() {
             document.execCommand("copy");
             document.body.removeChild(ta);
             btn.classList.add("copied");
-            btn.innerHTML = `${ICON_CHECK} ${_shareWaveText("Copied")}`;
+            btn.innerHTML = `${ICON_CHECK} Copied`;
             setTimeout(() => {
                 btn.classList.remove("copied");
-                btn.innerHTML = `${ICON_SHARE} ${_shareWaveText("Share this graph")}`;
+                btn.innerHTML = `${ICON_SHARE} Share this graph`;
             }, 3000);
         } catch {
             hint.textContent = url;
