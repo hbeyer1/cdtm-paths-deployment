@@ -149,7 +149,7 @@
           }
         }
 
-        const DISP_W = Math.min(1040, canvasW * 0.90);
+        const DISP_W = Math.min(520, canvasW * 0.45);
         const DISP_H = DISP_W * LOGO_H / LOGO_PX;
         const ox = (canvasW - DISP_W) / 2;
         const oy = (canvasH - DISP_H) / 2 - 50;
@@ -226,43 +226,33 @@
   // ── Spotlight system ────────────────────────────────────────────────────────
   // Each spotlight highlights a cohort during the scroll zoom phase.
   // Matched by keyword in the full path string.
-  // Verified unicorn founders (9 unicorns, 17 CDTM alumni founders)
-  const UNICORN_FOUNDERS = new Set([
-    'Hanno Renner', 'Roman Schumacher', 'Ignaz Forstmeier', 'Arseniy Vershinin', // Personio
-    'Thomas Pischke',          // Trade Republic
-    'Jonas Templestein',       // Monzo
-    'Michael Wax', 'Erik Muttersbach',  // Forto
-    'Julian Blessin',          // TIER Mobility
-    'Konstantin Mehl', 'Manuel Thurner', 'Stefan Rothlehner', 'Sergei Krauze', // Foodora
-    'Jonas Diezun',            // Razor Group
-    'Fabian Gerlinghaus',      // Cellares
-    'Philipp Roesch-Schlanderer', 'Florian Sauter', // EGYM
-  ]);
-
-  // Spotlights match against hero_paths.json values (same data the graph nodes use)
-  // except Unicorn Founders which uses verified list
-  // Stages: 0=STUDIED, 1=RESEARCH ABROAD, 2=STARTED IN, 3=MOVED TO, 4=ACHIEVEMENT
+  // Spotlights match against hero_paths.json values
+  // Stages: 0=STUDIED, 1=WENT ABROAD, 2=FIRST CAREER, 3=REACHED, 4=ACHIEVEMENT
+  // Order: Founders → Unicorn Founders (chronological progression), then PhDs → Professors
+  // Each spotlight uses exact node-value matches so counts are consistent with visible nodes
   const SPOTLIGHTS = [
     {
-      label: "Unicorn Founders",
-      matchValues: (_vals, name) => UNICORN_FOUNDERS.has(name),
-      color: { r: 0, g: 101, b: 189 }, // CDTM blue
-    },
-    {
       label: "Founders",
-      matchValues: vals => ['Founder', 'Serial Founder'].some(f =>
-        vals[2] === f || vals[3] === f || vals[4] === f
-      ),
+      matchValues: vals => vals[3] === 'Founder / CEO',
+      countCol: 3, countVal: 'Founder / CEO',
       color: { r: 30, g: 77, b: 140 },
     },
     {
-      label: "PhDs",
-      matchValues: vals => vals[2] === 'PhD / Research' || vals[3] === 'PhD / Research',
+      label: "Unicorn Founders",
+      matchValues: vals => vals[4] === 'Unicorn Founder',
+      countCol: 4, countVal: 'Unicorn Founder',
+      color: { r: 0, g: 101, b: 189 },
+    },
+    {
+      label: "Researchers",
+      matchValues: vals => vals[2] === 'Research / PhD',
+      countCol: 2, countVal: 'Research / PhD',
       color: { r: 75, g: 130, b: 60 },
     },
     {
       label: "Professors",
-      matchValues: vals => vals[4] === 'Professor',
+      matchValues: vals => vals[3] === 'Professor',
+      countCol: 3, countVal: 'Professor',
       color: { r: 140, g: 80, b: 30 },
     },
   ];
@@ -271,7 +261,7 @@
   let spotlightGroups = []; // [Set, Set, Set, Set]
   let spotlightCounts = []; // [number, number, ...]
 
-  function buildSpotlightSets(rows) {
+  function buildSpotlightSets(rows, chart) {
     spotlightGroups = SPOTLIGHTS.map(() => new Set());
     spotlightCounts = SPOTLIGHTS.map(() => 0);
     for (let gi = 0; gi < rows.length; gi++) {
@@ -280,8 +270,22 @@
       for (let si = 0; si < SPOTLIGHTS.length; si++) {
         if (SPOTLIGHTS[si].matchValues(vals, name)) {
           spotlightGroups[si].add(gi);
-          spotlightCounts[si]++;
         }
+      }
+    }
+    // Derive counts from actual chart node data so numbers match visible labels
+    if (chart) {
+      const nodeCounts = {};
+      chart.columns.forEach((col, ci) => {
+        col.nodes.forEach(n => { nodeCounts[ci + '::' + n.value] = n.count; });
+      });
+      for (let si = 0; si < SPOTLIGHTS.length; si++) {
+        const sp = SPOTLIGHTS[si];
+        spotlightCounts[si] = nodeCounts[sp.countCol + '::' + sp.countVal] || spotlightGroups[si].size;
+      }
+    } else {
+      for (let si = 0; si < SPOTLIGHTS.length; si++) {
+        spotlightCounts[si] = spotlightGroups[si].size;
       }
     }
   }
@@ -393,31 +397,127 @@
       return 0;
     });
 
-    // Node center Y + per-person Y within node
-    const nodeCenterY = columns.map(col => {
-      const m = {};
-      col.nodes.forEach(n => { m[n.value] = n.y + n.height / 2; });
-      return m;
-    });
-
     const nodeMaps = columns.map(col => {
       const m = {};
       col.nodes.forEach(n => { m[n.value] = n; });
       return m;
     });
 
-    return { rows, xs, columns, nodeCenterY, nodeMaps, nCols };
+    const mobile = canvasW < 768;
+
+    if (mobile) {
+      // Vertical layout: columns flow top-to-bottom, nodes spread horizontally
+      // Compute circle radii first so we can guarantee no overlap
+      const maxCount = Math.max(...columns.flatMap(c => c.nodes.map(n => n.count)));
+      const minR = 6, maxR = 36;
+      const cR = count => Math.max(minR, Math.min(maxR, Math.sqrt(count / maxCount) * maxR));
+      const PAD = 8; // minimum gap between circle edges
+      const LABEL_H = 28; // space below circle for label text
+
+      // Compute node radii and horizontal positions per row
+      const nodeRadii = columns.map(col => {
+        const m = {};
+        col.nodes.forEach(n => { m[n.value] = cR(n.count); });
+        return m;
+      });
+
+      const nodeCenterX = columns.map((col, ci) => {
+        const radii = nodeRadii[ci];
+        // Total width needed: sum of diameters + padding between
+        let totalW = 0;
+        col.nodes.forEach((n, i) => {
+          totalW += radii[n.value] * 2;
+          if (i > 0) totalW += PAD;
+        });
+        // If too wide, scale radii down for positioning
+        const scale = totalW > iW ? iW / totalW : 1;
+        // Place nodes left-to-right, centered in iW
+        const startX = (iW - totalW * scale) / 2;
+        const m = {};
+        let x = startX;
+        col.nodes.forEach((n, i) => {
+          const r = radii[n.value] * scale;
+          if (i > 0) x += PAD * scale;
+          m[n.value] = x + r;
+          x += r * 2;
+        });
+        // Also store effective radii if scaled
+        if (scale < 1) {
+          col.nodes.forEach(n => { nodeRadii[ci][n.value] *= scale; });
+        }
+        return m;
+      });
+
+      // Compute row Y positions based on actual max radii per row
+      const rowMaxR = columns.map((col, ci) =>
+        Math.max(...col.nodes.map(n => nodeRadii[ci][n.value]))
+      );
+      const ROW_LABEL_H = 16; // space above each row for column label
+      // Total height needed
+      let totalH = 0;
+      for (let ci = 0; ci < nCols; ci++) {
+        totalH += ROW_LABEL_H + rowMaxR[ci] * 2 + LABEL_H;
+        if (ci > 0) totalH += PAD;
+      }
+      const vScale = totalH > iH ? iH / totalH : 1;
+      // If vertical scaling needed, also scale all radii and recompute X positions
+      if (vScale < 1) {
+        for (let ci = 0; ci < nCols; ci++) {
+          columns[ci].nodes.forEach(n => { nodeRadii[ci][n.value] *= vScale; });
+        }
+        // Recompute horizontal positions with smaller radii
+        for (let ci = 0; ci < nCols; ci++) {
+          const col = columns[ci];
+          const radii = nodeRadii[ci];
+          let totalW = 0;
+          col.nodes.forEach((n, i) => {
+            totalW += radii[n.value] * 2;
+            if (i > 0) totalW += PAD;
+          });
+          const startX = (iW - totalW) / 2;
+          let x = startX;
+          col.nodes.forEach((n, i) => {
+            const r = radii[n.value];
+            if (i > 0) x += PAD;
+            nodeCenterX[ci][n.value] = x + r;
+            x += r * 2;
+          });
+        }
+      }
+      const startY = (iH - totalH * vScale) / 2;
+      const ys = [];
+      let yy = startY;
+      for (let ci = 0; ci < nCols; ci++) {
+        if (ci > 0) yy += PAD * vScale;
+        yy += ROW_LABEL_H * vScale;
+        const r = rowMaxR[ci] * vScale;
+        ys.push(yy + r);
+        yy += r * 2 + LABEL_H * vScale;
+      }
+
+      return { rows, xs: null, ys, columns, nodeCenterY: null, nodeCenterX, nodeMaps, nCols, vertical: true, nodeRadii };
+    }
+
+    // Desktop: horizontal layout — columns along X, nodes stacked along Y
+    const nodeCenterY = columns.map(col => {
+      const m = {};
+      col.nodes.forEach(n => { m[n.value] = n.y + n.height / 2; });
+      return m;
+    });
+
+    return { rows, xs, columns, nodeCenterY, nodeMaps, nCols, vertical: false };
   }
 
   // ── Build particle list (skip-aware: one dot per non-null column) ─────────
   function buildParticles(logoPoints, chart, canvasW, canvasH) {
-    const { rows, xs, columns, nodeCenterY, nodeMaps, nCols } = chart;
+    const { rows, columns, nodeMaps, nCols, vertical } = chart;
     const particles = [];
     const groups    = [];  // groups[ri] = [particleIdx, ...] for each person
 
     // Circle radius
     const maxCount = Math.max(...columns.flatMap(c => c.nodes.map(n => n.count)));
-    const minR = 8, maxR = 68;
+    const _mobile = canvasW < 768;
+    const minR = _mobile ? 6 : 8, maxR = _mobile ? 36 : 68;
     const circleR = count => Math.max(minR, Math.min(maxR, Math.sqrt(count / maxCount) * maxR));
 
     // Color palette by first-column value — pastel blues matching CDTM logo
@@ -447,8 +547,9 @@
         let s = (ri * 53 + ci * 17) * 23 + 2;
 
         const node = nodeMaps[ci][v];
-        const cy = nodeCenterY[ci][v] || 0;
-        const r = node ? circleR(node.count) : 10;
+        const r = (vertical && chart.nodeRadii && chart.nodeRadii[ci][v] != null)
+          ? chart.nodeRadii[ci][v]
+          : (node ? circleR(node.count) : 10);
 
         // Distribute inside circle
         const angle = rand(s++) * Math.PI * 2;
@@ -456,8 +557,15 @@
         const jx = Math.cos(angle) * dist;
         const jy = Math.sin(angle) * dist;
 
-        const graphX = MARGIN.left + xs[ci] + jx;
-        const graphY = MARGIN.top + cy + jy;
+        let graphX, graphY;
+        if (vertical) {
+          graphX = MARGIN.left + (chart.nodeCenterX[ci][v] || 0) + jx;
+          graphY = MARGIN.top + (chart.ys[ci] || 0) + jy;
+        } else {
+          const cy = chart.nodeCenterY[ci][v] || 0;
+          graphX = MARGIN.left + chart.xs[ci] + jx;
+          graphY = MARGIN.top + cy + jy;
+        }
 
         const radiusScale  = 0.78 + rand(s++) * 0.44;
         const alpha        = 0.70 + rand(s++) * 0.24;
@@ -559,7 +667,7 @@
       logoFill     = fillPts;
       ambList      = [];
 
-      buildSpotlightSets(chart.rows);
+      buildSpotlightSets(chart.rows, chart);
 
       // Select storytelling hero dot and build a path chain through nearby dots
       if (particles.length > 0) {
@@ -810,12 +918,20 @@
       // ── Bezier lines connecting each person's column dots ─────────────────
       lastLinePositions = [];
       if (lineAlpha > 0) {
+        const _vert = heroChart && heroChart.vertical;
         function drawBezierPath(pts) {
           ctx.beginPath();
           ctx.moveTo(pts[0].x, pts[0].y);
           for (let i = 1; i < pts.length; i++) {
-            const mx = (pts[i - 1].x + pts[i].x) / 2;
-            ctx.bezierCurveTo(mx, pts[i - 1].y, mx, pts[i].y, pts[i].x, pts[i].y);
+            if (_vert) {
+              // Vertical flow: control points at midpoint Y
+              const my = (pts[i - 1].y + pts[i].y) / 2;
+              ctx.bezierCurveTo(pts[i - 1].x, my, pts[i].x, my, pts[i].x, pts[i].y);
+            } else {
+              // Horizontal flow: control points at midpoint X
+              const mx = (pts[i - 1].x + pts[i].x) / 2;
+              ctx.bezierCurveTo(mx, pts[i - 1].y, mx, pts[i].y, pts[i].x, pts[i].y);
+            }
           }
         }
 
@@ -1039,15 +1155,32 @@
           : lerp(0, slideRange, easeInOut(fadeOutT));
 
         const storyText = STORY_TEXTS[storyBeat];
-        const fontSize = Math.min(W * 0.055, 44);
+        const mobile = W < 768;
+        const fontSize = mobile ? Math.min(W * 0.05, 20) : Math.min(W * 0.055, 44);
         ctx.font = `600 ${fontSize}px 'Bricolage Grotesque', sans-serif`;
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
         ctx.fillStyle = 'rgba(26, 25, 22, 0.85)';
 
-        const lines = storyText.split('\n');
+        // Word-wrap lines to fit screen width
+        const maxLineW = W * (mobile ? 0.85 : 0.9);
+        const rawLines = storyText.split('\n');
+        const lines = [];
+        rawLines.forEach(raw => {
+          const words = raw.split(' ');
+          let cur = words[0];
+          for (let wi = 1; wi < words.length; wi++) {
+            const test = cur + ' ' + words[wi];
+            if (ctx.measureText(test).width > maxLineW) {
+              lines.push(cur);
+              cur = words[wi];
+            } else { cur = test; }
+          }
+          lines.push(cur);
+        });
+
         const lineH = fontSize * 1.4;
-        const baseY = H * 0.82;
+        const baseY = mobile ? H * 0.78 : H * 0.82;
         lines.forEach((line, li) => {
           ctx.fillText(line, W / 2 + slideX, baseY + (li - (lines.length - 1) / 2) * lineH);
         });
@@ -1075,13 +1208,13 @@
         const driftX = (progress - (SPOT_START + si * SPOT_EACH + SPOT_EACH / 2)) * W * 0.5;
 
         // Number
-        ctx.fillStyle = `rgba(${sc.r},${sc.g},${sc.b},0.12)`;
+        ctx.fillStyle = `rgba(${sc.r},${sc.g},${sc.b},0.85)`;
         ctx.fillText(count, W / 2 + driftX, H / 2 - 20);
 
         // Label below
         const labelSize = Math.min(W * 0.04, 36);
         ctx.font = `600 ${labelSize}px 'Bricolage Grotesque', sans-serif`;
-        ctx.fillStyle = `rgba(${sc.r},${sc.g},${sc.b},0.55)`;
+        ctx.fillStyle = `rgba(${sc.r},${sc.g},${sc.b},0.95)`;
         ctx.fillText(label, W / 2 + driftX * 0.6, H / 2 + fontSize * 0.38);
 
         ctx.restore();
@@ -1248,74 +1381,118 @@
       // ── Chart labels with circles + leader lines ─────────────────────────
       if (t_graph > 0.45 && heroChart) {
         const la = clamp01((t_graph - 0.45) / 0.40);
-        const { columns, xs, nodeCenterY: ncY, nCols: nc } = heroChart;
+        const { columns, nCols: nc, vertical: vert } = heroChart;
         const maxCount = Math.max(...columns.flatMap(c => c.nodes.map(n => n.count)));
-        const minR = 8, maxR = 68;
+        const _mob = W < 768;
+        const minR = _mob ? 6 : 8, maxR = _mob ? 36 : 68;
         const circleR = count => Math.max(minR, Math.min(maxR, Math.sqrt(count / maxCount) * maxR));
 
         ctx.save();
         ctx.globalAlpha = la;
 
-        // Column headers
-        ctx.font = '600 9px Inter, -apple-system, sans-serif';
-        ctx.textAlign = 'center';
-        for (let ci = 0; ci < nc; ci++) {
-          const cx = MARGIN.left + xs[ci];
-          const label = columns[ci].col.label;
-          ctx.fillStyle = 'rgba(107,105,96,0.60)';
-          const spaced = label.toUpperCase().split('').join('\u2009');
-          ctx.fillText(spaced, cx, MARGIN.top - 22);
-        }
+        if (vert) {
+          // ── Mobile vertical: columns top-to-bottom, nodes horizontal ──
+          const { ys, nodeCenterX: ncX, nodeRadii: nR } = heroChart;
+          const getR = (ci, val) => nR ? nR[ci][val] : circleR(columns[ci].nodes.find(n => n.value === val).count);
 
-        // Node circles + leader-line annotations
-        for (let ci = 0; ci < nc; ci++) {
-          const col = columns[ci];
-          const cx  = MARGIN.left + xs[ci];
-          // Use actual x-position to decide label side (handles custom spacing)
-          const isLeft = xs[ci] < (xs[0] + xs[nc - 1]) / 2;
+          // Column labels (centred above each row)
+          ctx.font = '600 7px Inter, -apple-system, sans-serif';
+          ctx.textAlign = 'center';
+          for (let ci = 0; ci < nc; ci++) {
+            const topR = Math.max(...columns[ci].nodes.map(n => getR(ci, n.value)));
+            ctx.fillStyle = 'rgba(107,105,96,0.60)';
+            ctx.fillText(columns[ci].col.label.toUpperCase(), W / 2, MARGIN.top + ys[ci] - (topR + 10));
+          }
 
-          for (const node of col.nodes) {
-            const cy = MARGIN.top + ncY[ci][node.value];
-            const r  = circleR(node.count);
+          // Node circles + labels below
+          for (let ci = 0; ci < nc; ci++) {
+            const cy = MARGIN.top + ys[ci];
+            for (const node of columns[ci].nodes) {
+              const cx = MARGIN.left + ncX[ci][node.value];
+              const r = getR(ci, node.value);
 
-            // Circle outline
-            const isThisNodeHovered = hoveredNode && hoveredNode.ci === ci && hoveredNode.value === node.value;
-            ctx.beginPath();
-            ctx.arc(cx, cy, r, 0, Math.PI * 2);
-            if (isThisNodeHovered) {
-              ctx.strokeStyle = 'rgba(26,25,22,0.60)';
-              ctx.lineWidth = 2.8;
-            } else {
-              ctx.strokeStyle = 'rgba(26,25,22,0.30)';
-              ctx.lineWidth = 1.6;
+              const isThisNodeHovered = hoveredNode && hoveredNode.ci === ci && hoveredNode.value === node.value;
+              ctx.beginPath();
+              ctx.arc(cx, cy, r, 0, Math.PI * 2);
+              ctx.strokeStyle = isThisNodeHovered ? 'rgba(26,25,22,0.60)' : 'rgba(26,25,22,0.30)';
+              ctx.lineWidth = isThisNodeHovered ? 2.8 : 1.2;
+              ctx.stroke();
+
+              // Label below circle
+              if (r >= 6) {
+                ctx.textAlign = 'center';
+                ctx.font = '600 8px Inter, -apple-system, sans-serif';
+                ctx.fillStyle = 'rgba(26,25,22,0.82)';
+                const lbl = node.value.length > 14 ? node.value.slice(0, 12) + '…' : node.value;
+                ctx.fillText(lbl, cx, cy + r + 10);
+                ctx.font = '500 7px Inter, -apple-system, sans-serif';
+                ctx.fillStyle = 'rgba(26,25,22,0.45)';
+                ctx.fillText(String(node.count), cx, cy + r + 19);
+              }
             }
-            ctx.stroke();
+          }
+        } else {
+          // ── Desktop horizontal: columns left-to-right, nodes vertical ──
+          const { xs, nodeCenterY: ncY } = heroChart;
 
-            // Leader line: elbow from circle edge to label
-            const dir = isLeft ? -1 : 1;
-            const lx1 = cx + dir * r;
-            const lx2 = cx + dir * (r + 10);
-            const lx3 = cx + dir * (r + 28);
-            const ly2 = cy - 6;
+          // Column headers
+          ctx.font = '600 9px Inter, -apple-system, sans-serif';
+          ctx.textAlign = 'center';
+          for (let ci = 0; ci < nc; ci++) {
+            const cx = MARGIN.left + xs[ci];
+            const label = columns[ci].col.label;
+            ctx.fillStyle = 'rgba(107,105,96,0.60)';
+            const spaced = label.toUpperCase().split('').join('\u2009');
+            ctx.fillText(spaced, cx, MARGIN.top - 22);
+          }
 
-            ctx.beginPath();
-            ctx.moveTo(lx1, cy);
-            ctx.lineTo(lx2, ly2);
-            ctx.lineTo(lx3, ly2);
-            ctx.strokeStyle = 'rgba(26,25,22,0.30)';
-            ctx.lineWidth = 1;
-            ctx.stroke();
+          // Node circles + leader-line annotations
+          for (let ci = 0; ci < nc; ci++) {
+            const col = columns[ci];
+            const cx  = MARGIN.left + xs[ci];
+            const isLeft = xs[ci] < (xs[0] + xs[nc - 1]) / 2;
 
-            // Label text
-            const labX = lx3 + dir * 4;
-            ctx.textAlign = isLeft ? 'end' : 'start';
+            for (const node of col.nodes) {
+              const cy = MARGIN.top + ncY[ci][node.value];
+              const r  = circleR(node.count);
 
-            ctx.font = '600 13px Inter, -apple-system, sans-serif';
-            ctx.fillStyle = 'rgba(26,25,22,0.82)';
-            ctx.fillText(node.value, labX, ly2 - 3);
-            ctx.font = '500 10px Inter, -apple-system, sans-serif';
-            ctx.fillStyle = 'rgba(26,25,22,0.45)';
-            ctx.fillText(`${node.count} ${node.count === 1 ? 'person' : 'people'}`, labX, ly2 + 10);
+              const isThisNodeHovered = hoveredNode && hoveredNode.ci === ci && hoveredNode.value === node.value;
+              ctx.beginPath();
+              ctx.arc(cx, cy, r, 0, Math.PI * 2);
+              if (isThisNodeHovered) {
+                ctx.strokeStyle = 'rgba(26,25,22,0.60)';
+                ctx.lineWidth = 2.8;
+              } else {
+                ctx.strokeStyle = 'rgba(26,25,22,0.30)';
+                ctx.lineWidth = 1.6;
+              }
+              ctx.stroke();
+
+              // Leader line
+              const dir = isLeft ? -1 : 1;
+              const lx1 = cx + dir * r;
+              const lx2 = cx + dir * (r + 10);
+              const lx3 = cx + dir * (r + 28);
+              const ly2 = cy - 6;
+
+              ctx.beginPath();
+              ctx.moveTo(lx1, cy);
+              ctx.lineTo(lx2, ly2);
+              ctx.lineTo(lx3, ly2);
+              ctx.strokeStyle = 'rgba(26,25,22,0.30)';
+              ctx.lineWidth = 1;
+              ctx.stroke();
+
+              const labX = lx3 + dir * 4;
+              ctx.textAlign = isLeft ? 'end' : 'start';
+
+              ctx.font = '600 13px Inter, -apple-system, sans-serif';
+              ctx.fillStyle = 'rgba(26,25,22,0.82)';
+              ctx.fillText(node.value, labX, ly2 - 3);
+              ctx.font = '500 10px Inter, -apple-system, sans-serif';
+              ctx.fillStyle = 'rgba(26,25,22,0.45)';
+              ctx.fillText(`${node.count} ${node.count === 1 ? 'person' : 'people'}`, labX, ly2 + 10);
+            }
           }
         }
 
@@ -1380,16 +1557,23 @@
 
     function hitTestNode(mx, my) {
       if (!heroChart) return null;
-      const { columns, xs, nodeCenterY: ncY, nCols: nc } = heroChart;
+      const { columns, nCols: nc, vertical: vert } = heroChart;
       const maxCount = Math.max(...columns.flatMap(c => c.nodes.map(n => n.count)));
-      const minR = 8, maxR = 68;
+      const _mob = W < 768;
+      const minR = _mob ? 6 : 8, maxR = _mob ? 36 : 68;
       const cR = count => Math.max(minR, Math.min(maxR, Math.sqrt(count / maxCount) * maxR));
 
       for (let ci = 0; ci < nc; ci++) {
-        const cx = MARGIN.left + xs[ci];
         for (const node of columns[ci].nodes) {
-          const cy = MARGIN.top + ncY[ci][node.value];
-          const r  = cR(node.count);
+          let cx, cy;
+          if (vert) {
+            cx = MARGIN.left + heroChart.nodeCenterX[ci][node.value];
+            cy = MARGIN.top + heroChart.ys[ci];
+          } else {
+            cx = MARGIN.left + heroChart.xs[ci];
+            cy = MARGIN.top + heroChart.nodeCenterY[ci][node.value];
+          }
+          const r = (vert && heroChart.nodeRadii) ? heroChart.nodeRadii[ci][node.value] : cR(node.count);
           if (Math.hypot(mx - cx, my - cy) <= r + 2) {
             return { ci, value: node.value };
           }
@@ -1410,6 +1594,18 @@
     const tooltip = document.getElementById("tooltip");
 
     canvas.addEventListener("mousemove", (e) => {
+      // Only allow interactions once chart is visible
+      const prog = getProgress();
+      const tGraph = easeInOut(clamp01((prog - 0.50) / 0.15));
+      if (tGraph < 0.3) {
+        if (hoveredGroup >= 0 || hoveredNode) {
+          hoveredGroup = -1; hoveredNode = null; hoveredNodeGroups = null;
+          if (tooltip) tooltip.classList.remove("visible");
+          canvas.style.cursor = "";
+        }
+        return;
+      }
+
       const rect = canvas.getBoundingClientRect();
       const mx = e.clientX - rect.left, my = e.clientY - rect.top;
 
@@ -1499,6 +1695,10 @@
     });
 
     canvas.addEventListener("click", (e) => {
+      const prog = getProgress();
+      const tGraph = easeInOut(clamp01((prog - 0.50) / 0.15));
+      if (tGraph < 0.3) return;
+
       const rect = canvas.getBoundingClientRect();
       const mx = e.clientX - rect.left, my = e.clientY - rect.top;
 
