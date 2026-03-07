@@ -12,6 +12,24 @@ import posthog as posthog_lib
 load_dotenv()
 app = Flask(__name__, static_folder=".", static_url_path="")
 
+# ── Rate limiting (in-memory, per IP) ────────────────────────────────────
+_rate_limits = {}         # ip -> list of timestamps
+RATE_RULES = [
+    (5, 60),              # 5 per minute
+    (20, 3600),           # 20 per hour
+]
+
+def _is_rate_limited(ip: str) -> bool:
+    now = time.time()
+    times = _rate_limits.setdefault(ip, [])
+    _rate_limits[ip] = [t for t in times if now - t < 3600]
+    for max_req, window in RATE_RULES:
+        recent = [t for t in _rate_limits[ip] if now - t < window]
+        if len(recent) >= max_req:
+            return True
+    _rate_limits[ip].append(now)
+    return False
+
 # ── PostHog backend SDK ───────────────────────────────────────────────────
 posthog_lib.project_api_key = os.environ.get("POSTHOG", "")
 posthog_lib.host = "https://us.i.posthog.com"
@@ -720,6 +738,12 @@ def api_query():
     if model not in ALLOWED_MODELS:
         return jsonify({"error": f"unknown model: {model}"}), 400
     detail_mode = bool(body.get("detail_mode", False))
+
+    # ── Rate limit (skip for cached queries) ──
+    ip = request.headers.get("X-Forwarded-For", request.remote_addr or "").split(",")[0].strip()
+    cache_key = f"{model}::{query.lower()}"
+    if not _cache_get(cache_key) and _is_rate_limited(ip):
+        return jsonify({"error": "Too many requests — please wait a minute before trying again."}), 429
 
     # ── Check server-side cache (shared across all users) ──
     cache_key = f"{model}::{query.lower()}"
