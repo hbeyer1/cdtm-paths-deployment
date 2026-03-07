@@ -207,12 +207,14 @@
   const HERO_DOT = { r: 123, g: 167, b: 204 };
   let heroPathsData = null; // loaded from hero_paths.json
   let alumniPathsLookup = {}; // name → [step1, step2, ...] from alumni_paths.json
+  let alumniPathsFull = {};   // name → full path string for spotlight matching
 
   // Load alumni_paths.json for compact path labels
   fetch('data/alumni_paths.json')
     .then(r => r.json())
     .then(data => {
       data.forEach(d => {
+        alumniPathsFull[d.name] = d.path;
         const parts = d.path.split(' | ');
         const pathStr = parts.length >= 3 ? parts.slice(2).join(' | ') : parts[parts.length - 1];
         const steps = pathStr.split(' -> ').map(s => s.trim()).filter(s => s.length > 0);
@@ -220,6 +222,68 @@
       });
     })
     .catch(() => {});
+
+  // ── Spotlight system ────────────────────────────────────────────────────────
+  // Each spotlight highlights a cohort during the scroll zoom phase.
+  // Matched by keyword in the full path string.
+  // Verified unicorn founders (9 unicorns, 17 CDTM alumni founders)
+  const UNICORN_FOUNDERS = new Set([
+    'Hanno Renner', 'Roman Schumacher', 'Ignaz Forstmeier', 'Arseniy Vershinin', // Personio
+    'Thomas Pischke',          // Trade Republic
+    'Jonas Templestein',       // Monzo
+    'Michael Wax', 'Erik Muttersbach',  // Forto
+    'Julian Blessin',          // TIER Mobility
+    'Konstantin Mehl', 'Manuel Thurner', 'Stefan Rothlehner', 'Sergei Krauze', // Foodora
+    'Jonas Diezun',            // Razor Group
+    'Fabian Gerlinghaus',      // Cellares
+    'Philipp Roesch-Schlanderer', 'Florian Sauter', // EGYM
+  ]);
+
+  // Spotlights match against hero_paths.json values (same data the graph nodes use)
+  // except Unicorn Founders which uses verified list
+  const SPOTLIGHTS = [
+    {
+      label: "Unicorn Founders",
+      matchValues: (_vals, name) => UNICORN_FOUNDERS.has(name),
+      color: { r: 0, g: 101, b: 189 }, // CDTM blue
+    },
+    {
+      label: "Founders",
+      matchValues: vals => ['Founder', 'Serial Founder'].some(f =>
+        vals[2] === f || vals[3] === f || vals[4] === f
+      ),
+      color: { r: 30, g: 77, b: 140 },
+    },
+    {
+      label: "PhDs",
+      matchValues: vals => vals[2] === 'PhD / Research' || vals[3] === 'PhD / Research',
+      color: { r: 75, g: 130, b: 60 },
+    },
+    {
+      label: "Professors",
+      matchValues: vals => vals[4] === 'Professor',
+      color: { r: 140, g: 80, b: 30 },
+    },
+  ];
+
+  // Built once after particles are created — maps spotlight index → Set of group indices
+  let spotlightGroups = []; // [Set, Set, Set, Set]
+  let spotlightCounts = []; // [number, number, ...]
+
+  function buildSpotlightSets(rows) {
+    spotlightGroups = SPOTLIGHTS.map(() => new Set());
+    spotlightCounts = SPOTLIGHTS.map(() => 0);
+    for (let gi = 0; gi < rows.length; gi++) {
+      const vals = rows[gi].vals;
+      const name = rows[gi].person.full_name || '';
+      for (let si = 0; si < SPOTLIGHTS.length; si++) {
+        if (SPOTLIGHTS[si].matchValues(vals, name)) {
+          spotlightGroups[si].add(gi);
+          spotlightCounts[si]++;
+        }
+      }
+    }
+  }
 
   // ── Career path waypoint generation ─────────────────────────────────────────
   function buildCareerWaypoints(name, sx, sy, canvasW, canvasH) {
@@ -490,6 +554,8 @@
       logoFill     = fillPts;
       ambList      = [];
 
+      buildSpotlightSets(chart.rows);
+
       rebuildHeadshotPool();
 
       // Preload headshots for the top ~15 most-weighted people
@@ -511,11 +577,37 @@
 
     function draw() {
       const progress  = getProgress();
-      const t_zoom  = easeInOut(clamp01((progress - 0.20) / 0.45));
-      const t_graph = easeInOut(clamp01((progress - 0.65) / 0.35));
+      // Adjusted phases for 500vh hero:
+      // 0–12%: logo, 12–40%: zoom, 40–60%: chart forms, 62–90%: spotlights
+      const t_zoom  = easeInOut(clamp01((progress - 0.12) / 0.28));
+      const t_graph = easeInOut(clamp01((progress - 0.40) / 0.20));
       const wiggleAmp = 3.2 * Math.max(0.25, 1 - t_graph * 0.6);
-      const lineAlpha = clamp01((progress - 0.82) / 0.18);
+      const lineAlpha = clamp01((progress - 0.50) / 0.10);
       const now       = Date.now() * 0.001;
+
+      // ── Spotlight state ────────────────────────────────────────────────
+      // 4 spotlights after graph is formed, spread across scroll 62%–90%
+      const SPOT_START = 0.62, SPOT_EACH = 0.07;
+      const SPOT_FADE_IN = 0.015, SPOT_HOLD = 0.04, SPOT_FADE_OUT = 0.015;
+      let activeSpotlight = -1;
+      let spotlightAlpha = 0;
+      for (let si = 0; si < SPOTLIGHTS.length; si++) {
+        const start = SPOT_START + si * SPOT_EACH;
+        const end = start + SPOT_FADE_IN + SPOT_HOLD + SPOT_FADE_OUT;
+        if (progress >= start && progress <= end) {
+          activeSpotlight = si;
+          const local = progress - start;
+          if (local < SPOT_FADE_IN) {
+            spotlightAlpha = local / SPOT_FADE_IN;
+          } else if (local < SPOT_FADE_IN + SPOT_HOLD) {
+            spotlightAlpha = 1;
+          } else {
+            spotlightAlpha = 1 - (local - SPOT_FADE_IN - SPOT_HOLD) / SPOT_FADE_OUT;
+          }
+          spotlightAlpha = clamp01(spotlightAlpha);
+          break;
+        }
+      }
 
       ctx.clearRect(0, 0, W, H);
       ctx.fillStyle = "#ede8df";
@@ -628,11 +720,31 @@
           const isNodeHovered = hoveredNodeGroups && hoveredNodeGroups.has(gi);
           const anyNodeHover = hoveredNodeGroups !== null;
           const dimmed = anyNodeHover && !isNodeHovered;
-          const baseOp = isHovered ? 0.9 : isNodeHovered ? 0.85 : dimmed ? 0.06 : 0.30;
-          const lw = isHovered ? 2.2 : isNodeHovered ? 1.8 : 0.7;
+          let baseOp = isHovered ? 0.9 : isNodeHovered ? 0.85 : dimmed ? 0.06 : 0.30;
+          let lw = isHovered ? 2.2 : isNodeHovered ? 1.8 : 0.7;
+
+          // Spotlight: highlight matching paths, dim others
+          if (activeSpotlight >= 0 && spotlightAlpha > 0) {
+            const isLit = spotlightGroups[activeSpotlight].has(gi);
+            if (isLit) {
+              baseOp = lerp(baseOp, 0.85, spotlightAlpha);
+              lw = lerp(lw, 2.2, spotlightAlpha);
+            } else {
+              baseOp = lerp(baseOp, 0.03, spotlightAlpha);
+            }
+          }
 
           drawBezierPath(pts);
-          ctx.strokeStyle = `rgba(${p0.fieldR},${p0.fieldG},${p0.fieldB},${(baseOp * lineAlpha).toFixed(3)})`;
+          const lr = activeSpotlight >= 0 && spotlightAlpha > 0 && spotlightGroups[activeSpotlight].has(gi)
+            ? Math.round(lerp(p0.fieldR, SPOTLIGHTS[activeSpotlight].color.r, spotlightAlpha * 0.5))
+            : p0.fieldR;
+          const lg = activeSpotlight >= 0 && spotlightAlpha > 0 && spotlightGroups[activeSpotlight].has(gi)
+            ? Math.round(lerp(p0.fieldG, SPOTLIGHTS[activeSpotlight].color.g, spotlightAlpha * 0.5))
+            : p0.fieldG;
+          const lb = activeSpotlight >= 0 && spotlightAlpha > 0 && spotlightGroups[activeSpotlight].has(gi)
+            ? Math.round(lerp(p0.fieldB, SPOTLIGHTS[activeSpotlight].color.b, spotlightAlpha * 0.5))
+            : p0.fieldB;
+          ctx.strokeStyle = `rgba(${lr},${lg},${lb},${(baseOp * lineAlpha).toFixed(3)})`;
           ctx.lineWidth = lw;
           ctx.stroke();
         }
@@ -656,20 +768,67 @@
         if (ambList.some(a => a.p === p)) continue;
         const { x, y } = ppos(p);
 
-        const r = Math.round(lerp(p.logoR, p.fieldR, t_graph));
-        const g = Math.round(lerp(p.logoG, p.fieldG, t_graph));
-        const b = Math.round(lerp(p.logoB, p.fieldB, t_graph));
+        let r = Math.round(lerp(p.logoR, p.fieldR, t_graph));
+        let g = Math.round(lerp(p.logoG, p.fieldG, t_graph));
+        let b = Math.round(lerp(p.logoB, p.fieldB, t_graph));
 
-        const radius = BASE_R * p.radiusScale;
+        let radius = BASE_R * p.radiusScale;
         if (x < -radius - 2 || x > W + radius + 2 || y < -radius - 2 || y > H + radius + 2) continue;
 
         const dotDimmed = hoveredNodeGroups && !hoveredNodeGroups.has(p.personIdx);
-        const dotAlpha = dotDimmed ? p.alpha * 0.12 : p.alpha;
+        let dotAlpha = dotDimmed ? p.alpha * 0.12 : p.alpha;
+
+        // Spotlight: highlight matching dots, dim others
+        if (activeSpotlight >= 0 && spotlightAlpha > 0) {
+          const isLit = spotlightGroups[activeSpotlight].has(p.personIdx);
+          if (isLit) {
+            const sc = SPOTLIGHTS[activeSpotlight].color;
+            r = Math.round(lerp(r, sc.r, spotlightAlpha * 0.7));
+            g = Math.round(lerp(g, sc.g, spotlightAlpha * 0.7));
+            b = Math.round(lerp(b, sc.b, spotlightAlpha * 0.7));
+            dotAlpha = lerp(dotAlpha, Math.min(1, dotAlpha + 0.4), spotlightAlpha);
+            radius = lerp(radius, radius * 1.8, spotlightAlpha);
+          } else {
+            dotAlpha = lerp(dotAlpha, dotAlpha * 0.08, spotlightAlpha);
+          }
+        }
 
         ctx.beginPath();
         ctx.arc(x, y, Math.max(0.5, radius), 0, Math.PI * 2);
         ctx.fillStyle = `rgba(${r},${g},${b},${dotAlpha.toFixed(2)})`;
         ctx.fill();
+      }
+
+      // ── Spotlight text overlay ─────────────────────────────────────────
+      if (activeSpotlight >= 0 && spotlightAlpha > 0.01) {
+        const si = activeSpotlight;
+        const count = spotlightCounts[si];
+        const label = SPOTLIGHTS[si].label;
+        const sc = SPOTLIGHTS[si].color;
+
+        ctx.save();
+        ctx.globalAlpha = spotlightAlpha * 0.92;
+
+        // Large count number
+        const fontSize = Math.min(W * 0.22, 180);
+        ctx.font = `800 ${fontSize}px 'Bricolage Grotesque', sans-serif`;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+
+        // Slight horizontal drift based on scroll
+        const driftX = (progress - (SPOT_START + si * SPOT_EACH + SPOT_EACH / 2)) * W * 0.5;
+
+        // Number
+        ctx.fillStyle = `rgba(${sc.r},${sc.g},${sc.b},0.12)`;
+        ctx.fillText(count, W / 2 + driftX, H / 2 - 20);
+
+        // Label below
+        const labelSize = Math.min(W * 0.04, 36);
+        ctx.font = `600 ${labelSize}px 'Bricolage Grotesque', sans-serif`;
+        ctx.fillStyle = `rgba(${sc.r},${sc.g},${sc.b},0.55)`;
+        ctx.fillText(label, W / 2 + driftX * 0.6, H / 2 + fontSize * 0.38);
+
+        ctx.restore();
       }
 
       // ── Ambassador draw (path-tracing) ──────────────────────────────────
