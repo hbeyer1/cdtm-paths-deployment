@@ -1064,6 +1064,7 @@ const ICON_SHARE = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" 
 const ICON_CHECK = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`;
 
 
+
 async function sha256Prefix(str) {
     const data = new TextEncoder().encode(str);
     const hash = await crypto.subtle.digest("SHA-256", data);

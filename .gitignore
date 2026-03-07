@@ -4,3 +4,4 @@ venv/
 .env
 .DS_Store
 traces/
+March_profiles.jsonl
